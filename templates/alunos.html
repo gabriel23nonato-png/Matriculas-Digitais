@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+{% block conteudo %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h2 class="mb-0">Alunos Matriculados</h2>
+  <a href="{{ url_for('nova_matricula') }}" class="btn btn-success">
+    <i class="bi bi-plus-circle"></i> Nova Matrícula
+  </a>
+</div>
+
+{# ── Filtros ── #}
+<form method="get" class="row g-3 mb-4">
+  <div class="col-md-4">
+    <label class="form-label">Buscar aluno</label>
+    <input type="text" name="q" class="form-control"
+           placeholder="Nome, nome da mãe ou CPF" value="{{ q }}" />
+  </div>
+
+  <div class="col-md-2">
+    <label class="form-label">Nível</label>
+    <select name="nivel" class="form-select">
+      <option value="">Todos</option>
+      <option value="INFANTIL IV" {{ 'selected' if nivel == 'INFANTIL IV' }}>Infantil IV</option>
+      <option value="INFANTIL V"  {{ 'selected' if nivel == 'INFANTIL V'  }}>Infantil V</option>
+    </select>
+  </div>
+
+  <div class="col-md-2">
+    <label class="form-label">Sala</label>
+    <select name="sala" class="form-select">
+      <option value="">Todas</option>
+      {% for s in salas %}
+      <option value="{{ s }}" {{ 'selected' if sala == s }}>{{ s }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="col-md-2">
+    <label class="form-label">Ordenar por</label>
+    <select name="ordem" class="form-select">
+      <option value="nome"             {{ 'selected' if ordem == 'nome'             }}>Nome</option>
+      <option value="data_modificacao" {{ 'selected' if ordem == 'data_modificacao' }}>Última modificação</option>
+    </select>
+  </div>
+
+  <div class="col-md-2 d-flex align-items-end gap-2">
+    <button class="btn btn-primary w-100">
+      <i class="bi bi-search"></i> Filtrar
+    </button>
+    {% if q or nivel or sala %}
+    <a href="{{ url_for('listar_alunos') }}" class="btn btn-outline-secondary" title="Limpar filtros">
+      <i class="bi bi-x-lg"></i>
+    </a>
+    {% endif %}
+  </div>
+</form>
+
+{# ── Tabela ── #}
+<div class="table-responsive">
+  <table class="table table-striped table-hover align-middle">
+    <thead class="table-primary">
+      <tr>
+        <th>Nome do Aluno</th>
+        <th>Nível</th>
+        <th>Sala</th>
+        <th>Nome da Mãe</th>
+        <th>
+          <a href="{{ url_for('listar_alunos', q=q, nivel=nivel, sala=sala, ordem='data_modificacao') }}"
+             class="text-white text-decoration-none" title="Ordenar por data">
+            Última Modificação <i class="bi bi-arrow-down-up"></i>
+          </a>
+        </th>
+        <th class="text-center">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for aluno in alunos %}
+      <tr>
+        <td>{{ aluno.nome_completo }}</td>
+        <td>{{ aluno.nivel or '—' }}</td>
+        <td>{{ aluno.sala or '—' }}</td>
+        <td>{{ aluno.nome_mae or '—' }}</td>
+        <td><small class="text-muted">{{ aluno.data_modificacao or '—' }}</small></td>
+        <td class="text-center">
+          <div class="d-flex justify-content-center gap-1">
+            <a href="{{ url_for('editar_matricula', id=aluno.id) }}"
+               class="btn btn-sm btn-warning" title="Editar">
+              <i class="bi bi-pencil-fill"></i>
+            </a>
+            <a href="{{ url_for('resumo_matricula', aluno_id=aluno.id) }}"
+               class="btn btn-sm btn-secondary" title="Imprimir ficha">
+              <i class="bi bi-printer-fill"></i>
+            </a>
+            <button type="button" class="btn btn-sm btn-danger" title="Excluir"
+                    data-bs-toggle="modal" data-bs-target="#modalExcluir"
+                    data-id="{{ aluno.id }}" data-nome="{{ aluno.nome_completo }}">
+              <i class="bi bi-trash-fill"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="6" class="text-center text-muted py-4">
+          <i class="bi bi-inbox me-2"></i>Nenhum aluno encontrado.
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<small class="text-muted">{{ alunos | length }} aluno(s) encontrado(s)</small>
+
+{# ── Modal de exclusão ── #}
+<div class="modal fade" id="modalExcluir" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title">
+          <i class="bi bi-exclamation-triangle-fill me-2"></i>Confirmar exclusão
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        Tem certeza que deseja excluir a matrícula de
+        <strong id="modalNomeAluno"></strong>?
+        <br /><small class="text-muted">Esta ação não pode ser desfeita.</small>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <form id="formExcluir" method="POST" action="">
+          <button type="submit" class="btn btn-danger">
+            <i class="bi bi-trash-fill me-1"></i>Excluir
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('modalExcluir').addEventListener('show.bs.modal', function(e) {
+    const btn = e.relatedTarget;
+    document.getElementById('modalNomeAluno').textContent = btn.getAttribute('data-nome');
+    document.getElementById('formExcluir').action = '/excluir/' + btn.getAttribute('data-id');
+  });
+</script>
+{% endblock %}

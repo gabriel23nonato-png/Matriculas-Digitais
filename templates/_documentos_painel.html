@@ -1,0 +1,157 @@
+{# ─────────────────────────────────────────────────────────────────
+   _documentos_painel.html
+   Include dentro de nova_matricula.html na seção de documentos.
+   Variáveis esperadas: documentos, divergencias, drive_ativo, aluno
+   ───────────────────────────────────────────────────────────────── #}
+
+{% if modo == 'editar' %}
+<div class="card mb-4 border-0 shadow-sm">
+  <div class="card-header d-flex align-items-center justify-content-between py-2">
+    <span class="fw-semibold">
+      <i class="bi bi-folder2-open me-2"></i>Documentos Anexados
+    </span>
+
+    {# ── Badge status Drive ── #}
+    {% if drive_ativo %}
+      <span class="badge bg-success">
+        <i class="bi bi-cloud-check-fill me-1"></i>Google Drive conectado
+      </span>
+    {% else %}
+      <span class="badge bg-secondary">
+        <i class="bi bi-cloud-slash-fill me-1"></i>Armazenamento local
+      </span>
+    {% endif %}
+  </div>
+
+  <div class="card-body p-2">
+
+    {# ── Aviso de divergência: arquivos sumidos do Drive ── #}
+    {% if divergencias and divergencias.ausentes %}
+    <div class="alert alert-warning py-2 mb-2 d-flex align-items-start gap-2">
+      <i class="bi bi-exclamation-triangle-fill fs-5 mt-1 flex-shrink-0"></i>
+      <div>
+        <strong>
+          {{ divergencias.ausentes | length }}
+          arquivo{{ 's' if divergencias.ausentes | length > 1 else '' }}
+          registrado{{ 's' if divergencias.ausentes | length > 1 else '' }}
+          no banco não
+          {{ 'foram encontrados' if divergencias.ausentes | length > 1 else 'foi encontrado' }}
+          no Google Drive.
+        </strong>
+        <ul class="mb-0 mt-1 small">
+          {% for doc in divergencias.ausentes %}
+          <li>
+            <i class="bi bi-file-earmark-x text-danger me-1"></i>{{ doc.nome }}
+            <span class="text-muted">({{ doc.subpasta or '—' }})</span>
+          </li>
+          {% endfor %}
+        </ul>
+        <div class="mt-1 small text-muted">
+          Esses arquivos podem ter sido deletados diretamente no Drive.
+          Use o botão de lixeira para remover os registros do banco também.
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    {# ── Aviso: documentos sem Drive (armazenados só localmente) ── #}
+    {% if divergencias and divergencias.sem_drive %}
+    <div class="alert alert-info py-2 mb-2 small">
+      <i class="bi bi-info-circle me-1"></i>
+      {{ divergencias.sem_drive | length }}
+      documento{{ 's' if divergencias.sem_drive | length > 1 else '' }}
+      salvo{{ 's' if divergencias.sem_drive | length > 1 else '' }}
+      apenas localmente (enviado{{ 's' if divergencias.sem_drive | length > 1 else '' }}
+      antes da integração com o Drive ou durante falha de conexão).
+    </div>
+    {% endif %}
+
+    {# ── Lista de documentos agrupada por subpasta ── #}
+    {% if documentos %}
+      {% set subpastas_vistas = namespace(lista=[]) %}
+      {% for doc in documentos %}
+        {% if doc.subpasta not in subpastas_vistas.lista %}
+          {% set _ = subpastas_vistas.lista.append(doc.subpasta) %}
+
+          {# Cabeçalho da subpasta #}
+          <div class="text-muted small fw-semibold mt-2 mb-1 ps-1">
+            <i class="bi bi-folder-fill text-warning me-1"></i>
+            {{ doc.subpasta or 'SEM PASTA' }}
+          </div>
+
+          {# Documentos desta subpasta #}
+          {% for d in documentos if d.subpasta == doc.subpasta %}
+          <div class="d-flex align-items-center gap-2 py-1 px-2 rounded
+                      {% if divergencias and divergencias.ausentes and d.drive_id in (divergencias.ausentes | map(attribute='drive_id') | list) %}
+                        bg-danger bg-opacity-10 border border-danger border-opacity-25
+                      {% else %}
+                        bg-light
+                      {% endif %}
+                      mb-1">
+
+            {# Ícone por tipo de arquivo #}
+            {% set ext = d.nome.rsplit('.', 1)[-1].lower() if '.' in d.nome else '' %}
+            {% if ext == 'pdf' %}
+              <i class="bi bi-file-earmark-pdf-fill text-danger fs-5"></i>
+            {% elif ext in ['jpg','jpeg','png','webp'] %}
+              <i class="bi bi-file-earmark-image-fill text-primary fs-5"></i>
+            {% else %}
+              <i class="bi bi-file-earmark-fill text-secondary fs-5"></i>
+            {% endif %}
+
+            {# Nome do arquivo #}
+            <span class="flex-grow-1 small">{{ d.nome }}</span>
+
+            {# Data de envio #}
+            <span class="text-muted" style="font-size:0.7rem;">
+              {{ d.enviado_em[:16] if d.enviado_em else '' }}
+            </span>
+
+            {# Botão visualizar (Drive ou local) #}
+            {% if d.drive_url %}
+              <a href="{{ d.drive_url }}" target="_blank"
+                 class="btn btn-sm btn-outline-primary py-0 px-2" title="Abrir no Drive">
+                <i class="bi bi-box-arrow-up-right"></i>
+              </a>
+            {% elif d.drive_id is none %}
+              <a href="{{ url_for('servir_upload', arquivo=d.nome) }}" target="_blank"
+                 class="btn btn-sm btn-outline-secondary py-0 px-2" title="Arquivo local">
+                <i class="bi bi-eye"></i>
+              </a>
+            {% else %}
+              <span class="badge bg-danger bg-opacity-75" title="Não encontrado no Drive">
+                <i class="bi bi-cloud-slash"></i>
+              </span>
+            {% endif %}
+
+            {# Botão excluir documento — NÃO usar <form> aninhado aqui:
+               este bloco já está dentro do #main-form (nova_matricula.html).
+               formaction/formmethod/formnovalidate direcionam só este
+               submit para a rota de exclusão, sem precisar de um 2º <form>. #}
+            {% if edicao_habilitada %}
+            <button type="submit"
+                    formaction="{{ url_for('excluir_documento', doc_id=d.id) }}"
+                    formmethod="POST"
+                    formnovalidate
+                    class="btn btn-sm btn-outline-danger py-0 px-2 btn-excluir-doc"
+                    title="Excluir documento"
+                    onclick="return confirm('Excluir \'{{ d.nome }}\' do banco e do Drive?')">
+              <i class="bi bi-trash"></i>
+            </button>
+            {% endif %}
+
+          </div>
+          {% endfor %}
+
+        {% endif %}
+      {% endfor %}
+
+    {% else %}
+      <p class="text-muted small mb-0 py-2 text-center">
+        <i class="bi bi-inbox me-1"></i>Nenhum documento anexado ainda.
+      </p>
+    {% endif %}
+
+  </div>{# card-body #}
+</div>{# card #}
+{% endif %}

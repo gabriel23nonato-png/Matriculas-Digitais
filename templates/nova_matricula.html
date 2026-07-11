@@ -1,0 +1,787 @@
+{% extends "base.html" %}
+{% block titulo %}{{ 'Editar Matrícula' if modo=='editar' else 'Nova Matrícula' }}{% endblock %}
+{% block conteudo %}
+
+<style>
+  .bloqueado input, .bloqueado select, .bloqueado textarea {
+    pointer-events: none; background-color: #e9ecef;
+  }
+  .titulo { display: flex; align-items: center; gap: 8px; }
+</style>
+
+<!-- Loading overlay -->
+<div id="loading-overlay" style="display:none; position:fixed; inset:0;
+     background:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center;">
+  <div style="background:#fff; border-radius:12px; padding:36px 48px;
+              text-align:center; box-shadow:0 8px 40px rgba(0,0,0,0.3); max-width:340px;">
+    <div class="spinner-border text-primary mb-3" style="width:3rem;height:3rem;" role="status">
+      <span class="visually-hidden">Carregando...</span>
+    </div>
+    <h5 class="mb-1">Aguarde…</h5>
+    <p class="text-muted mb-0 small">
+      Salvando documentos na nuvem.<br>
+      Isso pode levar alguns segundos.
+    </p>
+  </div>
+</div>
+
+
+<h3 class="mb-3">{{ 'Editar Matrícula' if modo=='editar' else 'Nova Matrícula' }}</h3>
+
+{% if modo=='editar' and not edicao_habilitada %}
+<a class="btn btn-warning mb-3" href="?editar=1">
+  <i class="bi bi-unlock-fill"></i> Habilitar edição
+</a>
+{% endif %}
+
+<form method="POST"
+      action="{% if modo=='editar' %}{{ url_for('editar_matricula', id=aluno.id) }}{% else %}{{ url_for('nova_matricula') }}{% endif %}"
+      enctype="multipart/form-data"
+      id="main-form"
+      class="{% if modo=='editar' and not edicao_habilitada %}bloqueado{% endif %}">
+
+  <!-- ═══════════ 1 IDENTIFICAÇÃO ═══════════ -->
+  <h5 class="titulo mt-2">
+    1️⃣ Identificação do Aluno
+    <i class="bi {% if modo=='editar' and not edicao_habilitada %}bi-lock-fill text-secondary{% else %}bi-unlock-fill text-success{% endif %}"></i>
+  </h5>
+
+  <div class="row g-2">
+    <div class="col-md-2">
+      <label class="form-label small mb-0">RA</label>
+      <input name="ra" class="form-control"
+             value="{{ aluno.ra if aluno else '' }}" />
+    </div>
+    <div class="col-md-1">
+      <label class="form-label small mb-0">RM</label>
+      <input name="rm" class="form-control"
+             value="{{ aluno.rm if aluno else '' }}" />
+    </div>
+    <div class="col-md-4">
+      <label class="form-label small mb-0">Nome completo *</label>
+      <input name="nome_completo" class="form-control" required
+             value="{{ aluno.nome_completo if aluno else '' }}" />
+    </div>
+    <div class="col-md-3">
+      <label class="form-label small mb-0">Data de nascimento</label>
+      <div id="info-idade" class="badge bg-light text-dark border mb-1" style="font-size:0.75rem; display:none;"></div>
+      <input type="date" name="data_nascimento" id="data_nascimento" class="form-control"
+             value="{{ aluno.data_nascimento if aluno else '' }}" />
+    </div>
+    <div class="col-md-2">
+      <label class="form-label small mb-0">Ano de matrícula atual</label>
+      <input name="ano_matricula" class="form-control" placeholder="Ex.: 2025"
+             value="{{ aluno.ano if aluno and aluno.ano else ano_atual }}" />
+    </div>
+
+    <div class="col-md-3">
+      <label class="form-label small mb-0">RG do aluno (somente números)</label>
+      <input name="rg_aluno" class="form-control"
+             value="{{ aluno.rg_aluno if aluno else '' }}" />
+    </div>
+    <div class="col-md-3">
+      <label class="form-label small mb-0">CPF do aluno (somente números)</label>
+      <input name="cpf_aluno" class="form-control"
+             value="{{ aluno.cpf_aluno if aluno else '' }}" />
+    </div>
+    <div class="col-md-3">
+      <label class="form-label small mb-0">Cartão SUS</label>
+      <input name="cartao_sus" class="form-control"
+             value="{{ aluno.cartao_sus if aluno else '' }}" />
+    </div>
+    <div class="col-md-3">
+      <label class="form-label small mb-0">Certidão de nascimento</label>
+      <input name="certidao_nascimento" class="form-control"
+             value="{{ aluno.certidao_nascimento if aluno else '' }}" />
+    </div>
+
+    <!-- Sexo -->
+    <div class="col-md-2">
+      <label class="form-label small mb-0">Sexo</label>
+      <select name="sexo" class="form-select">
+        <option value="">Sexo</option>
+        {% for op in ['MASCULINO','FEMININO','OUTRO'] %}
+        <option value="{{ op }}" {{ 'selected' if aluno and aluno.sexo==op }}>{{ op }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <!-- Raça/Cor -->
+    <div class="col-md-2">
+      <label class="form-label small mb-0">Raça/Cor</label>
+      <select name="raca_cor" class="form-select">
+        <option value="">Raça/Cor</option>
+        {% for op in ['BRANCA','PRETA','PARDA','AMARELA','INDÍGENA','NÃO INFORMADO'] %}
+        <option value="{{ op }}" {{ 'selected' if aluno and aluno.raca_cor==op }}>{{ op }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="col-md-2">
+      <label class="form-label small mb-0">Município de nascimento / UF</label>
+      <input name="municipio_nascimento" class="form-control"
+             value="{{ aluno.municipio_nascimento if aluno else 'GUARUJÁ' }}" />
+    </div>
+
+    <div class="col-md-2">
+      <label class="form-label small mb-0">Nacionalidade</label>
+      <input name="nacionalidade" class="form-control"
+             value="{{ aluno.nacionalidade if aluno else 'BRASILEIRA' }}" />
+    </div>
+
+    <div class="col-md-2">
+      <label class="form-label small mb-0">RNE: Registro Nacional do Aluno</label>
+      <input name="rne" class="form-control"
+             value="{{ aluno.rne if aluno else 'NÃO SE APLICA' }}" />
+    </div>
+
+    <div class="col-md-2">
+      <label class="form-label small mb-0">RA do irmão gêmeo, se possuir</label>
+      <input name="gemeo" class="form-control"
+             value="{{ aluno.gemeo if aluno else 'NÃO POSSUÍ' }}" />
+    </div>
+
+    <div class="col-md-2">
+      <label class="form-label small mb-0">Data de validade da vacina</label>
+      <input type="date" name="validade_vacina" class="form-control"
+             value="{{ aluno.validade_vacina if aluno and aluno.validade_vacina else '' }}" />
+    </div>
+
+    <div class="col-md-2">
+      <label class="form-label small">Carteira de vacinação:</label>
+      <input type="file" name="doc_carteira_vacinacao" class="form-control" />
+    </div>
+    <div class="col-md-2">
+      <label class="form-label small">Comprovante de vacinação:</label>
+      <input type="file" name="doc_comprovante_vacinacao" class="form-control" />
+    </div>
+        <div class="col-md-2">
+      <label class="form-label small">RG do aluno:</label>
+      <input type="file" name="doc_cpf" class="form-control" />
+    </div>
+    <div class="col-md-2">
+      <label class="form-label small">Cartão SUS:</label>
+      <input type="file" name="doc_cartao_sus" class="form-control" />
+    </div>
+    <div class="col-md-2">
+      <label class="form-label small">Certidão de nascimento:</label>
+      <input type="file" name="doc_certidao" class="form-control" />
+    </div>
+  </div>
+  <hr />
+
+  <!-- ═══════════ 2 RESPONSÁVEL ═══════════ -->
+  <h5 class="titulo mt-2">
+    2️⃣ Responsáveis
+    <i class="bi {% if modo=='editar' and not edicao_habilitada %}bi-lock-fill text-secondary{% else %}bi-unlock-fill text-success{% endif %}"></i>
+  </h5>
+
+  <div class="row g-2">
+    <div class="col-md-3">
+      <label class="form-label small">Nome do 1º genitor (mãe)</label>
+      <input name="nome_mae" class="form-control" 
+             value="{{ aluno.nome_mae if aluno else '' }}" />
+    </div>
+        <div class="col-md-3">
+          <label class="form-label small">Profissão do 1º genitor</label>
+      <input name="profissao_mae" class="form-control" 
+             value="{{ aluno.profissao_mae if aluno else '' }}" />
+    </div>
+        <div class="col-md-2">
+      <label class="form-label small">CPF do 1º genitor</label>
+      <input name="cpf_mae" class="form-control" 
+             value="{{ aluno.cpf_mae if aluno else '' }}" />
+    </div>
+    <div class="col-md-2">
+      <label class="form-label small">RG do 1º genitor</label>
+      <input name="rg_mae" class="form-control" 
+             value="{{ aluno.rg_mae if aluno else '' }}" />
+    </div>
+        <div class="col-md-2">
+      <label class="form-label small">RG do 1º genitor:</label>
+      <input type="file" name="doc_cpf_mae" class="form-control" />
+    </div>
+    
+    <div class="col-md-3">
+      <label class="form-label small">Nome do 2º genitor (pai)</label>
+      <input name="nome_pai" class="form-control" 
+             value="{{ aluno.nome_pai if aluno else '' }}" />
+    </div>
+        <div class="col-md-3">
+          <label class="form-label small">Profissão do 2º genitor</label>
+      <input name="profissao_pai" class="form-control" 
+             value="{{ aluno.profissao_pai if aluno else '' }}" />
+    </div>
+    <div class="col-md-2">
+      <label class="form-label small">CPF do 2º genitor</label>
+      <input name="cpf_pai" class="form-control" 
+             value="{{ aluno.cpf_pai if aluno else '' }}" />
+    </div>
+    <div class="col-md-2">
+      <label class="form-label small">RG do 2º genitor</label>
+      <input name="rg_pai" class="form-control" 
+             value="{{ aluno.rg_pai if aluno else '' }}" />
+    </div>
+    <div class="col-md-2">
+      <label class="form-label small">RG do 2º genitor:</label>
+      <input type="file" name="doc_cpf_pai" class="form-control" />
+    </div>
+
+    <div class="col-md-2">
+      <label class="form-label small">Responsável pela matrícula</label>
+      <input name="responsavel_matricula" class="form-control" placeholder="Parentesco + Nome"
+             
+             value="{{ aluno.responsavel_matricula if aluno else '' }}" />
+    </div>
+    <div class="col-md-2">
+      <label class="form-label small">UF RG do responsável</label>
+      <select name="uf_rg_mae" class="form-select">
+        <option value="">Selecione:</option>
+        {% for uf in ufs %}
+        <option value="{{ uf }}" {{ 'selected' if aluno and aluno.uf_rg_mae==uf }}>{{ uf }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <!-- Expedição RG da mãe — alteração 6: tipo date -->
+    <div class="col-md-2">
+      <label class="form-label small">Expedição RG do responsável</label>
+      <input type="date" name="expedicao_rg_mae" class="form-control"
+             value="{{ aluno.expedicao_rg_mae if aluno else '' }}" />
+    </div>
+
+    <div class="col-md-2">
+      <label class="form-label small">Estado civil do responsável</label>
+      <select name="estado_civil_mae" class="form-select">
+        <option value="">Selecione</option>
+        {% for op in ['SOLTEIRO(A)','CASADO(A)','DIVORCIADO(A)','VIÚVO(A)','UNIÃO ESTÁVEL','NÃO INFORMADO'] %}
+        <option value="{{ op }}" {{ 'selected' if aluno and aluno.estado_civil_mae==op }}>{{ op }}</option>
+        {% endfor %}
+      </select>
+    </div>
+        <div class="col-md-2">
+          <label class="form-label small">Bolsa Família?</label>
+      <select name="bolsa_familia" class="form-select">
+        <option value="">Selecione:</option>
+        <option value="SIM" {{ 'selected' if aluno and aluno.bolsa_familia=='SIM' }}>SIM</option>
+        <option value="NÃO" {{ 'selected' if aluno and aluno.bolsa_familia=='NÃO' }}>NÃO</option>
+      </select>
+    </div>
+    <div class="col-md-2">
+      <label class="form-label small">Número do NIS</label>
+      <input name="nis" class="form-control" 
+             value="{{ aluno.nis if aluno else '' }}" />
+    </div>
+
+    <label class="form-label"><strong>📞 Telefones para contato:</strong></label>
+    <div class="col-md-3">
+      <input name="telefone1" class="form-control" placeholder="Telefone 1"
+             value="{{ aluno.telefone1 if aluno else '' }}" />
+    </div>
+    <div class="col-md-3">
+      <input name="telefone2" class="form-control" placeholder="Telefone 2"
+             value="{{ aluno.telefone2 if aluno else '' }}" />
+    </div>
+    <div class="col-md-3">
+      <input name="telefone3" class="form-control" placeholder="Telefone 3"
+             value="{{ aluno.telefone3 if aluno else '' }}" />
+    </div>
+    <div class="col-md-3">
+      <input name="telefone4" class="form-control" placeholder="Telefone 4"
+             value="{{ aluno.telefone4 if aluno else '' }}" />
+    </div>
+  </div>
+  <hr />
+
+  <!-- ═══════════ 3 INFORMAÇÕES ESCOLARES ═══════════ -->
+  <h5 class="titulo mt-2">
+    3️⃣ Informações Escolares
+    <i class="bi {% if modo=='editar' and not edicao_habilitada %}bi-lock-fill text-secondary{% else %}bi-unlock-fill text-success{% endif %}"></i>
+  </h5>
+
+  <div class="row g-2">
+    <div class="col-md-3">
+      <label class="form-label small mb-0">Nível (Infantil IV ou Infantil V):</label>
+      <select name="nivel" id="select-nivel" class="form-select">
+        <option value="">Selecione o nível</option>
+        <option value="INFANTIL IV" {{ 'selected' if aluno and aluno.nivel=='INFANTIL IV' }}>Infantil IV</option>
+        <option value="INFANTIL V"  {{ 'selected' if aluno and aluno.nivel=='INFANTIL V'  }}>Infantil V</option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <label class="form-label small mb-0">Sala</label>
+      <select name="sala" id="select-sala" class="form-select">
+        <option value="Sem Sala" {{ 'selected' if not aluno or not aluno.sala or aluno.sala == 'Sem Sala' }}>Sem Sala</option>
+        <optgroup label="Infantil IV">
+          {% for s in salas_iv %}<option value="{{ s }}" {{ 'selected' if aluno and aluno.sala==s }}>{{ s }}</option>{% endfor %}
+        </optgroup>
+        <optgroup label="Infantil V">
+          {% for s in salas_v %}<option value="{{ s }}" {{ 'selected' if aluno and aluno.sala==s }}>{{ s }}</option>{% endfor %}
+        </optgroup>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <label class="form-label small mb-0">Ensino integral?</label>
+      <select name="integral" class="form-select">
+        <option value="">Selecione</option>
+        <option value="SIM" {{ 'selected' if aluno and aluno.integral=='SIM' }}>Sim</option>
+        <option value="NÃO" {{ 'selected' if aluno and aluno.integral=='NÃO' }}>Não</option>
+      </select>
+    </div>
+
+    <div class="col-md-3">
+      <label class="form-label small mb-0">Escola anterior</label>
+      <input name="escola_anterior" class="form-control"
+             value="{{ aluno.escola_anterior if aluno else '' }}" />
+    </div>
+
+    <div class="col-md-4">
+      <label class="form-label small mb-0">Pessoa autorizada a retirar o aluno 1 (nome + telefone)</label>
+      <input name="pessoa1" class="form-control" value="{{ aluno.pessoa1 if aluno else '' }}" />
+    </div>
+    <div class="col-md-4">
+      <label class="form-label small mb-0">Pessoa autorizada a retirar o aluno 2 (nome + telefone)</label>
+      <input name="pessoa2" class="form-control" value="{{ aluno.pessoa2 if aluno else '' }}" />
+    </div>
+    <div class="col-md-4">
+      <label class="form-label small mb-0">Pessoa autorizada a retirar o aluno 3 (nome + telefone)</label>
+      <input name="pessoa3" class="form-control" value="{{ aluno.pessoa3 if aluno else '' }}" />
+    </div>
+  </div>
+
+  <!-- Autorizações — alteração 4: pré-selecionadas em SIM -->
+  <div class="mt-3">
+    <label class="fw-bold">PRÁTICA DE EDUCAÇÃO FÍSICA OU AÇÕES ESPORTIVAS</label><br />
+    {% set v_edf = aluno.permite_edfisica if aluno else 'Sim' %}
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="permite_edfisica" value="Sim"
+             {{ 'checked' if v_edf == 'Sim' }} />
+      <label class="form-check-label">Sim, autorizo</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="permite_edfisica" value="Não"
+             {{ 'checked' if v_edf == 'Não' }} />
+      <label class="form-check-label">Não autorizo</label>
+    </div>
+  </div>
+
+  <div class="mt-2">
+    <label class="fw-bold">USO DE IMAGENS EM REDES SOCIAIS E JORNAIS</label><br />
+    {% set v_fotos = aluno.permite_fotos if aluno else 'Sim' %}
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="permite_fotos" value="Sim"
+             {{ 'checked' if v_fotos == 'Sim' }} />
+      <label class="form-check-label">Sim, autorizo</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="permite_fotos" value="Não"
+             {{ 'checked' if v_fotos == 'Não' }} />
+      <label class="form-check-label">Não autorizo</label>
+    </div>
+  </div>
+
+  <div class="mt-2">
+    <label class="fw-bold">PASSEIOS E ATIVIDADES EXTRA-CLASSE</label><br />
+    {% set v_pass = aluno.permite_passeios if aluno else 'Sim' %}
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="permite_passeios" value="Sim"
+             {{ 'checked' if v_pass == 'Sim' }} />
+      <label class="form-check-label">Sim, autorizo</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="permite_passeios" value="Não"
+             {{ 'checked' if v_pass == 'Não' }} />
+      <label class="form-check-label">Não autorizo</label>
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- ═══════════ 4 ENDEREÇO ═══════════ -->
+  <h5 class="titulo mt-2">
+    4️⃣ Endereço
+    <i class="bi {% if modo=='editar' and not edicao_habilitada %}bi-lock-fill text-secondary{% else %}bi-unlock-fill text-success{% endif %}"></i>
+  </h5>
+
+  <div class="row g-2">
+    <div class="col-md-2">
+      <label class="form-label small">CEP</label>
+      <input name="cep" class="form-control" placeholder="Ex.: 11440-000"
+             value="{{ aluno.cep if aluno else '' }}" />
+    </div>
+    <div class="col-md-2">
+      <label class="form-label small">Logradouro</label>
+      <input name="logradouro" class="form-control" placeholder="Rua, Avenida, Travessa..."
+             value="{{ aluno.logradouro if aluno else '' }}" />
+    </div>
+    <div class="col-md-2">
+      <label class="form-label small">Número</label>
+      <input name="numero" class="form-control" 
+             value="{{ aluno.numero if aluno else '' }}" />
+    </div>
+    <div class="col-md-2">
+      <label class="form-label small">Bairro</label>
+      <input name="bairro" class="form-control" 
+             value="{{ aluno.bairro if aluno else '' }}" />
+    </div>
+    <!-- Cidade endereço — alteração 4: pré-preenchida com GUARUJÁ -->
+    <div class="col-md-2">
+      <label class="form-label small">Cidade</label>
+      <input name="cidade_end" class="form-control" 
+             value="{{ aluno.cidade if aluno else 'GUARUJÁ' }}" />
+    </div>
+    <!-- Estado endereço — alteração 4: pré-preenchido com SP -->
+    <div class="col-md-2">
+      <label class="form-label small">Estado</label>
+      <input name="estado" class="form-control" 
+             value="{{ aluno.estado if aluno else 'SP' }}" />
+    </div>
+  </div>
+
+    <div class="col-md">
+      <label class="form-label small"><strong>📎 Comprovante de residência:</strong></label>
+      <input type="file" name="doc_cep" class="form-control" />
+    </div>
+
+  <hr />
+
+  <!-- ═══════════ 5 SAÚDE ═══════════ -->
+  <h5 class="titulo mt-2">
+    5️⃣ Sobre o Aluno
+    <i class="bi {% if modo=='editar' and not edicao_habilitada %}bi-lock-fill text-secondary{% else %}bi-unlock-fill text-success{% endif %}"></i>
+  </h5>
+
+  <div class="row g-2">
+
+    <div class="col-md-3">
+      <label class="form-label small mb-0">Tamanho do uniforme</label>
+      <select name="uniforme" class="form-select">
+        <option value="">Selecione</option>
+        {% for op in ['PP','P','M','G','GG','NÃO INFORMADO'] %}
+        <option value="{{ op }}" {{ 'selected' if aluno and aluno.uniforme==op }}>{{ op }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="col-md-3">
+      <label class="form-label small mb-0">Número do calçado</label>
+      <select name="calcado" class="form-select">
+        <option value="">Selecione</option>
+        {% for n in range(18, 38) %}
+        <option value="{{ n }}" {{ 'selected' if aluno and aluno.calcado==n|string }}>{{ n }}</option>
+        {% endfor %}
+        <option value="NÃO INFORMADO" {{ 'selected' if aluno and aluno.calcado=='NÃO INFORMADO' }}>NÃO INFORMADO</option>
+      </select>
+    </div>
+
+    <div class="col-md-3">
+      <label class="form-label small mb-0">Tipo sanguíneo</label>
+      <select name="tipo_sanguineo" class="form-select">
+        <option value="">Selecione</option>
+        {% for op in ['A+','A-','B+','B-','AB+','AB-','O+','O-','NÃO INFORMADO'] %}
+        <option value="{{ op }}" {{ 'selected' if aluno and aluno.tipo_sanguineo==op }}>{{ op }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="col-md-3">
+      <label class="form-label small mb-0">Plano de saúde</label>
+      <input name="plano" class="form-control" 
+             value="{{ aluno.plano if aluno else '' }}" />
+    </div>
+
+    <div class="col-md-3">
+      <label class="form-label small mb-0">Alergias?</label>
+      <input name="alergico" class="form-control" 
+             value="{{ aluno.alergico if aluno else '' }}" />
+    </div>
+    <div class="col-md-3">
+      <label class="form-label small mb-0">Diabético?</label>
+      <input name="diabetico" class="form-control" 
+             value="{{ aluno.diabetico if aluno else '' }}" />
+    </div>
+
+    <div class="col-md-3">
+      <label class="form-label small mb-0">Intolerante à lactose?</label>
+      <select name="lactose" class="form-select">
+        <option value="">Selecione</option>
+        <option value="SIM" {{ 'selected' if aluno and aluno.lactose=='SIM' }}>SIM</option>
+        <option value="NÃO" {{ 'selected' if aluno and aluno.lactose=='NÃO' }}>NÃO</option>
+      </select>
+    </div>
+
+    <div class="col-md-3">
+      <label class="form-label small mb-0">APLV (Alergia à Proteína do Leite de Vaca)?</label>
+      <select name="aplv" class="form-select">
+        <option value="">Selecione</option>
+        <option value="SIM" {{ 'selected' if aluno and aluno.aplv=='SIM' }}>SIM</option>
+        <option value="NÃO" {{ 'selected' if aluno and aluno.aplv=='NÃO' }}>NÃO</option>
+      </select>
+    </div>
+
+    <div class="col-12">
+      <label class="form-label small mb-0">Observações sobre saúde ou necessidades especiais</label>
+      <textarea name="observacoes" class="form-control" rows="3">{{ aluno.observacoes if aluno else '' }}</textarea>
+    </div>
+  </div>
+
+    <div class="col-md">
+      <label class="form-label small"><strong>Laudo médico (se houver):</strong></label>
+      <input type="file" name="doc_cep" class="form-control" />
+    </div>
+
+
+  <hr />
+
+  <!-- ═══════════ 6 DOCUMENTOS ANEXADOS ═══════════ -->
+
+  {% include '_documentos_painel.html' %}
+
+  <!-- ═══════════ 7 FINANCEIRO ═══════════ -->
+  <h5 class="titulo mt-2">
+    7️⃣ Contribuição da APM — Associação de Pais e Mestres
+    <i class="bi {% if modo=='editar' and not edicao_habilitada %}bi-lock-fill text-secondary{% else %}bi-unlock-fill text-success{% endif %}"></i>
+  </h5>
+
+  <div class="row g-2">
+    <div class="col-md-4">
+      <label class="form-label small mb-0">Valor da contribuição APM (R$)</label>
+      <input name="contribuicao" class="form-control" placeholder="Ex.: 50,00"
+             value="{{ aluno.contribuicao if aluno and aluno.contribuicao else '' }}" />
+    </div>
+    <div class="col-md-4 d-flex align-items-center gap-3">
+      <span class="text-nowrap">Tipo:</span>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="tipo_contribuicao" value="Dinheiro"
+               {{ 'checked' if aluno and aluno.tipo_contribuicao=='Dinheiro' }} />
+        <label class="form-check-label">Dinheiro</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="tipo_contribuicao" value="Pix"
+               {{ 'checked' if aluno and aluno.tipo_contribuicao=='Pix' }} />
+        <label class="form-check-label">Pix</label>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+  <!-- Bloco de assinaturas (visível na impressão) -->
+   <div class="border rounded p-3 mb-4 bg-white d-flex justify-content-center align-items-center" style="font-size:0.85rem;">
+    <!-- Esta div extra protege seu conteúdo de virar colunas -->
+    <div>
+        <p><strong>
+      Estou ciente que o aluno será encaminhado ao Conselho Tutelar caso as ausências se
+      estendam em mais de 05 (cinco) dias consecutivos sem justificativa.
+    </strong></p>
+    <p><strong>
+      Declaro que os dados fornecidos são verdadeiros e que estou ciente e de acordo com as
+      normas de funcionamento desta instituição.
+    </strong>
+      
+    </p>
+    <br />
+    <p class="mt-3"><strong>Guarujá, _______ de ___________________ de 20______.</strong></p>
+    
+    <div class="row mt-4 text-center">
+      <div class="col-5">
+        <hr class="border-dark" />
+      <strong> Infantil [{{ aluno.nivel if aluno else '______' }}] - Assinatura do(a) Responsável</strong></div>
+
+      <div class="col-5">
+        <hr class="border-dark" />
+        <strong>Rematrícula - Infantil [{{ aluno.nivel if aluno else '______' }}] - Assinatura do(a) Responsável</strong>
+      </div>
+    </div>
+    </div>
+</div>
+  <!-- <div class="border rounded p-3 mb-4 bg-white" style="font-size:0.85rem;">
+    
+  </div> -->
+
+  {% if modo=='editar' and edicao_habilitada or modo=='novo' %}
+  <div class="d-flex gap-2 mb-5">
+    <button type="submit" class="btn btn-success">
+      <i class="bi bi-save"></i> Salvar
+    </button>
+    <a href="{{ url_for('listar_alunos') }}" class="btn btn-outline-secondary">
+      <i class="bi bi-arrow-left"></i> Cancelar
+    </a>
+  </div>
+  {% else %}
+  <a href="{{ url_for('listar_alunos') }}" class="btn btn-outline-secondary mb-5">
+    <i class="bi bi-arrow-left"></i> Voltar
+  </a>
+  {% endif %}
+
+</form>
+
+
+<!-- Modal: aluno fora da faixa etária -->
+<div class="modal fade" id="modalIdadeInvalida" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-danger">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title"><i class="bi bi-exclamation-triangle-fill me-2"></i>Idade fora do intervalo</h5>
+      </div>
+      <div class="modal-body" id="modal-idade-texto"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"
+                onclick="document.getElementById('data_nascimento').focus()">
+          <i class="bi bi-arrow-left me-1"></i>Voltar e corrigir
+        </button>
+        <button type="button" class="btn btn-danger" id="btn-cancelar-matricula"
+                onclick="window.location='{{ url_for('listar_alunos') }}'">
+          <i class="bi bi-x-circle me-1"></i>Cancelar matrícula
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Loading overlay ──────────────────────────────────────────────────────────
+document.getElementById('main-form')?.addEventListener('submit', function(e) {
+  // Se o submit veio do botão de excluir documento (usa formaction para
+  // apontar pra /excluir_documento/<id>), deixa passar direto: não é
+  // "salvar matrícula", então pula validação de idade e overlay de salvar.
+  if (e.submitter && e.submitter.hasAttribute('formaction')) {
+    return;
+  }
+  // Verifica idade antes de submeter
+  const dn = document.getElementById('data_nascimento')?.value;
+  if ("{{ modo }}" === 'novo' && dn && !validarIdade(true)) {
+    e.preventDefault();
+    return;
+  }
+  document.getElementById('loading-overlay').style.display = 'flex';
+});
+
+// ── Cálculo de idade e auto-nível ─────────────────────────────────────────────
+function calcularIdade(dataNasc) {
+  // dataNasc: string "YYYY-MM-DD"
+  const hoje = new Date();
+  const nasc  = new Date(dataNasc + 'T00:00:00');
+  if (isNaN(nasc)) return null;
+
+  let anos   = hoje.getFullYear() - nasc.getFullYear();
+  let meses  = hoje.getMonth()    - nasc.getMonth();
+  let dias   = hoje.getDate()     - nasc.getDate();
+
+  if (dias < 0) {
+    meses--;
+    const ultimoDiaMesAnterior = new Date(hoje.getFullYear(), hoje.getMonth(), 0).getDate();
+    dias += ultimoDiaMesAnterior;
+  }
+  if (meses < 0) { anos--; meses += 12; }
+
+  return { anos, meses, dias };
+}
+
+function nivelPorData(dataNasc) {
+  // Regra: nascido entre 01/abr/ANO e 31/mar/ANO+1 → Infantil IV naquele ano letivo
+  // "ANO LETIVO" = ano corrente
+  // Infantil IV: 4 anos completados até 31/mar do ano letivo → nasc entre 01/abr/(anoLetivo-5) e 31/mar/(anoLetivo-4)
+  // Infantil V:  5 anos completados até 31/mar do ano letivo → nasc entre 01/abr/(anoLetivo-6) e 31/mar/(anoLetivo-5)
+  // Fora da faixa: < Infantil IV ou > Infantil V
+  const anoLetivo = new Date().getFullYear();
+  const nasc = new Date(dataNasc + 'T00:00:00');
+  const inicioIV = new Date(anoLetivo - 5, 3, 1);   // 01/abr do ano letivo-5
+  const fimIV    = new Date(anoLetivo - 4, 2, 31);  // 31/mar do ano letivo-4
+  const inicioV  = new Date(anoLetivo - 6, 3, 1);   // 01/abr do ano letivo-6
+  const fimV     = new Date(anoLetivo - 5, 2, 31);  // 31/mar do ano letivo-5
+
+  if (nasc >= inicioIV && nasc <= fimIV) return 'INFANTIL IV';
+  if (nasc >= inicioV  && nasc <= fimV)  return 'INFANTIL V';
+  if (nasc > fimIV) return 'NOVO_DEMAIS';   // muito novo
+  return 'VELHO_DEMAIS';                     // muito velho
+}
+
+function validarIdade(mostrModal) {
+  const dn = document.getElementById('data_nascimento')?.value;
+  if (!dn) return true; // campo vazio: não valida
+  const nivel = nivelPorData(dn);
+  if (nivel === 'NOVO_DEMAIS' || nivel === 'VELHO_DEMAIS') {
+    if (mostrModal) {
+      const idade = calcularIdade(dn);
+      const idadeStr = idade
+        ? `${idade.anos} anos, ${idade.meses} meses e ${idade.dias} dias`
+        : 'data inválida';
+      const motivo = nivel === 'NOVO_DEMAIS'
+        ? 'muito novo(a) para as turmas disponíveis (Infantil IV ou Infantil V).'
+        : 'com idade acima da faixa das turmas disponíveis.';
+      document.getElementById('modal-idade-texto').innerHTML =
+        `<p>O aluno com data de nascimento <strong>${dn.split('-').reverse().join('/')}</strong> ` +
+        `possui <strong>${idadeStr}</strong> e está ${motivo}</p>` +
+        `<p>Deseja voltar ao formulário e corrigir a data, ou cancelar esta matrícula?</p>`;
+      const modal = new bootstrap.Modal(document.getElementById('modalIdadeInvalida'));
+      modal.show();
+    }
+    return false;
+  }
+  return true;
+}
+
+function atualizarIdadeENivel(ajustarNivelAutomaticamente = true) {
+  const dn         = document.getElementById('data_nascimento')?.value;
+  const infoIdade  = document.getElementById('info-idade');
+  const selectNivel = document.getElementById('select-nivel');
+
+  if (!dn) {
+    if (infoIdade) infoIdade.style.display = 'none';
+    return;
+  }
+
+  const idade = calcularIdade(dn);
+  if (idade && infoIdade) {
+    infoIdade.textContent = `${idade.anos} anos, ${idade.meses} meses e ${idade.dias} dias`;
+    infoIdade.style.display = 'inline-block';
+  }
+
+  const nivel = nivelPorData(dn);
+  if (ajustarNivelAutomaticamente && selectNivel && (nivel === 'INFANTIL IV' || nivel === 'INFANTIL V')) {
+    selectNivel.value = nivel;
+    filtrarSalas(); // atualiza salas conforme nível
+  }
+}
+
+document.getElementById('data_nascimento')?.addEventListener('change', function() {
+  atualizarIdadeENivel();
+  if ("{{ modo }}" === 'novo') validarIdade(true);
+});
+
+// Rodar ao carregar (modo editar já tem data preenchida)
+atualizarIdadeENivel("{{ modo }}" === 'novo');
+
+// ── Filtro de salas por nível ─────────────────────────────────────────────────
+
+
+const SALAS_IV = {{ salas_iv | tojson }};
+const SALAS_V  = {{ salas_v  | tojson }};
+
+function filtrarSalas() {
+  const selectNivel = document.getElementById('select-nivel');
+  const selectSala  = document.getElementById('select-sala');
+  if (!selectNivel || !selectSala) return;
+
+  const nivel   = selectNivel.value;
+  const ivSet   = new Set(SALAS_IV);
+  const vSet    = new Set(SALAS_V);
+
+  Array.from(selectSala.options).forEach(opt => {
+    if (opt.value === 'Sem Sala') { opt.hidden = false; return; }
+    if (nivel === 'INFANTIL IV') opt.hidden = !ivSet.has(opt.value);
+    else if (nivel === 'INFANTIL V') opt.hidden = !vSet.has(opt.value);
+    else opt.hidden = false;
+  });
+
+  // Se a sala selecionada ficou escondida, reset
+  const atual = selectSala.options[selectSala.selectedIndex];
+  if (atual && atual.hidden) selectSala.value = 'Sem Sala';
+}
+
+document.getElementById('select-nivel')?.addEventListener('change', filtrarSalas);
+filtrarSalas(); // aplicar ao carregar
+
+
+</script>
+
+{% endblock %}

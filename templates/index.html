@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block titulo %}Início{% endblock %}
+{% block conteudo %}
+
+<div class="text-center mb-4">
+  <h2>Sistema de Matrículas Escolares</h2>
+  <p class="text-muted">Escolha uma das opções abaixo para continuar</p>
+</div>
+
+<div class="row justify-content-center mt-5">
+     <div class="col-md-3 d-grid gap-3">
+    <a href="{{ url_for('nova_matricula') }}" class="btn btn-success btn-lg">
+      📄 Nova Matrícula
+    </a>
+    <a href="{{ url_for('listar_alunos') }}" class="btn btn-primary btn-lg">
+      👧🧒 Alunos Matriculados
+    </a>
+  </div>
+</div>
+
+{% endblock %}
