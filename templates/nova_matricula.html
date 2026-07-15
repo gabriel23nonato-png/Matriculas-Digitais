@@ -453,6 +453,18 @@
   <div class="row g-2">
 
     <div class="col-md-3">
+      <label class="form-label small mb-0">Peso (kg)</label>
+      <input type="number" step="0.1" min="0" name="peso" class="form-control"
+             value="{{ aluno.peso if aluno and aluno.peso is not none else '' }}" />
+    </div>
+
+    <div class="col-md-3">
+      <label class="form-label small mb-0">Altura (cm)</label>
+      <input type="number" step="0.1" min="0" name="altura" class="form-control"
+             value="{{ aluno.altura if aluno and aluno.altura is not none else '' }}" />
+    </div>
+
+    <div class="col-md-3">
       <label class="form-label small mb-0">Tamanho do uniforme</label>
       <select name="uniforme" class="form-select">
         <option value="">Selecione</option>

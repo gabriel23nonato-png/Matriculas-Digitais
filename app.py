@@ -10,7 +10,7 @@ import os
 import sys
 import logging
 import sqlite3
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from dotenv import load_dotenv
 from flask import (
@@ -71,7 +71,7 @@ UFS = [
     "PA","PB","PR","PE","PI","RJ","RN","RS","RO","RR","SC","SP","SE","TO",
 ]
 
-CAMPOS_NUMERICOS = {"contribuicao"}
+CAMPOS_NUMERICOS = {"contribuicao", "peso", "altura"}
 CAMPOS_DATA      = {"data_nascimento", "expedicao_rg_mae", "validade_vacina"}
 
 CAMPOS_UPLOAD = [
@@ -212,6 +212,8 @@ def init_db():
     for col, tipo in [("data_modificacao","TEXT")]:
         _add_col(db, "matricula", col, tipo)
     _add_col(db, "saude", "validade_vacina", "DATE")
+    _add_col(db, "saude", "peso", "REAL")     # kg — módulo Documentação (relatório de Uniformes)
+    _add_col(db, "saude", "altura", "REAL")   # cm — módulo Documentação (relatório de Uniformes)
     for col, tipo in [("campo","TEXT"),("subpasta","TEXT"),("drive_id","TEXT"),("drive_url","TEXT")]:
         _add_col(db, "documento", col, tipo)
     db.commit()
@@ -287,6 +289,7 @@ def _get_aluno_completo(aluno_id):
             e.logradouro, e.numero, e.bairro, e.cidade, e.estado, e.cep,
             s.tipo_sanguineo, s.alergico, s.diabetico, s.lactose, s.aplv,
             s.plano, s.uniforme, s.calcado, s.observacoes, s.validade_vacina,
+            s.peso, s.altura,
             m.id AS matricula_id, m.nivel, m.sala, m.integral, m.ano,
             m.escola_anterior, m.permite_edfisica, m.permite_fotos,
             m.permite_passeios, m.contribuicao, m.tipo_contribuicao,
@@ -385,6 +388,392 @@ def verificar_divergencias(aluno_id: int) -> dict:
     return {"total": len(docs), "ausentes": ausentes, "sem_drive": sem_drive}
 
 
+# ── Módulo Documentação ──────────────────────────────────────────────────────
+# Labels de exibição dos 9 documentos — reaproveita o dict já existente no
+# drive_service.py em vez de duplicar a lista de nomes aqui.
+DOC_LABELS = drive.CAMPO_NOME_DISPLAY if _DRIVE_IMPORT_OK else {c: c for c in CAMPOS_UPLOAD}
+
+DIAS_ALERTA_VACINA = 30  # janela considerada "próximo do vencimento"
+
+
+def _limpo(v) -> str:
+    """
+    Normaliza valores pra exibição em relatórios: trata None, string 'None'
+    (bug de dado legado onde str(None) foi salvo em vez de NULL) e
+    'NÃO INFORMADO' como vazio, sem alterar o dado gravado no banco.
+    """
+    if v is None:
+        return ""
+    s = str(v).strip()
+    return "" if s in ("None", "NÃO INFORMADO", "none") else s
+
+
+def _idade(data_nascimento: str) -> str:
+    if not data_nascimento:
+        return "—"
+    try:
+        nasc = datetime.strptime(data_nascimento[:10], "%Y-%m-%d").date()
+    except ValueError:
+        return "—"
+    hoje = datetime.now().date()
+    anos = hoje.year - nasc.year - ((hoje.month, hoje.day) < (nasc.month, nasc.day))
+    return f"{anos} anos"
+
+
+def _mapa_documentos_entregues() -> dict:
+    """{aluno_id: {campo, campo, ...}} — 1 query só, reaproveitada por
+    dashboard, matriz e relatório de pendências (evita N+1 queries)."""
+    linhas = get_db().execute(
+        "SELECT aluno_id, campo FROM documento WHERE campo IS NOT NULL"
+    ).fetchall()
+    mapa = {}
+    for l in linhas:
+        mapa.setdefault(l["aluno_id"], set()).add(l["campo"])
+    return mapa
+
+
+def _stats_dashboard() -> dict:
+    db = get_db()
+    total_alunos = db.execute("SELECT COUNT(*) FROM aluno").fetchone()[0]
+
+    entregues = _mapa_documentos_entregues()
+    ids_alunos = [r["id"] for r in db.execute("SELECT id FROM aluno").fetchall()]
+    completos = sum(
+        1 for aid in ids_alunos if len(entregues.get(aid, set())) >= len(CAMPOS_UPLOAD)
+    )
+    total_docs_pendentes = sum(
+        len(CAMPOS_UPLOAD) - len(entregues.get(aid, set())) for aid in ids_alunos
+    )
+
+    por_documento = {}
+    for row in db.execute(
+        "SELECT campo, COUNT(DISTINCT aluno_id) AS n FROM documento "
+        "WHERE campo IS NOT NULL GROUP BY campo"
+    ):
+        por_documento[row["campo"]] = row["n"]
+
+    hoje_iso    = datetime.now().strftime("%Y-%m-%d")
+    limite_iso  = (datetime.now() + timedelta(days=DIAS_ALERTA_VACINA)).strftime("%Y-%m-%d")
+    vencidas = db.execute(
+        "SELECT COUNT(*) FROM saude WHERE validade_vacina IS NOT NULL "
+        "AND validade_vacina != '' AND validade_vacina < ?", (hoje_iso,)
+    ).fetchone()[0]
+    proximas = db.execute(
+        "SELECT COUNT(*) FROM saude WHERE validade_vacina >= ? AND validade_vacina <= ?",
+        (hoje_iso, limite_iso),
+    ).fetchone()[0]
+
+    laudos_entregues = por_documento.get("doc_laudo", 0)
+    fotos_pendentes = db.execute(
+        "SELECT COUNT(*) FROM matricula WHERE permite_fotos IS NULL "
+        "OR permite_fotos = '' OR permite_fotos = 'NÃO INFORMADO'"
+    ).fetchone()[0]
+
+    return {
+        "total_alunos": total_alunos,
+        "completos": completos,
+        "pendentes_alunos": total_alunos - completos,
+        "total_docs_pendentes": total_docs_pendentes,
+        "vac_vencidas": vencidas,
+        "vac_proximas": proximas,
+        "laudos_pendentes": total_alunos - laudos_entregues,
+        "fotos_pendentes": fotos_pendentes,
+        "por_documento": [
+            {
+                "campo": c,
+                "label": DOC_LABELS.get(c, c),
+                "entregues": por_documento.get(c, 0),
+                "pendentes": total_alunos - por_documento.get(c, 0),
+                "percentual": round((por_documento.get(c, 0) / total_alunos) * 100) if total_alunos else 0,
+            }
+            for c in CAMPOS_UPLOAD
+        ],
+    }
+
+
+def _filtro_base_alunos(q: str, sala: str, nivel: str, ano: str):
+    sql = """
+        SELECT a.id, a.nome_completo, a.data_nascimento, a.sexo, a.cpf_aluno,
+               a.cartao_sus, m.sala, m.nivel, m.ano,
+               r.responsavel_matricula, r.telefone1,
+               r.pessoa1, r.pessoa2, r.pessoa3, r.telefone2, r.telefone3, r.telefone4,
+               s.validade_vacina, s.peso, s.altura, s.uniforme, s.calcado,
+               m.contribuicao, m.tipo_contribuicao
+        FROM aluno a
+        LEFT JOIN matricula   m ON m.aluno_id = a.id
+        LEFT JOIN responsavel r ON r.aluno_id = a.id
+        LEFT JOIN saude       s ON s.aluno_id = a.id
+        WHERE 1=1
+    """
+    params = []
+    if q:
+        sql += " AND a.nome_completo LIKE ?"
+        params.append(f"%{q}%")
+    if sala:
+        sql += " AND m.sala = ?"
+        params.append(sala)
+    if nivel:
+        sql += " AND m.nivel LIKE ?"
+        params.append(f"%{nivel}%")
+    if ano:
+        sql += " AND m.ano = ?"
+        params.append(ano)
+    sql += " ORDER BY m.sala, a.nome_completo"
+    return get_db().execute(sql, params).fetchall()
+
+
+def _matriz_documentos(args) -> list:
+    q      = args.get("doc_q", "").strip()
+    sala   = args.get("doc_sala", "").strip()
+    nivel  = args.get("doc_nivel", "").strip()
+    ano    = args.get("doc_ano", "").strip()
+    status = args.get("doc_status", "").strip()      # completa | pendente
+    campo  = args.get("doc_campo", "").strip()        # filtra pendentes de 1 doc específico
+    ordem  = args.get("doc_ordem", "nome").strip()
+
+    alunos    = _filtro_base_alunos(q, sala, nivel, ano)
+    entregues = _mapa_documentos_entregues()
+
+    linhas = []
+    for a in alunos:
+        docs_aluno = entregues.get(a["id"], set())
+        completo = len(docs_aluno) >= len(CAMPOS_UPLOAD)
+        if status == "completa" and not completo:
+            continue
+        if status == "pendente" and completo:
+            continue
+        if campo and campo in docs_aluno:
+            continue
+        linhas.append({
+            "aluno": a,
+            "docs": {c: (c in docs_aluno) for c in CAMPOS_UPLOAD},
+            "completo": completo,
+            "qtd_entregues": len(docs_aluno),
+        })
+
+    if ordem == "sala":
+        linhas.sort(key=lambda l: (l["aluno"]["sala"] or "", l["aluno"]["nome_completo"]))
+    elif ordem in CAMPOS_UPLOAD:
+        linhas.sort(key=lambda l: (l["docs"][ordem], l["aluno"]["nome_completo"]))
+    elif ordem == "pendencias":
+        linhas.sort(key=lambda l: (l["qtd_entregues"], l["aluno"]["nome_completo"]))
+    else:
+        linhas.sort(key=lambda l: l["aluno"]["nome_completo"])
+
+    return linhas
+
+
+def _relatorio_vacinacao(args) -> list:
+    q     = args.get("vac_q", "").strip()
+    sala  = args.get("vac_sala", "").strip()
+    nivel = args.get("vac_nivel", "").strip()
+    situ  = args.get("vac_situacao", "").strip()
+
+    hoje_iso   = datetime.now().strftime("%Y-%m-%d")
+    limite_iso = (datetime.now() + timedelta(days=DIAS_ALERTA_VACINA)).strftime("%Y-%m-%d")
+
+    resultado = []
+    for a in _filtro_base_alunos(q, sala, nivel, ""):
+        v = a["validade_vacina"]
+        if not v:
+            situacao = "SEM DATA"
+        elif v < hoje_iso:
+            situacao = "VENCIDO"
+        elif v <= limite_iso:
+            situacao = "PRÓXIMO DO VENCIMENTO"
+        else:
+            situacao = "EM DIA"
+        if situ and situ != situacao:
+            continue
+        resultado.append({"aluno": a, "situacao": situacao})
+    return resultado
+
+
+def _relatorio_autorizacoes(args) -> list:
+    q, sala, nivel = (args.get(k, "").strip() for k in ("aut_q", "aut_sala", "aut_nivel"))
+    return _filtro_base_alunos(q, sala, nivel, "")
+
+
+def _relatorio_uniformes(args) -> list:
+    q, sala, nivel = (args.get(k, "").strip() for k in ("uni_q", "uni_sala", "uni_nivel"))
+    return _filtro_base_alunos(q, sala, nivel, "")
+
+
+def _relatorio_financeiro(args) -> dict:
+    q, sala, nivel = (args.get(k, "").strip() for k in ("fin_q", "fin_sala", "fin_nivel"))
+    alunos = _filtro_base_alunos(q, sala, nivel, "")
+
+    por_sala, por_nivel, total_geral = {}, {}, 0.0
+    for a in alunos:
+        v = a["contribuicao"] or 0
+        total_geral += v
+        s = a["sala"] or "Sem Sala"
+        n = a["nivel"] or "NÃO INFORMADO"
+        por_sala[s] = por_sala.get(s, 0) + v
+        por_nivel[n] = por_nivel.get(n, 0) + v
+
+    return {
+        "alunos": alunos, "por_sala": por_sala,
+        "por_nivel": por_nivel, "total_geral": total_geral,
+    }
+
+
+def _relatorio_pendencias(args) -> list:
+    """Nome, sala, nível, responsável, telefone e lista de docs pendentes."""
+    q, sala, nivel = (args.get(k, "").strip() for k in ("pend_q", "pend_sala", "pend_nivel"))
+    entregues = _mapa_documentos_entregues()
+    resultado = []
+    for a in _filtro_base_alunos(q, sala, nivel, ""):
+        docs_aluno = entregues.get(a["id"], set())
+        pendentes = [DOC_LABELS.get(c, c) for c in CAMPOS_UPLOAD if c not in docs_aluno]
+        if pendentes:
+            resultado.append({"aluno": a, "pendentes": pendentes})
+    return resultado
+
+
+def _relatorio_sus(args) -> list:
+    q, sala, nivel = (args.get(k, "").strip() for k in ("sus_q", "sus_sala", "sus_nivel"))
+    return _filtro_base_alunos(q, sala, nivel, "")
+
+
+# ── Exportação (CSV / Excel) ─────────────────────────────────────────────────
+def _export_csv(rows, colunas, nome: str):
+    import csv, io
+    buf = io.StringIO()
+    writer = csv.writer(buf, delimiter=";")
+    writer.writerow([label for _, label in colunas])
+    for row in rows:
+        writer.writerow([row.get(key, "") for key, _ in colunas])
+    dados = ("\ufeff" + buf.getvalue()).encode("utf-8")  # BOM: acentos corretos no Excel
+    resp = app.response_class(dados, mimetype="text/csv; charset=utf-8")
+    resp.headers["Content-Disposition"] = f'attachment; filename="{nome}.csv"'
+    return resp
+
+
+def _export_xlsx(rows, colunas, nome: str):
+    import io
+    try:
+        from openpyxl import Workbook
+    except ImportError:
+        flash("Exportação em Excel indisponível: instale 'openpyxl' (pip install openpyxl).", "danger")
+        return redirect(request.referrer or url_for("documentacao"))
+
+    wb = Workbook()
+    ws = wb.active
+    ws.append([label for _, label in colunas])
+    for row in rows:
+        ws.append([row.get(key, "") for key, _ in colunas])
+    for col in ws.columns:
+        largura = max(len(str(c.value)) if c.value is not None else 0 for c in col) + 2
+        ws.column_dimensions[col[0].column_letter].width = min(largura, 40)
+
+    buf = io.BytesIO()
+    wb.save(buf)
+    buf.seek(0)
+    resp = app.response_class(
+        buf.read(),
+        mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    )
+    resp.headers["Content-Disposition"] = f'attachment; filename="{nome}.xlsx"'
+    return resp
+
+
+def _linhas_export_documentos(args):
+    linhas = _matriz_documentos(args)
+    colunas = [("nome", "Aluno"), ("sala", "Sala"), ("nivel", "Nível")]
+    colunas += [(c, DOC_LABELS.get(c, c)) for c in CAMPOS_UPLOAD]
+    dados = []
+    for l in linhas:
+        d = {"nome": l["aluno"]["nome_completo"], "sala": l["aluno"]["sala"] or "",
+             "nivel": l["aluno"]["nivel"] or ""}
+        d.update({c: ("Entregue" if v else "Pendente") for c, v in l["docs"].items()})
+        dados.append(d)
+    return dados, colunas
+
+
+def _linhas_export_vacinacao(args):
+    linhas = _relatorio_vacinacao(args)
+    colunas = [("nome", "Aluno"), ("sala", "Sala"), ("nivel", "Nível"),
+               ("validade", "Validade da Vacina"), ("situacao", "Situação")]
+    return [
+        {"nome": l["aluno"]["nome_completo"], "sala": l["aluno"]["sala"] or "",
+         "nivel": l["aluno"]["nivel"] or "", "validade": l["aluno"]["validade_vacina"] or "",
+         "situacao": l["situacao"]}
+        for l in linhas
+    ], colunas
+
+
+def _linhas_export_autorizacoes(args):
+    alunos = _relatorio_autorizacoes(args)
+    colunas = [("nome", "Aluno"), ("sala", "Sala"),
+               ("pessoa1", "Autorizado 1"), ("pessoa2", "Autorizado 2"), ("pessoa3", "Autorizado 3"),
+               ("telefone1", "Telefone 1"), ("telefone2", "Telefone 2")]
+    return [
+        {"nome": a["nome_completo"], "sala": a["sala"] or "",
+         "pessoa1": _limpo(a["pessoa1"]), "pessoa2": _limpo(a["pessoa2"]), "pessoa3": _limpo(a["pessoa3"]),
+         "telefone1": _limpo(a["telefone1"]), "telefone2": _limpo(a["telefone2"])}
+        for a in alunos
+    ], colunas
+
+
+def _linhas_export_uniformes(args):
+    alunos = _relatorio_uniformes(args)
+    colunas = [("nome", "Aluno"), ("sala", "Sala"), ("idade", "Idade"), ("peso", "Peso (kg)"),
+               ("altura", "Altura (cm)"), ("uniforme", "Uniforme"), ("calcado", "Calçado"),
+               ("sexo", "Sexo"), ("sus", "Cartão SUS")]
+    return [
+        {"nome": a["nome_completo"], "sala": a["sala"] or "", "idade": _idade(a["data_nascimento"]),
+         "peso": a["peso"] or "", "altura": a["altura"] or "", "uniforme": _limpo(a["uniforme"]),
+         "calcado": _limpo(a["calcado"]), "sexo": a["sexo"] or "", "sus": a["cartao_sus"] or ""}
+        for a in alunos
+    ], colunas
+
+
+def _linhas_export_financeiro(args):
+    dados = _relatorio_financeiro(args)
+    colunas = [("nome", "Aluno"), ("sala", "Sala"), ("nivel", "Nível"),
+               ("valor", "Valor"), ("tipo", "Tipo de Contribuição")]
+    return [
+        {"nome": a["nome_completo"], "sala": a["sala"] or "", "nivel": a["nivel"] or "",
+         "valor": a["contribuicao"] or 0, "tipo": _limpo(a["tipo_contribuicao"])}
+        for a in dados["alunos"]
+    ], colunas
+
+
+def _linhas_export_pendencias(args):
+    linhas = _relatorio_pendencias(args)
+    colunas = [("nome", "Aluno"), ("sala", "Sala"), ("nivel", "Nível"),
+               ("responsavel", "Responsável"), ("telefone", "Telefone"), ("pendentes", "Documentos Pendentes")]
+    return [
+        {"nome": l["aluno"]["nome_completo"], "sala": l["aluno"]["sala"] or "",
+         "nivel": l["aluno"]["nivel"] or "", "responsavel": _limpo(l["aluno"]["responsavel_matricula"]),
+         "telefone": _limpo(l["aluno"]["telefone1"]), "pendentes": ", ".join(l["pendentes"])}
+        for l in linhas
+    ], colunas
+
+
+def _linhas_export_sus(args):
+    alunos = _relatorio_sus(args)
+    colunas = [("nome", "Aluno"), ("sala", "Sala"), ("nascimento", "Data de Nascimento"),
+               ("cpf", "CPF"), ("sus", "Cartão SUS")]
+    return [
+        {"nome": a["nome_completo"], "sala": a["sala"] or "", "nascimento": a["data_nascimento"] or "",
+         "cpf": a["cpf_aluno"] or "", "sus": a["cartao_sus"] or ""}
+        for a in alunos
+    ], colunas
+
+
+_DATASETS_EXPORT = {
+    "documentos":   _linhas_export_documentos,
+    "vacinacao":    _linhas_export_vacinacao,
+    "autorizacoes": _linhas_export_autorizacoes,
+    "uniformes":    _linhas_export_uniformes,
+    "financeiro":   _linhas_export_financeiro,
+    "pendencias":   _linhas_export_pendencias,
+    "sus":          _linhas_export_sus,
+}
+
+
 # ── Rotas ─────────────────────────────────────────────────────────────────────
 @app.route("/")
 def index():
@@ -474,10 +863,12 @@ def nova_matricula():
         s = form_para_dict(f, [
             "tipo_sanguineo","alergico","diabetico","lactose","aplv",
             "plano","uniforme","calcado","observacoes","validade_vacina",
+            "peso","altura",
         ])
         db.execute(
             """INSERT INTO saude (aluno_id,tipo_sanguineo,alergico,diabetico,lactose,aplv,
-               plano,uniforme,calcado,observacoes,validade_vacina) VALUES (?,?,?,?,?,?,?,?,?,?,?)""",
+               plano,uniforme,calcado,observacoes,validade_vacina,peso,altura)
+               VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)""",
             [aluno_id] + list(s.values()),
         )
 
@@ -572,10 +963,12 @@ def editar_matricula(id):
         s = form_para_dict(f, [
             "tipo_sanguineo","alergico","diabetico","lactose","aplv",
             "plano","uniforme","calcado","observacoes","validade_vacina",
+            "peso","altura",
         ])
         db.execute(
             """UPDATE saude SET tipo_sanguineo=?,alergico=?,diabetico=?,lactose=?,aplv=?,
-               plano=?,uniforme=?,calcado=?,observacoes=?,validade_vacina=? WHERE aluno_id=?""",
+               plano=?,uniforme=?,calcado=?,observacoes=?,validade_vacina=?,peso=?,altura=?
+               WHERE aluno_id=?""",
             list(s.values()) + [id],
         )
 
@@ -689,6 +1082,53 @@ def servir_upload(arquivo):
 @app.route("/status_drive")
 def status_drive():
     return jsonify({"drive_ativo": _drive_ativo()})
+
+
+@app.route("/documentacao")
+def documentacao():
+    aba = request.args.get("tab", "dashboard")
+
+    contexto = dict(
+        aba=aba,
+        salas=SALAS, salas_iv=SALAS_IV, salas_v=SALAS_V,
+        campos_upload=CAMPOS_UPLOAD, doc_labels=DOC_LABELS,
+        args=request.args,
+    )
+
+    if aba == "dashboard":
+        contexto["stats"] = _stats_dashboard()
+    elif aba == "documentos":
+        contexto["linhas"] = _matriz_documentos(request.args)
+    elif aba == "vacinacao":
+        contexto["linhas"] = _relatorio_vacinacao(request.args)
+    elif aba == "autorizacoes":
+        contexto["alunos"] = _relatorio_autorizacoes(request.args)
+    elif aba == "uniformes":
+        contexto["alunos"] = _relatorio_uniformes(request.args)
+        contexto["idade_fn"] = _idade
+    elif aba == "financeiro":
+        contexto["dados"] = _relatorio_financeiro(request.args)
+    elif aba == "relatorios":
+        contexto["pendencias"] = _relatorio_pendencias(request.args)
+        contexto["sus"] = _relatorio_sus(request.args)
+
+    return render_template("documentacao.html", **contexto)
+
+
+@app.route("/documentacao/exportar/<dataset>/<formato>")
+def exportar_documentacao(dataset, formato):
+    gerador = _DATASETS_EXPORT.get(dataset)
+    if not gerador:
+        return "Conjunto de dados inválido.", 400
+    if formato not in ("csv", "xlsx"):
+        return "Formato inválido.", 400
+
+    rows, colunas = gerador(request.args)
+    nome = f"{dataset}_{datetime.now().strftime('%Y%m%d_%H%M')}"
+
+    if formato == "csv":
+        return _export_csv(rows, colunas, nome)
+    return _export_xlsx(rows, colunas, nome)
 
 
 

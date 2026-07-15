@@ -1,0 +1,584 @@
+{% extends "base.html" %}
+{% block titulo %}Documentação{% endblock %}
+{% block conteudo %}
+
+<div class="d-flex justify-content-between align-items-center mb-3 no-print">
+  <h2 class="mb-0"><i class="bi bi-folder2-open me-2"></i>Documentação</h2>
+  <a href="{{ url_for('index') }}" class="btn btn-outline-secondary btn-sm">
+    <i class="bi bi-house-door me-1"></i>Início
+  </a>
+</div>
+
+{# ── Abas ── #}
+<ul class="nav nav-tabs mb-4 no-print">
+  {% for tid, label, icon in [
+        ('dashboard','Dashboard','bi-speedometer2'),
+        ('documentos','Documentação','bi-file-earmark-check'),
+        ('vacinacao','Vacinação','bi-clipboard2-pulse'),
+        ('autorizacoes','Autorizações','bi-person-check'),
+        ('uniformes','Uniformes','bi-bag-check'),
+        ('financeiro','Financeiro','bi-cash-coin'),
+        ('relatorios','Relatórios','bi-printer'),
+     ] %}
+  <li class="nav-item">
+    <a class="nav-link {{ 'active fw-semibold' if aba == tid }}" href="{{ url_for('documentacao', tab=tid) }}">
+      <i class="bi {{ icon }} me-1"></i>{{ label }}
+    </a>
+  </li>
+  {% endfor %}
+</ul>
+
+{# ════════════════════════════ DASHBOARD ════════════════════════════ #}
+{% if aba == 'dashboard' %}
+{% set s = stats %}
+
+<div class="row g-3 mb-4">
+  <div class="col-6 col-md-3">
+    <a href="{{ url_for('documentacao', tab='documentos') }}" class="text-decoration-none">
+      <div class="card border-0 shadow-sm h-100 text-center">
+        <div class="card-body">
+          <div class="text-muted small">Alunos matriculados</div>
+          <div class="fs-2 fw-bold text-primary">{{ s.total_alunos }}</div>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="col-6 col-md-3">
+    <a href="{{ url_for('documentacao', tab='documentos', doc_status='completa') }}" class="text-decoration-none">
+      <div class="card border-0 shadow-sm h-100 text-center">
+        <div class="card-body">
+          <div class="text-muted small">Documentação completa</div>
+          <div class="fs-2 fw-bold text-success">{{ s.completos }}</div>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="col-6 col-md-3">
+    <a href="{{ url_for('documentacao', tab='documentos', doc_status='pendente') }}" class="text-decoration-none">
+      <div class="card border-0 shadow-sm h-100 text-center">
+        <div class="card-body">
+          <div class="text-muted small">Alunos com pendência</div>
+          <div class="fs-2 fw-bold text-warning">{{ s.pendentes_alunos }}</div>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="col-6 col-md-3">
+    <a href="{{ url_for('documentacao', tab='documentos', doc_status='pendente') }}" class="text-decoration-none">
+      <div class="card border-0 shadow-sm h-100 text-center">
+        <div class="card-body">
+          <div class="text-muted small">Total de docs. pendentes</div>
+          <div class="fs-2 fw-bold text-danger">{{ s.total_docs_pendentes }}</div>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <div class="col-6 col-md-3">
+    <a href="{{ url_for('documentacao', tab='vacinacao', vac_situacao='VENCIDO') }}" class="text-decoration-none">
+      <div class="card border-0 shadow-sm h-100 text-center">
+        <div class="card-body">
+          <div class="text-muted small">Vacinas vencidas</div>
+          <div class="fs-2 fw-bold text-danger">{{ s.vac_vencidas }}</div>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="col-6 col-md-3">
+    <a href="{{ url_for('documentacao', tab='vacinacao', vac_situacao='PRÓXIMO DO VENCIMENTO') }}" class="text-decoration-none">
+      <div class="card border-0 shadow-sm h-100 text-center">
+        <div class="card-body">
+          <div class="text-muted small">Vacinas a vencer (30d)</div>
+          <div class="fs-2 fw-bold text-warning">{{ s.vac_proximas }}</div>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="col-6 col-md-3">
+    <a href="{{ url_for('documentacao', tab='documentos', doc_campo='doc_laudo') }}" class="text-decoration-none">
+      <div class="card border-0 shadow-sm h-100 text-center">
+        <div class="card-body">
+          <div class="text-muted small">Laudos pendentes</div>
+          <div class="fs-2 fw-bold text-warning">{{ s.laudos_pendentes }}</div>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="col-6 col-md-3">
+    <div class="card border-0 shadow-sm h-100 text-center" title="Campo 'Autoriza uso de imagem' não preenchido na matrícula">
+      <div class="card-body">
+        <div class="text-muted small">Autorização de imagem pendente</div>
+        <div class="fs-2 fw-bold text-secondary">{{ s.fotos_pendentes }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h6 class="text-muted mb-2">Entrega por documento</h6>
+<div class="row g-3 mb-3">
+  {% for d in s.por_documento %}
+  <div class="col-md-6 col-lg-4">
+    <a href="{{ url_for('documentacao', tab='documentos', doc_campo=d.campo) }}" class="text-decoration-none text-reset">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body py-2 px-3">
+          <div class="d-flex justify-content-between small mb-1">
+            <span class="fw-semibold">{{ d.label }}</span>
+            <span class="text-muted">{{ d.pendentes }} pendente{{ 's' if d.pendentes != 1 }}</span>
+          </div>
+          <div class="progress" style="height:8px;">
+            <div class="progress-bar {{ 'bg-success' if d.percentual >= 80 else ('bg-warning' if d.percentual >= 50 else 'bg-danger') }}"
+                 style="width:{{ d.percentual }}%;"></div>
+          </div>
+          <div class="small text-muted mt-1">{{ d.percentual }}% entregue</div>
+        </div>
+      </div>
+    </a>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+{# ════════════════════════════ DOCUMENTAÇÃO (matriz) ════════════════════════════ #}
+{% if aba == 'documentos' %}
+
+<form method="get" class="row g-2 mb-3 no-print filtro-doc">
+  <input type="hidden" name="tab" value="documentos" />
+  <div class="col-md-3">
+    <input type="text" name="doc_q" class="form-control form-control-sm" placeholder="Buscar aluno"
+           value="{{ args.get('doc_q','') }}" />
+  </div>
+  <div class="col-md-2">
+    <select name="doc_sala" class="form-select form-select-sm">
+      <option value="">Todas as salas</option>
+      {% for sl in salas %}<option value="{{ sl }}" {{ 'selected' if args.get('doc_sala')==sl }}>{{ sl }}</option>{% endfor %}
+    </select>
+  </div>
+  <div class="col-md-2">
+    <select name="doc_nivel" class="form-select form-select-sm">
+      <option value="">Todos os níveis</option>
+      <option value="INFANTIL IV" {{ 'selected' if args.get('doc_nivel')=='INFANTIL IV' }}>Infantil IV</option>
+      <option value="INFANTIL V"  {{ 'selected' if args.get('doc_nivel')=='INFANTIL V' }}>Infantil V</option>
+    </select>
+  </div>
+  <div class="col-md-2">
+    <input type="text" name="doc_ano" class="form-control form-control-sm" placeholder="Ano letivo"
+           value="{{ args.get('doc_ano','') }}" />
+  </div>
+  <div class="col-md-2">
+    <select name="doc_status" class="form-select form-select-sm">
+      <option value="">Completa e pendente</option>
+      <option value="completa" {{ 'selected' if args.get('doc_status')=='completa' }}>Só completas</option>
+      <option value="pendente" {{ 'selected' if args.get('doc_status')=='pendente' }}>Só pendentes</option>
+    </select>
+  </div>
+  <div class="col-md-1 d-grid">
+    <button class="btn btn-sm btn-primary"><i class="bi bi-search"></i></button>
+  </div>
+
+  <div class="col-md-4">
+    <select name="doc_campo" class="form-select form-select-sm">
+      <option value="">Pendente em: qualquer documento</option>
+      {% for c in campos_upload %}
+      <option value="{{ c }}" {{ 'selected' if args.get('doc_campo')==c }}>Pendente em: {{ doc_labels.get(c, c) }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="col-md-8 d-flex justify-content-end gap-2">
+    {% if args.get('doc_q') or args.get('doc_sala') or args.get('doc_nivel') or args.get('doc_ano') or args.get('doc_status') or args.get('doc_campo') %}
+    <a href="{{ url_for('documentacao', tab='documentos') }}" class="btn btn-sm btn-outline-secondary"><i class="bi bi-x-lg"></i> Limpar</a>
+    {% endif %}
+    <a class="btn btn-sm btn-outline-success export-link" href="{{ url_for('exportar_documentacao', dataset='documentos', formato='xlsx', **args) }}"><i class="bi bi-file-earmark-excel"></i> Excel</a>
+    <a class="btn btn-sm btn-outline-secondary export-link" href="{{ url_for('exportar_documentacao', dataset='documentos', formato='csv', **args) }}"><i class="bi bi-filetype-csv"></i> CSV</a>
+    <button type="button" class="btn btn-sm btn-outline-primary" onclick="window.print()"><i class="bi bi-printer"></i> Imprimir / PDF</button>
+  </div>
+</form>
+
+<div class="table-responsive">
+  <table class="table table-striped table-hover align-middle table-sm">
+    <thead class="table-primary">
+      <tr>
+        <th><a class="text-white text-decoration-none" href="{{ url_for('documentacao', tab='documentos', **dict(args, doc_ordem='nome')) }}">Aluno</a></th>
+        <th><a class="text-white text-decoration-none" href="{{ url_for('documentacao', tab='documentos', **dict(args, doc_ordem='sala')) }}">Sala</a></th>
+        <th>Nível</th>
+        {% for c in campos_upload %}
+        <th class="text-center" title="{{ doc_labels.get(c, c) }}">
+          <a class="text-white text-decoration-none" href="{{ url_for('documentacao', tab='documentos', **dict(args, doc_ordem=c)) }}">
+            {{ doc_labels.get(c, c)[:12] }}
+          </a>
+        </th>
+        {% endfor %}
+        <th class="text-center no-print">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for l in linhas %}
+      <tr>
+        <td>{{ l.aluno.nome_completo }}</td>
+        <td>{{ l.aluno.sala or '—' }}</td>
+        <td>{{ l.aluno.nivel or '—' }}</td>
+        {% for c in campos_upload %}
+        <td class="text-center">
+          {% if l.docs[c] %}
+          <i class="bi bi-check-circle-fill text-success" title="Entregue"></i>
+          {% else %}
+          <i class="bi bi-x-circle-fill text-danger" title="Pendente"></i>
+          {% endif %}
+        </td>
+        {% endfor %}
+        <td class="text-center no-print">
+          <a href="{{ url_for('editar_matricula', id=l.aluno.id, editar=1) }}" class="btn btn-sm btn-warning" title="Editar / anexar documentos">
+            <i class="bi bi-pencil-fill"></i>
+          </a>
+        </td>
+      </tr>
+      {% else %}
+      <tr><td colspan="{{ campos_upload|length + 4 }}" class="text-center text-muted py-4">
+        <i class="bi bi-inbox me-2"></i>Nenhum aluno encontrado com esses filtros.
+      </td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<small class="text-muted no-print">{{ linhas|length }} aluno(s) na lista</small>
+{% endif %}
+
+{# ════════════════════════════ VACINAÇÃO ════════════════════════════ #}
+{% if aba == 'vacinacao' %}
+
+<form method="get" class="row g-2 mb-3 no-print filtro-doc">
+  <input type="hidden" name="tab" value="vacinacao" />
+  <div class="col-md-3">
+    <input type="text" name="vac_q" class="form-control form-control-sm" placeholder="Buscar aluno" value="{{ args.get('vac_q','') }}" />
+  </div>
+  <div class="col-md-2">
+    <select name="vac_sala" class="form-select form-select-sm">
+      <option value="">Todas as salas</option>
+      {% for sl in salas %}<option value="{{ sl }}" {{ 'selected' if args.get('vac_sala')==sl }}>{{ sl }}</option>{% endfor %}
+    </select>
+  </div>
+  <div class="col-md-2">
+    <select name="vac_nivel" class="form-select form-select-sm">
+      <option value="">Todos os níveis</option>
+      <option value="INFANTIL IV" {{ 'selected' if args.get('vac_nivel')=='INFANTIL IV' }}>Infantil IV</option>
+      <option value="INFANTIL V"  {{ 'selected' if args.get('vac_nivel')=='INFANTIL V' }}>Infantil V</option>
+    </select>
+  </div>
+  <div class="col-md-3">
+    <select name="vac_situacao" class="form-select form-select-sm">
+      <option value="">Todas as situações</option>
+      <option value="EM DIA" {{ 'selected' if args.get('vac_situacao')=='EM DIA' }}>Em dia</option>
+      <option value="PRÓXIMO DO VENCIMENTO" {{ 'selected' if args.get('vac_situacao')=='PRÓXIMO DO VENCIMENTO' }}>Próximo do vencimento</option>
+      <option value="VENCIDO" {{ 'selected' if args.get('vac_situacao')=='VENCIDO' }}>Vencido</option>
+      <option value="SEM DATA" {{ 'selected' if args.get('vac_situacao')=='SEM DATA' }}>Sem data cadastrada</option>
+    </select>
+  </div>
+  <div class="col-md-2 d-flex gap-2">
+    <button class="btn btn-sm btn-primary flex-grow-1"><i class="bi bi-search"></i> Filtrar</button>
+  </div>
+  <div class="col-12 d-flex justify-content-end gap-2">
+    <a class="btn btn-sm btn-outline-success export-link" href="{{ url_for('exportar_documentacao', dataset='vacinacao', formato='xlsx', **args) }}"><i class="bi bi-file-earmark-excel"></i> Excel</a>
+    <a class="btn btn-sm btn-outline-secondary export-link" href="{{ url_for('exportar_documentacao', dataset='vacinacao', formato='csv', **args) }}"><i class="bi bi-filetype-csv"></i> CSV</a>
+    <button type="button" class="btn btn-sm btn-outline-primary" onclick="window.print()"><i class="bi bi-printer"></i> Imprimir / PDF</button>
+  </div>
+</form>
+
+<div class="table-responsive">
+  <table class="table table-striped table-hover align-middle table-sm">
+    <thead class="table-primary">
+      <tr><th>Aluno</th><th>Sala</th><th>Nível</th><th>Validade da vacina</th><th>Situação</th></tr>
+    </thead>
+    <tbody>
+      {% for l in linhas %}
+      <tr>
+        <td>{{ l.aluno.nome_completo }}</td>
+        <td>{{ l.aluno.sala or '—' }}</td>
+        <td>{{ l.aluno.nivel or '—' }}</td>
+        <td>{{ l.aluno.validade_vacina or '—' }}</td>
+        <td>
+          {% if l.situacao == 'EM DIA' %}<span class="badge bg-success">Em dia</span>
+          {% elif l.situacao == 'PRÓXIMO DO VENCIMENTO' %}<span class="badge bg-warning text-dark">Próximo do vencimento</span>
+          {% elif l.situacao == 'VENCIDO' %}<span class="badge bg-danger">Vencido</span>
+          {% else %}<span class="badge bg-secondary">Sem data</span>{% endif %}
+        </td>
+      </tr>
+      {% else %}
+      <tr><td colspan="5" class="text-center text-muted py-4"><i class="bi bi-inbox me-2"></i>Nenhum registro encontrado.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endif %}
+
+{# ════════════════════════════ AUTORIZAÇÕES ════════════════════════════ #}
+{% if aba == 'autorizacoes' %}
+
+<form method="get" class="row g-2 mb-3 no-print filtro-doc">
+  <input type="hidden" name="tab" value="autorizacoes" />
+  <div class="col-md-4">
+    <input type="text" name="aut_q" class="form-control form-control-sm" placeholder="Buscar aluno" value="{{ args.get('aut_q','') }}" />
+  </div>
+  <div class="col-md-3">
+    <select name="aut_sala" class="form-select form-select-sm">
+      <option value="">Todas as salas</option>
+      {% for sl in salas %}<option value="{{ sl }}" {{ 'selected' if args.get('aut_sala')==sl }}>{{ sl }}</option>{% endfor %}
+    </select>
+  </div>
+  <div class="col-md-2">
+    <button class="btn btn-sm btn-primary w-100"><i class="bi bi-search"></i> Filtrar</button>
+  </div>
+  <div class="col-md-3 d-flex justify-content-end gap-2">
+    <a class="btn btn-sm btn-outline-success export-link" href="{{ url_for('exportar_documentacao', dataset='autorizacoes', formato='xlsx', **args) }}"><i class="bi bi-file-earmark-excel"></i></a>
+    <a class="btn btn-sm btn-outline-secondary export-link" href="{{ url_for('exportar_documentacao', dataset='autorizacoes', formato='csv', **args) }}"><i class="bi bi-filetype-csv"></i></a>
+    <button type="button" class="btn btn-sm btn-outline-primary" onclick="window.print()"><i class="bi bi-printer"></i></button>
+  </div>
+</form>
+
+<div class="table-responsive">
+  <table class="table table-striped table-hover align-middle table-sm">
+    <thead class="table-primary">
+      <tr><th>Aluno</th><th>Sala</th><th>Pessoas autorizadas a retirar</th><th>Telefones</th></tr>
+    </thead>
+    <tbody>
+      {% for a in alunos %}
+      <tr>
+        <td>{{ a.nome_completo }}</td>
+        <td>{{ a.sala or '—' }}</td>
+        <td>
+          {% set pessoas = [a.pessoa1, a.pessoa2, a.pessoa3] %}
+          {% set validas = [] %}
+          {% for p in pessoas %}{% if p and p|string not in ('None','NÃO INFORMADO','') %}{{ validas.append(p) or '' }}<span class="badge bg-light text-dark border me-1">{{ p }}</span>{% endif %}{% endfor %}
+          {% if not validas %}<span class="text-muted">Nenhuma cadastrada</span>{% endif %}
+        </td>
+        <td class="small">
+          {% set tels = [a.telefone1, a.telefone2, a.telefone3, a.telefone4] %}
+          {% set tels_validos = [] %}
+          {% for t in tels %}{% if t and t|string not in ('None','NÃO INFORMADO','') %}{{ tels_validos.append(t) or '' }}{% endif %}{% endfor %}
+          {{ tels_validos | join(' · ') if tels_validos else '—' }}
+        </td>
+      </tr>
+      {% else %}
+      <tr><td colspan="4" class="text-center text-muted py-4"><i class="bi bi-inbox me-2"></i>Nenhum aluno encontrado.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endif %}
+
+{# ════════════════════════════ UNIFORMES ════════════════════════════ #}
+{% if aba == 'uniformes' %}
+
+<form method="get" class="row g-2 mb-3 no-print filtro-doc">
+  <input type="hidden" name="tab" value="uniformes" />
+  <div class="col-md-4">
+    <input type="text" name="uni_q" class="form-control form-control-sm" placeholder="Buscar aluno" value="{{ args.get('uni_q','') }}" />
+  </div>
+  <div class="col-md-3">
+    <select name="uni_sala" class="form-select form-select-sm">
+      <option value="">Todas as salas</option>
+      {% for sl in salas %}<option value="{{ sl }}" {{ 'selected' if args.get('uni_sala')==sl }}>{{ sl }}</option>{% endfor %}
+    </select>
+  </div>
+  <div class="col-md-2">
+    <button class="btn btn-sm btn-primary w-100"><i class="bi bi-search"></i> Filtrar</button>
+  </div>
+  <div class="col-md-3 d-flex justify-content-end gap-2">
+    <a class="btn btn-sm btn-outline-success export-link" href="{{ url_for('exportar_documentacao', dataset='uniformes', formato='xlsx', **args) }}"><i class="bi bi-file-earmark-excel"></i></a>
+    <a class="btn btn-sm btn-outline-secondary export-link" href="{{ url_for('exportar_documentacao', dataset='uniformes', formato='csv', **args) }}"><i class="bi bi-filetype-csv"></i></a>
+    <button type="button" class="btn btn-sm btn-outline-primary" onclick="window.print()"><i class="bi bi-printer"></i></button>
+  </div>
+</form>
+
+<div class="table-responsive">
+  <table class="table table-striped table-hover align-middle table-sm">
+    <thead class="table-primary">
+      <tr><th>Aluno</th><th>Sala</th><th>Idade</th><th>Sexo</th><th>Peso</th><th>Altura</th><th>Uniforme</th><th>Calçado</th><th>Cartão SUS</th></tr>
+    </thead>
+    <tbody>
+      {% for a in alunos %}
+      <tr>
+        <td>{{ a.nome_completo }}</td>
+        <td>{{ a.sala or '—' }}</td>
+        <td>{{ idade_fn(a.data_nascimento) }}</td>
+        <td>{{ a.sexo or '—' }}</td>
+        <td>{{ (a.peso ~ ' kg') if a.peso else '—' }}</td>
+        <td>{{ (a.altura ~ ' cm') if a.altura else '—' }}</td>
+        <td>{{ a.uniforme if a.uniforme and a.uniforme not in ('None','NÃO INFORMADO') else '—' }}</td>
+        <td>{{ a.calcado if a.calcado and a.calcado not in ('None','NÃO INFORMADO') else '—' }}</td>
+        <td>{{ a.cartao_sus or '—' }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="9" class="text-center text-muted py-4"><i class="bi bi-inbox me-2"></i>Nenhum aluno encontrado.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endif %}
+
+{# ════════════════════════════ FINANCEIRO ════════════════════════════ #}
+{% if aba == 'financeiro' %}
+
+<form method="get" class="row g-2 mb-3 no-print filtro-doc">
+  <input type="hidden" name="tab" value="financeiro" />
+  <div class="col-md-4">
+    <input type="text" name="fin_q" class="form-control form-control-sm" placeholder="Buscar aluno" value="{{ args.get('fin_q','') }}" />
+  </div>
+  <div class="col-md-3">
+    <select name="fin_sala" class="form-select form-select-sm">
+      <option value="">Todas as salas</option>
+      {% for sl in salas %}<option value="{{ sl }}" {{ 'selected' if args.get('fin_sala')==sl }}>{{ sl }}</option>{% endfor %}
+    </select>
+  </div>
+  <div class="col-md-2">
+    <button class="btn btn-sm btn-primary w-100"><i class="bi bi-search"></i> Filtrar</button>
+  </div>
+  <div class="col-md-3 d-flex justify-content-end gap-2">
+    <a class="btn btn-sm btn-outline-success export-link" href="{{ url_for('exportar_documentacao', dataset='financeiro', formato='xlsx', **args) }}"><i class="bi bi-file-earmark-excel"></i></a>
+    <a class="btn btn-sm btn-outline-secondary export-link" href="{{ url_for('exportar_documentacao', dataset='financeiro', formato='csv', **args) }}"><i class="bi bi-filetype-csv"></i></a>
+    <button type="button" class="btn btn-sm btn-outline-primary" onclick="window.print()"><i class="bi bi-printer"></i></button>
+  </div>
+</form>
+
+<div class="row g-3 mb-3 no-print">
+  <div class="col-md-4">
+    <div class="card border-0 shadow-sm"><div class="card-body">
+      <div class="text-muted small">Total geral</div>
+      <div class="fs-4 fw-bold text-success">R$ {{ '%.2f'|format(dados.total_geral) }}</div>
+    </div></div>
+  </div>
+  <div class="col-md-8">
+    <div class="card border-0 shadow-sm"><div class="card-body py-2">
+      <div class="text-muted small mb-1">Por sala</div>
+      {% for sl, v in dados.por_sala.items() %}
+      <span class="badge bg-light text-dark border me-1 mb-1">{{ sl }}: R$ {{ '%.2f'|format(v) }}</span>
+      {% endfor %}
+    </div></div>
+  </div>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped table-hover align-middle table-sm">
+    <thead class="table-primary">
+      <tr><th>Aluno</th><th>Sala</th><th>Nível</th><th>Valor</th><th>Tipo</th></tr>
+    </thead>
+    <tbody>
+      {% for a in dados.alunos %}
+      <tr>
+        <td>{{ a.nome_completo }}</td>
+        <td>{{ a.sala or '—' }}</td>
+        <td>{{ a.nivel or '—' }}</td>
+        <td>{{ 'R$ %.2f'|format(a.contribuicao) if a.contribuicao else '—' }}</td>
+        <td>{{ a.tipo_contribuicao if a.tipo_contribuicao and a.tipo_contribuicao != 'NÃO INFORMADO' else '—' }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="5" class="text-center text-muted py-4"><i class="bi bi-inbox me-2"></i>Nenhum aluno encontrado.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endif %}
+
+{# ════════════════════════════ RELATÓRIOS ════════════════════════════ #}
+{% if aba == 'relatorios' %}
+
+<h5 class="mt-2"><i class="bi bi-exclamation-triangle text-warning me-1"></i>Documentação pendente</h5>
+<form method="get" class="row g-2 mb-2 no-print filtro-doc">
+  <input type="hidden" name="tab" value="relatorios" />
+  <div class="col-md-4">
+    <input type="text" name="pend_q" class="form-control form-control-sm" placeholder="Buscar aluno" value="{{ args.get('pend_q','') }}" />
+  </div>
+  <div class="col-md-3">
+    <select name="pend_sala" class="form-select form-select-sm">
+      <option value="">Todas as salas</option>
+      {% for sl in salas %}<option value="{{ sl }}" {{ 'selected' if args.get('pend_sala')==sl }}>{{ sl }}</option>{% endfor %}
+    </select>
+  </div>
+  <div class="col-md-2"><button class="btn btn-sm btn-primary w-100"><i class="bi bi-search"></i></button></div>
+  <div class="col-md-3 d-flex justify-content-end gap-2">
+    <a class="btn btn-sm btn-outline-success export-link" href="{{ url_for('exportar_documentacao', dataset='pendencias', formato='xlsx', **args) }}"><i class="bi bi-file-earmark-excel"></i></a>
+    <a class="btn btn-sm btn-outline-secondary export-link" href="{{ url_for('exportar_documentacao', dataset='pendencias', formato='csv', **args) }}"><i class="bi bi-filetype-csv"></i></a>
+    <button type="button" class="btn btn-sm btn-outline-primary" onclick="window.print()"><i class="bi bi-printer"></i></button>
+  </div>
+</form>
+<div class="table-responsive mb-4">
+  <table class="table table-striped table-sm align-middle">
+    <thead class="table-primary">
+      <tr><th>Aluno</th><th>Sala</th><th>Nível</th><th>Responsável</th><th>Telefone</th><th>Documentos pendentes</th></tr>
+    </thead>
+    <tbody>
+      {% for l in pendencias %}
+      <tr>
+        <td>{{ l.aluno.nome_completo }}</td>
+        <td>{{ l.aluno.sala or '—' }}</td>
+        <td>{{ l.aluno.nivel or '—' }}</td>
+        <td>{{ l.aluno.responsavel_matricula if l.aluno.responsavel_matricula and l.aluno.responsavel_matricula != 'NÃO INFORMADO' else '—' }}</td>
+        <td>{{ l.aluno.telefone1 if l.aluno.telefone1 and l.aluno.telefone1 not in ('None','NÃO INFORMADO') else '—' }}</td>
+        <td>{% for p in l.pendentes %}<span class="badge bg-danger bg-opacity-75 me-1 mb-1">{{ p }}</span>{% endfor %}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="6" class="text-center text-muted py-3">Nenhuma pendência encontrada 🎉</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<h5><i class="bi bi-heart-pulse text-danger me-1"></i>Dados do Cartão SUS</h5>
+<form method="get" class="row g-2 mb-2 no-print filtro-doc">
+  <input type="hidden" name="tab" value="relatorios" />
+  <div class="col-md-4">
+    <input type="text" name="sus_q" class="form-control form-control-sm" placeholder="Buscar aluno" value="{{ args.get('sus_q','') }}" />
+  </div>
+  <div class="col-md-3">
+    <select name="sus_sala" class="form-select form-select-sm">
+      <option value="">Todas as salas</option>
+      {% for sl in salas %}<option value="{{ sl }}" {{ 'selected' if args.get('sus_sala')==sl }}>{{ sl }}</option>{% endfor %}
+    </select>
+  </div>
+  <div class="col-md-2"><button class="btn btn-sm btn-primary w-100"><i class="bi bi-search"></i></button></div>
+  <div class="col-md-3 d-flex justify-content-end gap-2">
+    <a class="btn btn-sm btn-outline-success export-link" href="{{ url_for('exportar_documentacao', dataset='sus', formato='xlsx', **args) }}"><i class="bi bi-file-earmark-excel"></i></a>
+    <a class="btn btn-sm btn-outline-secondary export-link" href="{{ url_for('exportar_documentacao', dataset='sus', formato='csv', **args) }}"><i class="bi bi-filetype-csv"></i></a>
+    <button type="button" class="btn btn-sm btn-outline-primary" onclick="window.print()"><i class="bi bi-printer"></i></button>
+  </div>
+</form>
+<div class="table-responsive">
+  <table class="table table-striped table-sm align-middle">
+    <thead class="table-primary">
+      <tr><th>Aluno</th><th>Sala</th><th>Data de nascimento</th><th>CPF</th><th>Cartão SUS</th></tr>
+    </thead>
+    <tbody>
+      {% for a in sus %}
+      <tr>
+        <td>{{ a.nome_completo }}</td>
+        <td>{{ a.sala or '—' }}</td>
+        <td>{{ a.data_nascimento or '—' }}</td>
+        <td>{{ a.cpf_aluno or '—' }}</td>
+        <td>{{ a.cartao_sus or '—' }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="5" class="text-center text-muted py-3">Nenhum aluno encontrado.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endif %}
+
+{# ── Toast de carregamento ── #}
+<div class="toast-container position-fixed bottom-0 end-0 p-3 no-print">
+  <div id="toastLoading" class="toast align-items-center text-bg-primary border-0" role="alert">
+    <div class="d-flex">
+      <div class="toast-body"><span class="spinner-border spinner-border-sm me-2"></span>Processando...</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const toastLoadingEl = document.getElementById('toastLoading');
+  const toastLoading = new bootstrap.Toast(toastLoadingEl, { autohide: false });
+  document.querySelectorAll('form.filtro-doc').forEach(f => f.addEventListener('submit', () => toastLoading.show()));
+  document.querySelectorAll('.export-link').forEach(a => a.addEventListener('click', () => {
+    toastLoading.show();
+    setTimeout(() => toastLoading.hide(), 2500);
+  }));
+</script>
+
+{% endblock %}
