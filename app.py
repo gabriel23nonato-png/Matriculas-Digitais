@@ -18,45 +18,34 @@ from flask import (
     request, send_from_directory, url_for, flash, jsonify,
 )
 from werkzeug.utils import secure_filename
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import (
+    LoginManager, UserMixin, login_user, logout_user,
+    login_required, current_user,
+)
+from flask_wtf import CSRFProtect
+from flask_wtf.csrf import CSRFError
 
 
 def app_dir() -> str:
-    """
-    Pasta onde os dados PERSISTENTES devem morar (banco, uploads, .env,
-    client_secret.json, token.json).
-
-    - Rodando como .py normal: pasta deste arquivo.
-    - Rodando como .exe (PyInstaller): pasta onde o .exe está, NÃO a pasta
-      temporária de extração (sys._MEIPASS). Se usássemos _MEIPASS aqui,
-      o banco de dados e o login do Drive seriam recriados do zero a cada
-      vez que o programa fosse aberto, porque essa pasta temp muda toda hora.
-    """
     if getattr(sys, "frozen", False):
         return os.path.dirname(sys.executable)
     return os.path.dirname(os.path.abspath(__file__))
 
 
 def resource_path(rel: str) -> str:
-    """
-    Pasta onde os recursos EMBUTIDOS no executável estão (templates, static).
-    Esses são só leitura e podem ficar na pasta temporária do PyInstaller.
-    """
     base = getattr(sys, "_MEIPASS", os.path.dirname(os.path.abspath(__file__)))
     return os.path.join(base, rel)
 
 
-# Carrega .env ANTES de qualquer import que leia variáveis de ambiente.
-# Procurado ao lado do .exe (ou do app.py, fora do .exe).
 load_dotenv(os.path.join(app_dir(), ".env"))
 
-# ── Importa Drive com fallback seguro ─────────────────────────────────────────
 try:
     import drive_service as drive
     _DRIVE_IMPORT_OK = True
 except ImportError:
     _DRIVE_IMPORT_OK = False
 
-# ── Configuração ──────────────────────────────────────────────────────────────
 BASE_DIR      = app_dir()
 DATABASE      = os.path.join(BASE_DIR, "database", "database", "alunosv3_novo.db")
 UPLOAD_FOLDER = os.path.join(BASE_DIR, "uploads")
@@ -91,12 +80,27 @@ app = Flask(
     template_folder=resource_path("templates"),
     static_folder=resource_path("static"),
 )
-app.secret_key = os.environ.get("SECRET_KEY", "matriculas_beta_2025")
+
+# SECRET_KEY é OBRIGATÓRIA — sem fallback hardcoded. Se o .env não estiver
+# configurado, o app recusa subir em vez de rodar silenciosamente com uma
+# chave pública e previsível (comprometeria sessão/cookies/CSRF).
+SECRET_KEY = os.environ.get("SECRET_KEY")
+if not SECRET_KEY:
+    raise RuntimeError(
+        "SECRET_KEY não definida.\n"
+        "Crie/edite o arquivo '.env' (na pasta do app.py, ou ao lado do .exe) "
+        "e adicione uma linha como:\n"
+        "    SECRET_KEY=" + os.urandom(24).hex() + "\n"
+        "(gere seu próprio valor aleatório — o exemplo acima é só ilustrativo, "
+        "não copie o mesmo valor entre instalações). Veja '.env.example'."
+    )
+app.secret_key = SECRET_KEY
 app.config["UPLOAD_FOLDER"]      = UPLOAD_FOLDER
 app.config["MAX_CONTENT_LENGTH"] = 100 * 1024 * 1024  # 100 MB
 
+csrf = CSRFProtect(app)
 
-# ── Banco de dados ────────────────────────────────────────────────────────────
+
 def get_db():
     db = getattr(g, "_database", None)
     if db is None:
@@ -207,28 +211,70 @@ def init_db():
         drive_url  TEXT,
         enviado_em DATETIME DEFAULT CURRENT_TIMESTAMP
     );
+
+    CREATE TABLE IF NOT EXISTS usuario (
+        id          INTEGER PRIMARY KEY AUTOINCREMENT,
+        username    TEXT UNIQUE NOT NULL,
+        senha_hash  TEXT NOT NULL,
+        nome        TEXT,
+        criado_em   DATETIME DEFAULT CURRENT_TIMESTAMP,
+        ativo       INTEGER DEFAULT 1
+    );
+
+    CREATE TABLE IF NOT EXISTS log_acao (
+        id          INTEGER PRIMARY KEY AUTOINCREMENT,
+        usuario     TEXT,
+        acao        TEXT,
+        alvo_tipo   TEXT,
+        alvo_id     INTEGER,
+        detalhe     TEXT,
+        criado_em   DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
     """)
-    # Migrações seguras — adiciona colunas ausentes em bancos existentes
     for col, tipo in [("data_modificacao","TEXT")]:
         _add_col(db, "matricula", col, tipo)
     _add_col(db, "saude", "validade_vacina", "DATE")
-    _add_col(db, "saude", "peso", "REAL")     # kg — módulo Documentação (relatório de Uniformes)
-    _add_col(db, "saude", "altura", "REAL")   # cm — módulo Documentação (relatório de Uniformes)
+    _add_col(db, "saude", "peso", "REAL")
+    _add_col(db, "saude", "altura", "REAL")
     for col, tipo in [("campo","TEXT"),("subpasta","TEXT"),("drive_id","TEXT"),("drive_url","TEXT")]:
         _add_col(db, "documento", col, tipo)
     db.commit()
 
 
-# ── Normalização centralizada ─────────────────────────────────────────────────
+# ── Autenticação (Fase 1 — Segurança de Base) ─────────────────────────────────
+login_manager = LoginManager(app)
+login_manager.login_view = "login"
+login_manager.login_message = "Faça login para continuar."
+login_manager.login_message_category = "warning"
+
+
+class Usuario(UserMixin):
+    def __init__(self, row):
+        self.id = row["id"]
+        self.username = row["username"]
+        self.nome = row["nome"] or row["username"]
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    row = get_db().execute(
+        "SELECT * FROM usuario WHERE id=? AND ativo=1", (user_id,)
+    ).fetchone()
+    return Usuario(row) if row else None
+
+
+def registrar_log(acao: str, alvo_tipo: str, alvo_id=None, detalhe: str = None):
+    """Grava uma linha de auditoria: quem fez o quê e quando."""
+    usuario = current_user.username if current_user.is_authenticated else "sistema"
+    db = get_db()
+    db.execute(
+        "INSERT INTO log_acao (usuario, acao, alvo_tipo, alvo_id, detalhe) VALUES (?,?,?,?,?)",
+        (usuario, acao, alvo_tipo, alvo_id, detalhe),
+    )
+    db.commit()
+
+
 def normalizar(campo: str, valor) -> object:
-    """
-    Regras por tipo de campo:
-    • Datas       → string ISO ou None
-    • Numéricos   → float ou None
-    • CPFs        → valor ou None  (nunca "NÃO INFORMADO" — são identificadores)
-    • Selects/radio → valor exato preservado (Sim/Não, INFANTIL IV, etc.)
-    • Texto livre → UPPER ou "NÃO INFORMADO"
-    """
     v = str(valor).strip() if valor is not None else ""
 
     if campo in CAMPOS_DATA:
@@ -245,7 +291,6 @@ def normalizar(campo: str, valor) -> object:
     if campo in ("cpf_aluno", "cpf_mae", "cpf_pai"):
         return v if v else None
 
-    # Campos cujo valor deve ser preservado exatamente como veio do formulário
     CAMPOS_PRESERVAR_CASE = {
         "permite_edfisica", "permite_fotos", "permite_passeios",
         "sexo", "integral", "gemeo", "bolsa_familia",
@@ -256,7 +301,6 @@ def normalizar(campo: str, valor) -> object:
     if campo in CAMPOS_PRESERVAR_CASE:
         return v if v else "NÃO INFORMADO"
 
-    # Texto livre → CAPS
     return v.upper() if v else "NÃO INFORMADO"
 
 
@@ -306,13 +350,11 @@ def _get_aluno_completo(aluno_id):
     ).fetchone()
 
 
-# ── Drive ─────────────────────────────────────────────────────────────────────
 def _drive_ativo() -> bool:
     return _DRIVE_IMPORT_OK and drive.drive_disponivel()
 
 
 def processar_uploads(aluno_id: int, ano: str, sala: str, nome_aluno: str):
-    """Processa todos os campos de upload do request atual."""
     db = get_db()
     ok = _drive_ativo()
 
@@ -389,19 +431,12 @@ def verificar_divergencias(aluno_id: int) -> dict:
 
 
 # ── Módulo Documentação ──────────────────────────────────────────────────────
-# Labels de exibição dos 9 documentos — reaproveita o dict já existente no
-# drive_service.py em vez de duplicar a lista de nomes aqui.
 DOC_LABELS = drive.CAMPO_NOME_DISPLAY if _DRIVE_IMPORT_OK else {c: c for c in CAMPOS_UPLOAD}
 
-DIAS_ALERTA_VACINA = 30  # janela considerada "próximo do vencimento"
+DIAS_ALERTA_VACINA = 30
 
 
 def _limpo(v) -> str:
-    """
-    Normaliza valores pra exibição em relatórios: trata None, string 'None'
-    (bug de dado legado onde str(None) foi salvo em vez de NULL) e
-    'NÃO INFORMADO' como vazio, sem alterar o dado gravado no banco.
-    """
     if v is None:
         return ""
     s = str(v).strip()
@@ -421,8 +456,6 @@ def _idade(data_nascimento: str) -> str:
 
 
 def _mapa_documentos_entregues() -> dict:
-    """{aluno_id: {campo, campo, ...}} — 1 query só, reaproveitada por
-    dashboard, matriz e relatório de pendências (evita N+1 queries)."""
     linhas = get_db().execute(
         "SELECT aluno_id, campo FROM documento WHERE campo IS NOT NULL"
     ).fetchall()
@@ -527,8 +560,8 @@ def _matriz_documentos(args) -> list:
     sala   = args.get("doc_sala", "").strip()
     nivel  = args.get("doc_nivel", "").strip()
     ano    = args.get("doc_ano", "").strip()
-    status = args.get("doc_status", "").strip()      # completa | pendente
-    campo  = args.get("doc_campo", "").strip()        # filtra pendentes de 1 doc específico
+    status = args.get("doc_status", "").strip()
+    campo  = args.get("doc_campo", "").strip()
     ordem  = args.get("doc_ordem", "nome").strip()
 
     alunos    = _filtro_base_alunos(q, sala, nivel, ano)
@@ -619,7 +652,6 @@ def _relatorio_financeiro(args) -> dict:
 
 
 def _relatorio_pendencias(args) -> list:
-    """Nome, sala, nível, responsável, telefone e lista de docs pendentes."""
     q, sala, nivel = (args.get(k, "").strip() for k in ("pend_q", "pend_sala", "pend_nivel"))
     entregues = _mapa_documentos_entregues()
     resultado = []
@@ -636,7 +668,6 @@ def _relatorio_sus(args) -> list:
     return _filtro_base_alunos(q, sala, nivel, "")
 
 
-# ── Exportação (CSV / Excel) ─────────────────────────────────────────────────
 def _export_csv(rows, colunas, nome: str):
     import csv, io
     buf = io.StringIO()
@@ -644,7 +675,7 @@ def _export_csv(rows, colunas, nome: str):
     writer.writerow([label for _, label in colunas])
     for row in rows:
         writer.writerow([row.get(key, "") for key, _ in colunas])
-    dados = ("\ufeff" + buf.getvalue()).encode("utf-8")  # BOM: acentos corretos no Excel
+    dados = ("\ufeff" + buf.getvalue()).encode("utf-8")
     resp = app.response_class(dados, mimetype="text/csv; charset=utf-8")
     resp.headers["Content-Disposition"] = f'attachment; filename="{nome}.csv"'
     return resp
@@ -775,12 +806,46 @@ _DATASETS_EXPORT = {
 
 
 # ── Rotas ─────────────────────────────────────────────────────────────────────
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for("index"))
+
+    if request.method == "POST":
+        username = request.form.get("username", "").strip()
+        senha    = request.form.get("senha", "")
+        row = get_db().execute(
+            "SELECT * FROM usuario WHERE username=? AND ativo=1", (username,)
+        ).fetchone()
+
+        if row and check_password_hash(row["senha_hash"], senha):
+            login_user(Usuario(row))
+            registrar_log("login", "usuario", row["id"], detalhe=username)
+            proximo = request.args.get("next")
+            return redirect(proximo or url_for("index"))
+
+        flash("Usuário ou senha inválidos.", "danger")
+
+    return render_template("login.html")
+
+
+@app.route("/logout")
+@login_required
+def logout():
+    registrar_log("logout", "usuario", current_user.id, detalhe=current_user.username)
+    logout_user()
+    flash("Sessão encerrada.", "info")
+    return redirect(url_for("login"))
+
+
 @app.route("/")
+@login_required
 def index():
     return render_template("index.html")
 
 
 @app.route("/alunos")
+@login_required
 def listar_alunos():
     db    = get_db()
     q     = request.args.get("q",     "").strip()
@@ -817,6 +882,7 @@ def listar_alunos():
 
 
 @app.route("/nova_matricula", methods=["GET", "POST"])
+@login_required
 def nova_matricula():
     if request.method == "POST":
         f  = request.form
@@ -897,6 +963,8 @@ def nova_matricula():
             nome_aluno=str(a["nome_completo"]),
         )
 
+        registrar_log("criar", "matricula", aluno_id, detalhe=a["nome_completo"])
+
         flash(f"Matrícula de {a['nome_completo']} salva com sucesso!", "success")
         return redirect(url_for("listar_alunos"))
 
@@ -911,8 +979,8 @@ def nova_matricula():
 
 
 @app.route("/editar/<int:id>", methods=["GET", "POST"])
+@login_required
 def editar_matricula(id):
-    # Edição habilitada se vier ?editar=1 na URL, ou se for POST
     edicao_habilitada = request.args.get("editar") == "1" or request.method == "POST"
     aluno = _get_aluno_completo(id)
 
@@ -996,10 +1064,11 @@ def editar_matricula(id):
             nome_aluno=str(a["nome_completo"]),
         )
 
+        registrar_log("editar", "matricula", id, detalhe=a["nome_completo"])
+
         flash(f"Matrícula de {a['nome_completo']} atualizada com sucesso!", "success")
         return redirect(url_for("listar_alunos"))
 
-    # GET — carrega documentos e verifica divergências no Drive
     docs = get_db().execute(
         "SELECT * FROM documento WHERE aluno_id=? ORDER BY enviado_em DESC", (id,)
     ).fetchall()
@@ -1016,6 +1085,7 @@ def editar_matricula(id):
 
 
 @app.route("/excluir/<int:id>", methods=["POST"])
+@login_required
 def excluir_matricula(id):
     db  = get_db()
     row = db.execute(
@@ -1042,11 +1112,15 @@ def excluir_matricula(id):
 
     db.execute("DELETE FROM aluno WHERE id=?", (id,))
     db.commit()
+
+    registrar_log("excluir", "matricula", id, detalhe=nome)
+
     flash(f"Matrícula de {nome} excluída.", "warning")
     return redirect(url_for("listar_alunos"))
 
 
 @app.route("/excluir_documento/<int:doc_id>", methods=["POST"])
+@login_required
 def excluir_documento(doc_id):
     db  = get_db()
     doc = db.execute("SELECT * FROM documento WHERE id=?", (doc_id,)).fetchone()
@@ -1062,11 +1136,15 @@ def excluir_documento(doc_id):
 
     db.execute("DELETE FROM documento WHERE id=?", (doc_id,))
     db.commit()
+
+    registrar_log("excluir", "documento", doc_id, detalhe=doc["nome"])
+
     flash(f"Documento '{doc['nome']}' excluído.", "warning")
     return redirect(request.referrer or url_for("listar_alunos"))
 
 
 @app.route("/resumo/<int:aluno_id>")
+@login_required
 def resumo_matricula(aluno_id):
     aluno = _get_aluno_completo(aluno_id)
     if not aluno:
@@ -1075,16 +1153,19 @@ def resumo_matricula(aluno_id):
 
 
 @app.route("/uploads/<path:arquivo>")
+@login_required
 def servir_upload(arquivo):
     return send_from_directory(app.config["UPLOAD_FOLDER"], arquivo)
 
 
 @app.route("/status_drive")
+@login_required
 def status_drive():
     return jsonify({"drive_ativo": _drive_ativo()})
 
 
 @app.route("/documentacao")
+@login_required
 def documentacao():
     aba = request.args.get("tab", "dashboard")
 
@@ -1116,6 +1197,7 @@ def documentacao():
 
 
 @app.route("/documentacao/exportar/<dataset>/<formato>")
+@login_required
 def exportar_documentacao(dataset, formato):
     gerador = _DATASETS_EXPORT.get(dataset)
     if not gerador:
@@ -1131,7 +1213,6 @@ def exportar_documentacao(dataset, formato):
     return _export_xlsx(rows, colunas, nome)
 
 
-
 @app.errorhandler(413)
 def arquivo_muito_grande(e):
     flash(
@@ -1140,6 +1221,20 @@ def arquivo_muito_grande(e):
         "danger",
     )
     return redirect(request.referrer or url_for("index"))
+
+
+@app.errorhandler(CSRFError)
+def erro_csrf(e):
+    # POST sem token CSRF válido — rejeitado com 400 SEMPRE, mesmo quando
+    # há referrer para onde redirecionar de volta (antes só o fallback
+    # sem referrer retornava 400; o caminho com referrer respondia 302).
+    logger.warning("CSRF rejeitado em %s: %s", request.path, e.description)
+    flash("Sessão expirada ou formulário inválido. Tente novamente.", "warning")
+    destino = request.referrer or url_for("login")
+    resposta = redirect(destino)
+    resposta.status_code = 400
+    return resposta
+
 
 # ── Inicialização ─────────────────────────────────────────────────────────────
 # Carrega o token do Drive (OAuth) ANTES do Flask subir — cobre tanto
@@ -1164,9 +1259,6 @@ if __name__ == "__main__":
     is_frozen = getattr(sys, "frozen", False)
 
     if is_frozen:
-        # debug=True liga o reloader, que tenta reiniciar o processo
-        # executando sys.executable de novo — isso quebra dentro de um
-        # .exe do PyInstaller (abre um segundo processo, ou trava).
         import threading
         import webbrowser
 

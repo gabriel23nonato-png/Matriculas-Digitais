@@ -40,6 +40,8 @@
       id="main-form"
       class="{% if modo=='editar' and not edicao_habilitada %}bloqueado{% endif %}">
 
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+
   <!-- ═══════════ 1 IDENTIFICAÇÃO ═══════════ -->
   <h5 class="titulo mt-2">
     1️⃣ Identificação do Aluno

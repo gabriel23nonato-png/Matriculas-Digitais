@@ -1,10 +1,16 @@
-Flask==3.0.3
-python-dotenv==1.0.1
-Werkzeug==3.0.3
+# Se você já tem um requirements.txt no projeto, faça o merge com este —
+# os itens novos da Fase 1 (Segurança de Base) são Flask-Login e Flask-WTF.
 
-google-auth==2.32.0
-google-auth-oauthlib==1.2.1
-google-auth-httplib2==0.2.0
-google-api-python-client==2.140.0
+Flask
+python-dotenv
+Flask-Login
+Flask-WTF
 
-pyinstaller==6.10.0
+# Integração com Google Drive (drive_service.py)
+google-auth
+google-auth-oauthlib
+google-api-python-client
+
+# Exportação de relatórios em Excel (módulo Documentação) — opcional:
+# sem isso instalado, a exportação em CSV continua funcionando normalmente.
+openpyxl
