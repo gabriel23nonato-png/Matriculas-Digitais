@@ -14,14 +14,25 @@ from datetime import datetime, timedelta
 
 from dotenv import load_dotenv
 from flask import (
-    Flask, g, redirect, render_template,
-    request, send_from_directory, url_for, flash, jsonify,
+    Flask,
+    g,
+    redirect,
+    render_template,
+    request,
+    send_from_directory,
+    url_for,
+    flash,
+    jsonify,
 )
 from werkzeug.utils import secure_filename
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import (
-    LoginManager, UserMixin, login_user, logout_user,
-    login_required, current_user,
+    LoginManager,
+    UserMixin,
+    login_user,
+    logout_user,
+    login_required,
+    current_user,
 )
 from flask_wtf import CSRFProtect
 from flask_wtf.csrf import CSRFError
@@ -42,31 +53,63 @@ load_dotenv(os.path.join(app_dir(), ".env"))
 
 try:
     import drive_service as drive
+
     _DRIVE_IMPORT_OK = True
 except ImportError:
     _DRIVE_IMPORT_OK = False
 
-BASE_DIR      = app_dir()
-DATABASE      = os.path.join(BASE_DIR, "database", "database", "alunosv3_novo.db")
+BASE_DIR = app_dir()
+DATABASE = os.path.join(BASE_DIR, "database", "database", "alunosv3_novo.db")
 UPLOAD_FOLDER = os.path.join(BASE_DIR, "uploads")
 ALLOWED_EXTENSIONS = {"pdf", "jpg", "jpeg", "png", "webp"}
 
-SALAS_IV  = ["IVA", "IVB", "IVC", "IVD", "IVE"]
-SALAS_V   = ["VA",  "VB",  "VC",  "VD",  "VE"]
-SALAS     = ["Sem Sala"] + SALAS_IV + SALAS_V
+SALAS_IV = ["IVA", "IVB", "IVC", "IVD", "IVE"]
+SALAS_V = ["VA", "VB", "VC", "VD", "VE"]
+SALAS = ["Sem Sala"] + SALAS_IV + SALAS_V
 
 UFS = [
-    "AC","AL","AP","AM","BA","CE","DF","ES","GO","MA","MT","MS","MG",
-    "PA","PB","PR","PE","PI","RJ","RN","RS","RO","RR","SC","SP","SE","TO",
+    "AC",
+    "AL",
+    "AP",
+    "AM",
+    "BA",
+    "CE",
+    "DF",
+    "ES",
+    "GO",
+    "MA",
+    "MT",
+    "MS",
+    "MG",
+    "PA",
+    "PB",
+    "PR",
+    "PE",
+    "PI",
+    "RJ",
+    "RN",
+    "RS",
+    "RO",
+    "RR",
+    "SC",
+    "SP",
+    "SE",
+    "TO",
 ]
 
 CAMPOS_NUMERICOS = {"contribuicao", "peso", "altura"}
-CAMPOS_DATA      = {"data_nascimento", "expedicao_rg_mae", "validade_vacina"}
+CAMPOS_DATA = {"data_nascimento", "expedicao_rg_mae", "validade_vacina"}
 
 CAMPOS_UPLOAD = [
-    "doc_cpf", "doc_cartao_sus", "doc_certidao",
-    "doc_cpf_mae", "doc_cpf_pai", "doc_cep",
-    "doc_laudo", "doc_carteira_vacinacao", "doc_comprovante_vacinacao",
+    "doc_cpf",
+    "doc_cartao_sus",
+    "doc_certidao",
+    "doc_cpf_mae",
+    "doc_cpf_pai",
+    "doc_cep",
+    "doc_laudo",
+    "doc_carteira_vacinacao",
+    "doc_comprovante_vacinacao",
 ]
 
 os.makedirs(os.path.dirname(DATABASE), exist_ok=True)
@@ -95,7 +138,7 @@ if not SECRET_KEY:
         "não copie o mesmo valor entre instalações). Veja '.env.example'."
     )
 app.secret_key = SECRET_KEY
-app.config["UPLOAD_FOLDER"]      = UPLOAD_FOLDER
+app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 app.config["MAX_CONTENT_LENGTH"] = 100 * 1024 * 1024  # 100 MB
 
 csrf = CSRFProtect(app)
@@ -107,6 +150,12 @@ def get_db():
         db = g._database = sqlite3.connect(DATABASE)
         db.row_factory = sqlite3.Row
         db.execute("PRAGMA foreign_keys = ON")
+        db.execute(
+            "PRAGMA journal_mode = WAL"
+        )  # ← WAL (Write-Ahead Logging): permite leituras enquanto uma escrita está em andamento.
+        db.execute(
+            "PRAGMA busy_timeout = 30000"
+        )  # busy_timeout: em vez de travar com erro imediatamente, o SQLite aguarda até 30 segundos antes de desistir.
     return db
 
 
@@ -231,12 +280,17 @@ def init_db():
         criado_em   DATETIME DEFAULT CURRENT_TIMESTAMP
     );
     """)
-    for col, tipo in [("data_modificacao","TEXT")]:
+    for col, tipo in [("data_modificacao", "TEXT")]:
         _add_col(db, "matricula", col, tipo)
     _add_col(db, "saude", "validade_vacina", "DATE")
     _add_col(db, "saude", "peso", "REAL")
     _add_col(db, "saude", "altura", "REAL")
-    for col, tipo in [("campo","TEXT"),("subpasta","TEXT"),("drive_id","TEXT"),("drive_url","TEXT")]:
+    for col, tipo in [
+        ("campo", "TEXT"),
+        ("subpasta", "TEXT"),
+        ("drive_id", "TEXT"),
+        ("drive_url", "TEXT"),
+    ]:
         _add_col(db, "documento", col, tipo)
     db.commit()
 
@@ -257,9 +311,11 @@ class Usuario(UserMixin):
 
 @login_manager.user_loader
 def load_user(user_id):
-    row = get_db().execute(
-        "SELECT * FROM usuario WHERE id=? AND ativo=1", (user_id,)
-    ).fetchone()
+    row = (
+        get_db()
+        .execute("SELECT * FROM usuario WHERE id=? AND ativo=1", (user_id,))
+        .fetchone()
+    )
     return Usuario(row) if row else None
 
 
@@ -292,11 +348,25 @@ def normalizar(campo: str, valor) -> object:
         return v if v else None
 
     CAMPOS_PRESERVAR_CASE = {
-        "permite_edfisica", "permite_fotos", "permite_passeios",
-        "sexo", "integral", "gemeo", "bolsa_familia",
-        "tipo_contribuicao", "nivel", "sala",
-        "estado_civil_mae", "raca_cor", "uf_rg_mae",
-        "uniforme", "calcado", "tipo_sanguineo", "lactose", "aplv", "diabetico",
+        "permite_edfisica",
+        "permite_fotos",
+        "permite_passeios",
+        "sexo",
+        "integral",
+        "gemeo",
+        "bolsa_familia",
+        "tipo_contribuicao",
+        "nivel",
+        "sala",
+        "estado_civil_mae",
+        "raca_cor",
+        "uf_rg_mae",
+        "uniforme",
+        "calcado",
+        "tipo_sanguineo",
+        "lactose",
+        "aplv",
+        "diabetico",
     }
     if campo in CAMPOS_PRESERVAR_CASE:
         return v if v else "NÃO INFORMADO"
@@ -317,8 +387,10 @@ def allowed_file(filename: str) -> bool:
 
 
 def _get_aluno_completo(aluno_id):
-    return get_db().execute(
-        """
+    return (
+        get_db()
+        .execute(
+            """
         SELECT
             a.id, a.ra, a.rm, a.nome_completo, a.data_nascimento,
             a.sexo, a.raca_cor, a.nacionalidade, a.municipio_nascimento,
@@ -346,8 +418,10 @@ def _get_aluno_completo(aluno_id):
         WHERE a.id = ?
         ORDER BY m.id DESC LIMIT 1
         """,
-        (aluno_id,),
-    ).fetchone()
+            (aluno_id,),
+        )
+        .fetchone()
+    )
 
 
 def _drive_ativo() -> bool:
@@ -367,9 +441,13 @@ def processar_uploads(aluno_id: int, ano: str, sala: str, nome_aluno: str):
             continue
 
         nome_original = arquivo.filename
-        nome_seguro   = secure_filename(f"{aluno_id}_{campo}_{nome_original}")
-        subpasta_nome = drive.CAMPO_PARA_SUBPASTA.get(campo, "OUTROS") if _DRIVE_IMPORT_OK else "OUTROS"
-        drive_id  = None
+        nome_seguro = secure_filename(f"{aluno_id}_{campo}_{nome_original}")
+        subpasta_nome = (
+            drive.CAMPO_PARA_SUBPASTA.get(campo, "OUTROS")
+            if _DRIVE_IMPORT_OK
+            else "OUTROS"
+        )
+        drive_id = None
         drive_url = None
 
         if ok:
@@ -383,13 +461,16 @@ def processar_uploads(aluno_id: int, ano: str, sala: str, nome_aluno: str):
                     sala=str(sala),
                     nome_aluno=nome_aluno,
                 )
-                drive_id      = res["drive_id"]
-                drive_url     = res["drive_url"]
+                drive_id = res["drive_id"]
+                drive_url = res["drive_url"]
                 subpasta_nome = res["subpasta"]
                 logger.info("Drive: upload OK — %s → %s", nome_original, subpasta_nome)
             except Exception as exc:
                 logger.error("Drive: falha em '%s': %s", nome_original, exc)
-                flash(f"'{nome_original}' salvo localmente (Drive indisponível: {exc}).", "warning")
+                flash(
+                    f"'{nome_original}' salvo localmente (Drive indisponível: {exc}).",
+                    "warning",
+                )
                 arquivo.stream.seek(0)
                 arquivo.save(os.path.join(app.config["UPLOAD_FOLDER"], nome_seguro))
         else:
@@ -404,13 +485,13 @@ def processar_uploads(aluno_id: int, ano: str, sala: str, nome_aluno: str):
 
 
 def verificar_divergencias(aluno_id: int) -> dict:
-    db   = get_db()
+    db = get_db()
     docs = db.execute(
         "SELECT id, campo, nome, drive_id, drive_url, subpasta FROM documento WHERE aluno_id=?",
         (aluno_id,),
     ).fetchall()
 
-    ausentes  = []
+    ausentes = []
     sem_drive = []
     ids_check = [d["drive_id"] for d in docs if d["drive_id"]]
     existencia = {}
@@ -431,7 +512,9 @@ def verificar_divergencias(aluno_id: int) -> dict:
 
 
 # ── Módulo Documentação ──────────────────────────────────────────────────────
-DOC_LABELS = drive.CAMPO_NOME_DISPLAY if _DRIVE_IMPORT_OK else {c: c for c in CAMPOS_UPLOAD}
+DOC_LABELS = (
+    drive.CAMPO_NOME_DISPLAY if _DRIVE_IMPORT_OK else {c: c for c in CAMPOS_UPLOAD}
+)
 
 DIAS_ALERTA_VACINA = 30
 
@@ -456,9 +539,11 @@ def _idade(data_nascimento: str) -> str:
 
 
 def _mapa_documentos_entregues() -> dict:
-    linhas = get_db().execute(
-        "SELECT aluno_id, campo FROM documento WHERE campo IS NOT NULL"
-    ).fetchall()
+    linhas = (
+        get_db()
+        .execute("SELECT aluno_id, campo FROM documento WHERE campo IS NOT NULL")
+        .fetchall()
+    )
     mapa = {}
     for l in linhas:
         mapa.setdefault(l["aluno_id"], set()).add(l["campo"])
@@ -485,11 +570,14 @@ def _stats_dashboard() -> dict:
     ):
         por_documento[row["campo"]] = row["n"]
 
-    hoje_iso    = datetime.now().strftime("%Y-%m-%d")
-    limite_iso  = (datetime.now() + timedelta(days=DIAS_ALERTA_VACINA)).strftime("%Y-%m-%d")
+    hoje_iso = datetime.now().strftime("%Y-%m-%d")
+    limite_iso = (datetime.now() + timedelta(days=DIAS_ALERTA_VACINA)).strftime(
+        "%Y-%m-%d"
+    )
     vencidas = db.execute(
         "SELECT COUNT(*) FROM saude WHERE validade_vacina IS NOT NULL "
-        "AND validade_vacina != '' AND validade_vacina < ?", (hoje_iso,)
+        "AND validade_vacina != '' AND validade_vacina < ?",
+        (hoje_iso,),
     ).fetchone()[0]
     proximas = db.execute(
         "SELECT COUNT(*) FROM saude WHERE validade_vacina >= ? AND validade_vacina <= ?",
@@ -517,7 +605,11 @@ def _stats_dashboard() -> dict:
                 "label": DOC_LABELS.get(c, c),
                 "entregues": por_documento.get(c, 0),
                 "pendentes": total_alunos - por_documento.get(c, 0),
-                "percentual": round((por_documento.get(c, 0) / total_alunos) * 100) if total_alunos else 0,
+                "percentual": (
+                    round((por_documento.get(c, 0) / total_alunos) * 100)
+                    if total_alunos
+                    else 0
+                ),
             }
             for c in CAMPOS_UPLOAD
         ],
@@ -556,15 +648,15 @@ def _filtro_base_alunos(q: str, sala: str, nivel: str, ano: str):
 
 
 def _matriz_documentos(args) -> list:
-    q      = args.get("doc_q", "").strip()
-    sala   = args.get("doc_sala", "").strip()
-    nivel  = args.get("doc_nivel", "").strip()
-    ano    = args.get("doc_ano", "").strip()
+    q = args.get("doc_q", "").strip()
+    sala = args.get("doc_sala", "").strip()
+    nivel = args.get("doc_nivel", "").strip()
+    ano = args.get("doc_ano", "").strip()
     status = args.get("doc_status", "").strip()
-    campo  = args.get("doc_campo", "").strip()
-    ordem  = args.get("doc_ordem", "nome").strip()
+    campo = args.get("doc_campo", "").strip()
+    ordem = args.get("doc_ordem", "nome").strip()
 
-    alunos    = _filtro_base_alunos(q, sala, nivel, ano)
+    alunos = _filtro_base_alunos(q, sala, nivel, ano)
     entregues = _mapa_documentos_entregues()
 
     linhas = []
@@ -577,15 +669,19 @@ def _matriz_documentos(args) -> list:
             continue
         if campo and campo in docs_aluno:
             continue
-        linhas.append({
-            "aluno": a,
-            "docs": {c: (c in docs_aluno) for c in CAMPOS_UPLOAD},
-            "completo": completo,
-            "qtd_entregues": len(docs_aluno),
-        })
+        linhas.append(
+            {
+                "aluno": a,
+                "docs": {c: (c in docs_aluno) for c in CAMPOS_UPLOAD},
+                "completo": completo,
+                "qtd_entregues": len(docs_aluno),
+            }
+        )
 
     if ordem == "sala":
-        linhas.sort(key=lambda l: (l["aluno"]["sala"] or "", l["aluno"]["nome_completo"]))
+        linhas.sort(
+            key=lambda l: (l["aluno"]["sala"] or "", l["aluno"]["nome_completo"])
+        )
     elif ordem in CAMPOS_UPLOAD:
         linhas.sort(key=lambda l: (l["docs"][ordem], l["aluno"]["nome_completo"]))
     elif ordem == "pendencias":
@@ -597,13 +693,15 @@ def _matriz_documentos(args) -> list:
 
 
 def _relatorio_vacinacao(args) -> list:
-    q     = args.get("vac_q", "").strip()
-    sala  = args.get("vac_sala", "").strip()
+    q = args.get("vac_q", "").strip()
+    sala = args.get("vac_sala", "").strip()
     nivel = args.get("vac_nivel", "").strip()
-    situ  = args.get("vac_situacao", "").strip()
+    situ = args.get("vac_situacao", "").strip()
 
-    hoje_iso   = datetime.now().strftime("%Y-%m-%d")
-    limite_iso = (datetime.now() + timedelta(days=DIAS_ALERTA_VACINA)).strftime("%Y-%m-%d")
+    hoje_iso = datetime.now().strftime("%Y-%m-%d")
+    limite_iso = (datetime.now() + timedelta(days=DIAS_ALERTA_VACINA)).strftime(
+        "%Y-%m-%d"
+    )
 
     resultado = []
     for a in _filtro_base_alunos(q, sala, nivel, ""):
@@ -623,17 +721,23 @@ def _relatorio_vacinacao(args) -> list:
 
 
 def _relatorio_autorizacoes(args) -> list:
-    q, sala, nivel = (args.get(k, "").strip() for k in ("aut_q", "aut_sala", "aut_nivel"))
+    q, sala, nivel = (
+        args.get(k, "").strip() for k in ("aut_q", "aut_sala", "aut_nivel")
+    )
     return _filtro_base_alunos(q, sala, nivel, "")
 
 
 def _relatorio_uniformes(args) -> list:
-    q, sala, nivel = (args.get(k, "").strip() for k in ("uni_q", "uni_sala", "uni_nivel"))
+    q, sala, nivel = (
+        args.get(k, "").strip() for k in ("uni_q", "uni_sala", "uni_nivel")
+    )
     return _filtro_base_alunos(q, sala, nivel, "")
 
 
 def _relatorio_financeiro(args) -> dict:
-    q, sala, nivel = (args.get(k, "").strip() for k in ("fin_q", "fin_sala", "fin_nivel"))
+    q, sala, nivel = (
+        args.get(k, "").strip() for k in ("fin_q", "fin_sala", "fin_nivel")
+    )
     alunos = _filtro_base_alunos(q, sala, nivel, "")
 
     por_sala, por_nivel, total_geral = {}, {}, 0.0
@@ -646,13 +750,17 @@ def _relatorio_financeiro(args) -> dict:
         por_nivel[n] = por_nivel.get(n, 0) + v
 
     return {
-        "alunos": alunos, "por_sala": por_sala,
-        "por_nivel": por_nivel, "total_geral": total_geral,
+        "alunos": alunos,
+        "por_sala": por_sala,
+        "por_nivel": por_nivel,
+        "total_geral": total_geral,
     }
 
 
 def _relatorio_pendencias(args) -> list:
-    q, sala, nivel = (args.get(k, "").strip() for k in ("pend_q", "pend_sala", "pend_nivel"))
+    q, sala, nivel = (
+        args.get(k, "").strip() for k in ("pend_q", "pend_sala", "pend_nivel")
+    )
     entregues = _mapa_documentos_entregues()
     resultado = []
     for a in _filtro_base_alunos(q, sala, nivel, ""):
@@ -664,12 +772,15 @@ def _relatorio_pendencias(args) -> list:
 
 
 def _relatorio_sus(args) -> list:
-    q, sala, nivel = (args.get(k, "").strip() for k in ("sus_q", "sus_sala", "sus_nivel"))
+    q, sala, nivel = (
+        args.get(k, "").strip() for k in ("sus_q", "sus_sala", "sus_nivel")
+    )
     return _filtro_base_alunos(q, sala, nivel, "")
 
 
 def _export_csv(rows, colunas, nome: str):
     import csv, io
+
     buf = io.StringIO()
     writer = csv.writer(buf, delimiter=";")
     writer.writerow([label for _, label in colunas])
@@ -683,10 +794,14 @@ def _export_csv(rows, colunas, nome: str):
 
 def _export_xlsx(rows, colunas, nome: str):
     import io
+
     try:
         from openpyxl import Workbook
     except ImportError:
-        flash("Exportação em Excel indisponível: instale 'openpyxl' (pip install openpyxl).", "danger")
+        flash(
+            "Exportação em Excel indisponível: instale 'openpyxl' (pip install openpyxl).",
+            "danger",
+        )
         return redirect(request.referrer or url_for("documentacao"))
 
     wb = Workbook()
@@ -715,8 +830,11 @@ def _linhas_export_documentos(args):
     colunas += [(c, DOC_LABELS.get(c, c)) for c in CAMPOS_UPLOAD]
     dados = []
     for l in linhas:
-        d = {"nome": l["aluno"]["nome_completo"], "sala": l["aluno"]["sala"] or "",
-             "nivel": l["aluno"]["nivel"] or ""}
+        d = {
+            "nome": l["aluno"]["nome_completo"],
+            "sala": l["aluno"]["sala"] or "",
+            "nivel": l["aluno"]["nivel"] or "",
+        }
         d.update({c: ("Entregue" if v else "Pendente") for c, v in l["docs"].items()})
         dados.append(d)
     return dados, colunas
@@ -724,84 +842,152 @@ def _linhas_export_documentos(args):
 
 def _linhas_export_vacinacao(args):
     linhas = _relatorio_vacinacao(args)
-    colunas = [("nome", "Aluno"), ("sala", "Sala"), ("nivel", "Nível"),
-               ("validade", "Validade da Vacina"), ("situacao", "Situação")]
+    colunas = [
+        ("nome", "Aluno"),
+        ("sala", "Sala"),
+        ("nivel", "Nível"),
+        ("validade", "Validade da Vacina"),
+        ("situacao", "Situação"),
+    ]
     return [
-        {"nome": l["aluno"]["nome_completo"], "sala": l["aluno"]["sala"] or "",
-         "nivel": l["aluno"]["nivel"] or "", "validade": l["aluno"]["validade_vacina"] or "",
-         "situacao": l["situacao"]}
+        {
+            "nome": l["aluno"]["nome_completo"],
+            "sala": l["aluno"]["sala"] or "",
+            "nivel": l["aluno"]["nivel"] or "",
+            "validade": l["aluno"]["validade_vacina"] or "",
+            "situacao": l["situacao"],
+        }
         for l in linhas
     ], colunas
 
 
 def _linhas_export_autorizacoes(args):
     alunos = _relatorio_autorizacoes(args)
-    colunas = [("nome", "Aluno"), ("sala", "Sala"),
-               ("pessoa1", "Autorizado 1"), ("pessoa2", "Autorizado 2"), ("pessoa3", "Autorizado 3"),
-               ("telefone1", "Telefone 1"), ("telefone2", "Telefone 2")]
+    colunas = [
+        ("nome", "Aluno"),
+        ("sala", "Sala"),
+        ("pessoa1", "Autorizado 1"),
+        ("pessoa2", "Autorizado 2"),
+        ("pessoa3", "Autorizado 3"),
+        ("telefone1", "Telefone 1"),
+        ("telefone2", "Telefone 2"),
+    ]
     return [
-        {"nome": a["nome_completo"], "sala": a["sala"] or "",
-         "pessoa1": _limpo(a["pessoa1"]), "pessoa2": _limpo(a["pessoa2"]), "pessoa3": _limpo(a["pessoa3"]),
-         "telefone1": _limpo(a["telefone1"]), "telefone2": _limpo(a["telefone2"])}
+        {
+            "nome": a["nome_completo"],
+            "sala": a["sala"] or "",
+            "pessoa1": _limpo(a["pessoa1"]),
+            "pessoa2": _limpo(a["pessoa2"]),
+            "pessoa3": _limpo(a["pessoa3"]),
+            "telefone1": _limpo(a["telefone1"]),
+            "telefone2": _limpo(a["telefone2"]),
+        }
         for a in alunos
     ], colunas
 
 
 def _linhas_export_uniformes(args):
     alunos = _relatorio_uniformes(args)
-    colunas = [("nome", "Aluno"), ("sala", "Sala"), ("idade", "Idade"), ("peso", "Peso (kg)"),
-               ("altura", "Altura (cm)"), ("uniforme", "Uniforme"), ("calcado", "Calçado"),
-               ("sexo", "Sexo"), ("sus", "Cartão SUS")]
+    colunas = [
+        ("nome", "Aluno"),
+        ("sala", "Sala"),
+        ("idade", "Idade"),
+        ("peso", "Peso (kg)"),
+        ("altura", "Altura (cm)"),
+        ("uniforme", "Uniforme"),
+        ("calcado", "Calçado"),
+        ("sexo", "Sexo"),
+        ("sus", "Cartão SUS"),
+    ]
     return [
-        {"nome": a["nome_completo"], "sala": a["sala"] or "", "idade": _idade(a["data_nascimento"]),
-         "peso": a["peso"] or "", "altura": a["altura"] or "", "uniforme": _limpo(a["uniforme"]),
-         "calcado": _limpo(a["calcado"]), "sexo": a["sexo"] or "", "sus": a["cartao_sus"] or ""}
+        {
+            "nome": a["nome_completo"],
+            "sala": a["sala"] or "",
+            "idade": _idade(a["data_nascimento"]),
+            "peso": a["peso"] or "",
+            "altura": a["altura"] or "",
+            "uniforme": _limpo(a["uniforme"]),
+            "calcado": _limpo(a["calcado"]),
+            "sexo": a["sexo"] or "",
+            "sus": a["cartao_sus"] or "",
+        }
         for a in alunos
     ], colunas
 
 
 def _linhas_export_financeiro(args):
     dados = _relatorio_financeiro(args)
-    colunas = [("nome", "Aluno"), ("sala", "Sala"), ("nivel", "Nível"),
-               ("valor", "Valor"), ("tipo", "Tipo de Contribuição")]
+    colunas = [
+        ("nome", "Aluno"),
+        ("sala", "Sala"),
+        ("nivel", "Nível"),
+        ("valor", "Valor"),
+        ("tipo", "Tipo de Contribuição"),
+    ]
     return [
-        {"nome": a["nome_completo"], "sala": a["sala"] or "", "nivel": a["nivel"] or "",
-         "valor": a["contribuicao"] or 0, "tipo": _limpo(a["tipo_contribuicao"])}
+        {
+            "nome": a["nome_completo"],
+            "sala": a["sala"] or "",
+            "nivel": a["nivel"] or "",
+            "valor": a["contribuicao"] or 0,
+            "tipo": _limpo(a["tipo_contribuicao"]),
+        }
         for a in dados["alunos"]
     ], colunas
 
 
 def _linhas_export_pendencias(args):
     linhas = _relatorio_pendencias(args)
-    colunas = [("nome", "Aluno"), ("sala", "Sala"), ("nivel", "Nível"),
-               ("responsavel", "Responsável"), ("telefone", "Telefone"), ("pendentes", "Documentos Pendentes")]
+    colunas = [
+        ("nome", "Aluno"),
+        ("sala", "Sala"),
+        ("nivel", "Nível"),
+        ("responsavel", "Responsável"),
+        ("telefone", "Telefone"),
+        ("pendentes", "Documentos Pendentes"),
+    ]
     return [
-        {"nome": l["aluno"]["nome_completo"], "sala": l["aluno"]["sala"] or "",
-         "nivel": l["aluno"]["nivel"] or "", "responsavel": _limpo(l["aluno"]["responsavel_matricula"]),
-         "telefone": _limpo(l["aluno"]["telefone1"]), "pendentes": ", ".join(l["pendentes"])}
+        {
+            "nome": l["aluno"]["nome_completo"],
+            "sala": l["aluno"]["sala"] or "",
+            "nivel": l["aluno"]["nivel"] or "",
+            "responsavel": _limpo(l["aluno"]["responsavel_matricula"]),
+            "telefone": _limpo(l["aluno"]["telefone1"]),
+            "pendentes": ", ".join(l["pendentes"]),
+        }
         for l in linhas
     ], colunas
 
 
 def _linhas_export_sus(args):
     alunos = _relatorio_sus(args)
-    colunas = [("nome", "Aluno"), ("sala", "Sala"), ("nascimento", "Data de Nascimento"),
-               ("cpf", "CPF"), ("sus", "Cartão SUS")]
+    colunas = [
+        ("nome", "Aluno"),
+        ("sala", "Sala"),
+        ("nascimento", "Data de Nascimento"),
+        ("cpf", "CPF"),
+        ("sus", "Cartão SUS"),
+    ]
     return [
-        {"nome": a["nome_completo"], "sala": a["sala"] or "", "nascimento": a["data_nascimento"] or "",
-         "cpf": a["cpf_aluno"] or "", "sus": a["cartao_sus"] or ""}
+        {
+            "nome": a["nome_completo"],
+            "sala": a["sala"] or "",
+            "nascimento": a["data_nascimento"] or "",
+            "cpf": a["cpf_aluno"] or "",
+            "sus": a["cartao_sus"] or "",
+        }
         for a in alunos
     ], colunas
 
 
 _DATASETS_EXPORT = {
-    "documentos":   _linhas_export_documentos,
-    "vacinacao":    _linhas_export_vacinacao,
+    "documentos": _linhas_export_documentos,
+    "vacinacao": _linhas_export_vacinacao,
     "autorizacoes": _linhas_export_autorizacoes,
-    "uniformes":    _linhas_export_uniformes,
-    "financeiro":   _linhas_export_financeiro,
-    "pendencias":   _linhas_export_pendencias,
-    "sus":          _linhas_export_sus,
+    "uniformes": _linhas_export_uniformes,
+    "financeiro": _linhas_export_financeiro,
+    "pendencias": _linhas_export_pendencias,
+    "sus": _linhas_export_sus,
 }
 
 
@@ -813,10 +999,12 @@ def login():
 
     if request.method == "POST":
         username = request.form.get("username", "").strip()
-        senha    = request.form.get("senha", "")
-        row = get_db().execute(
-            "SELECT * FROM usuario WHERE username=? AND ativo=1", (username,)
-        ).fetchone()
+        senha = request.form.get("senha", "")
+        row = (
+            get_db()
+            .execute("SELECT * FROM usuario WHERE username=? AND ativo=1", (username,))
+            .fetchone()
+        )
 
         if row and check_password_hash(row["senha_hash"], senha):
             login_user(Usuario(row))
@@ -847,10 +1035,10 @@ def index():
 @app.route("/alunos")
 @login_required
 def listar_alunos():
-    db    = get_db()
-    q     = request.args.get("q",     "").strip()
+    db = get_db()
+    q = request.args.get("q", "").strip()
     nivel = request.args.get("nivel", "").strip()
-    sala  = request.args.get("sala",  "").strip()
+    sala = request.args.get("sala", "").strip()
     ordem = request.args.get("ordem", "nome")
 
     sql = """
@@ -862,7 +1050,9 @@ def listar_alunos():
     """
     params = []
     if q:
-        sql += " AND (a.nome_completo LIKE ? OR r.nome_mae LIKE ? OR a.cpf_aluno LIKE ?)"
+        sql += (
+            " AND (a.nome_completo LIKE ? OR r.nome_mae LIKE ? OR a.cpf_aluno LIKE ?)"
+        )
         params += [f"%{q}%", f"%{q}%", f"%{q}%"]
     if nivel:
         sql += " AND m.nivel LIKE ?"
@@ -870,14 +1060,23 @@ def listar_alunos():
     if sala:
         sql += " AND m.sala = ?"
         params.append(sala)
-    sql += (" ORDER BY m.data_modificacao DESC"
-            if ordem == "data_modificacao" else " ORDER BY a.nome_completo")
+    sql += (
+        " ORDER BY m.data_modificacao DESC"
+        if ordem == "data_modificacao"
+        else " ORDER BY a.nome_completo"
+    )
 
     alunos = db.execute(sql, params).fetchall()
     return render_template(
         "alunos.html",
-        alunos=alunos, q=q, nivel=nivel, sala=sala,
-        salas=SALAS, salas_iv=SALAS_IV, salas_v=SALAS_V, ordem=ordem,
+        alunos=alunos,
+        q=q,
+        nivel=nivel,
+        sala=sala,
+        salas=SALAS,
+        salas_iv=SALAS_IV,
+        salas_v=SALAS_V,
+        ordem=ordem,
     )
 
 
@@ -885,14 +1084,28 @@ def listar_alunos():
 @login_required
 def nova_matricula():
     if request.method == "POST":
-        f  = request.form
+        f = request.form
         db = get_db()
 
-        a = form_para_dict(f, [
-            "ra","rm","nome_completo","data_nascimento","sexo","raca_cor",
-            "nacionalidade","municipio_nascimento","rg_aluno","cpf_aluno",
-            "cartao_sus","certidao_nascimento","rne","gemeo",
-        ])
+        a = form_para_dict(
+            f,
+            [
+                "ra",
+                "rm",
+                "nome_completo",
+                "data_nascimento",
+                "sexo",
+                "raca_cor",
+                "nacionalidade",
+                "municipio_nascimento",
+                "rg_aluno",
+                "cpf_aluno",
+                "cartao_sus",
+                "certidao_nascimento",
+                "rne",
+                "gemeo",
+            ],
+        )
         db.execute(
             """INSERT INTO aluno (ra,rm,nome_completo,data_nascimento,sexo,raca_cor,
                nacionalidade,municipio_nascimento,rg_aluno,cpf_aluno,
@@ -902,13 +1115,32 @@ def nova_matricula():
         )
         aluno_id = db.execute("SELECT last_insert_rowid()").fetchone()[0]
 
-        r = form_para_dict(f, [
-            "nome_mae","cpf_mae","rg_mae","uf_rg_mae","expedicao_rg_mae",
-            "estado_civil_mae","profissao_mae","nome_pai","cpf_pai","rg_pai",
-            "profissao_pai","responsavel_matricula",
-            "telefone1","telefone2","telefone3","telefone4",
-            "bolsa_familia","nis","pessoa1","pessoa2","pessoa3",
-        ])
+        r = form_para_dict(
+            f,
+            [
+                "nome_mae",
+                "cpf_mae",
+                "rg_mae",
+                "uf_rg_mae",
+                "expedicao_rg_mae",
+                "estado_civil_mae",
+                "profissao_mae",
+                "nome_pai",
+                "cpf_pai",
+                "rg_pai",
+                "profissao_pai",
+                "responsavel_matricula",
+                "telefone1",
+                "telefone2",
+                "telefone3",
+                "telefone4",
+                "bolsa_familia",
+                "nis",
+                "pessoa1",
+                "pessoa2",
+                "pessoa3",
+            ],
+        )
         db.execute(
             """INSERT INTO responsavel (aluno_id,nome_mae,cpf_mae,rg_mae,uf_rg_mae,
                expedicao_rg_mae,estado_civil_mae,profissao_mae,nome_pai,cpf_pai,rg_pai,
@@ -918,19 +1150,40 @@ def nova_matricula():
             [aluno_id] + list(r.values()),
         )
 
-        e = form_para_dict(f, ["logradouro","numero","bairro","cidade_end","estado","cep"])
+        e = form_para_dict(
+            f, ["logradouro", "numero", "bairro", "cidade_end", "estado", "cep"]
+        )
         db.execute(
             """INSERT INTO endereco (aluno_id,logradouro,numero,bairro,cidade,estado,cep)
                VALUES (?,?,?,?,?,?,?)""",
-            [aluno_id, e["logradouro"], e["numero"], e["bairro"],
-             e["cidade_end"], e["estado"], e["cep"]],
+            [
+                aluno_id,
+                e["logradouro"],
+                e["numero"],
+                e["bairro"],
+                e["cidade_end"],
+                e["estado"],
+                e["cep"],
+            ],
         )
 
-        s = form_para_dict(f, [
-            "tipo_sanguineo","alergico","diabetico","lactose","aplv",
-            "plano","uniforme","calcado","observacoes","validade_vacina",
-            "peso","altura",
-        ])
+        s = form_para_dict(
+            f,
+            [
+                "tipo_sanguineo",
+                "alergico",
+                "diabetico",
+                "lactose",
+                "aplv",
+                "plano",
+                "uniforme",
+                "calcado",
+                "observacoes",
+                "validade_vacina",
+                "peso",
+                "altura",
+            ],
+        )
         db.execute(
             """INSERT INTO saude (aluno_id,tipo_sanguineo,alergico,diabetico,lactose,aplv,
                plano,uniforme,calcado,observacoes,validade_vacina,peso,altura)
@@ -938,21 +1191,40 @@ def nova_matricula():
             [aluno_id] + list(s.values()),
         )
 
-        m = form_para_dict(f, [
-            "nivel","sala","integral","escola_anterior",
-            "permite_edfisica","permite_fotos","permite_passeios",
-            "contribuicao","tipo_contribuicao",
-        ])
+        m = form_para_dict(
+            f,
+            [
+                "nivel",
+                "sala",
+                "integral",
+                "escola_anterior",
+                "permite_edfisica",
+                "permite_fotos",
+                "permite_passeios",
+                "contribuicao",
+                "tipo_contribuicao",
+            ],
+        )
         ano_val = normalizar("ano_texto", f.get("ano_matricula", ""))
         db.execute(
             """INSERT INTO matricula (aluno_id,nivel,sala,integral,ano,escola_anterior,
                permite_edfisica,permite_fotos,permite_passeios,contribuicao,
                tipo_contribuicao,data_modificacao)
                VALUES (?,?,?,?,?,?,?,?,?,?,?,?)""",
-            [aluno_id, m["nivel"], m["sala"], m["integral"], ano_val,
-             m["escola_anterior"], m["permite_edfisica"], m["permite_fotos"],
-             m["permite_passeios"], m["contribuicao"], m["tipo_contribuicao"],
-             agora()],
+            [
+                aluno_id,
+                m["nivel"],
+                m["sala"],
+                m["integral"],
+                ano_val,
+                m["escola_anterior"],
+                m["permite_edfisica"],
+                m["permite_fotos"],
+                m["permite_passeios"],
+                m["contribuicao"],
+                m["tipo_contribuicao"],
+                agora(),
+            ],
         )
         db.commit()
 
@@ -970,9 +1242,15 @@ def nova_matricula():
 
     return render_template(
         "nova_matricula.html",
-        modo="novo", edicao_habilitada=True,
-        aluno=None, documentos=[], divergencias=None,
-        salas=SALAS, salas_iv=SALAS_IV, salas_v=SALAS_V, ufs=UFS,
+        modo="novo",
+        edicao_habilitada=True,
+        aluno=None,
+        documentos=[],
+        divergencias=None,
+        salas=SALAS,
+        salas_iv=SALAS_IV,
+        salas_v=SALAS_V,
+        ufs=UFS,
         ano_atual=datetime.now().year,
         drive_ativo=_drive_ativo(),
     )
@@ -989,14 +1267,28 @@ def editar_matricula(id):
         return redirect(url_for("listar_alunos"))
 
     if request.method == "POST":
-        f  = request.form
+        f = request.form
         db = get_db()
 
-        a = form_para_dict(f, [
-            "ra","rm","nome_completo","data_nascimento","sexo","raca_cor",
-            "nacionalidade","municipio_nascimento","rg_aluno","cpf_aluno",
-            "cartao_sus","certidao_nascimento","rne","gemeo",
-        ])
+        a = form_para_dict(
+            f,
+            [
+                "ra",
+                "rm",
+                "nome_completo",
+                "data_nascimento",
+                "sexo",
+                "raca_cor",
+                "nacionalidade",
+                "municipio_nascimento",
+                "rg_aluno",
+                "cpf_aluno",
+                "cartao_sus",
+                "certidao_nascimento",
+                "rne",
+                "gemeo",
+            ],
+        )
         db.execute(
             """UPDATE aluno SET ra=?,rm=?,nome_completo=?,data_nascimento=?,sexo=?,
                raca_cor=?,nacionalidade=?,municipio_nascimento=?,rg_aluno=?,cpf_aluno=?,
@@ -1004,13 +1296,32 @@ def editar_matricula(id):
             list(a.values()) + [id],
         )
 
-        r = form_para_dict(f, [
-            "nome_mae","cpf_mae","rg_mae","uf_rg_mae","expedicao_rg_mae",
-            "estado_civil_mae","profissao_mae","nome_pai","cpf_pai","rg_pai",
-            "profissao_pai","responsavel_matricula",
-            "telefone1","telefone2","telefone3","telefone4",
-            "bolsa_familia","nis","pessoa1","pessoa2","pessoa3",
-        ])
+        r = form_para_dict(
+            f,
+            [
+                "nome_mae",
+                "cpf_mae",
+                "rg_mae",
+                "uf_rg_mae",
+                "expedicao_rg_mae",
+                "estado_civil_mae",
+                "profissao_mae",
+                "nome_pai",
+                "cpf_pai",
+                "rg_pai",
+                "profissao_pai",
+                "responsavel_matricula",
+                "telefone1",
+                "telefone2",
+                "telefone3",
+                "telefone4",
+                "bolsa_familia",
+                "nis",
+                "pessoa1",
+                "pessoa2",
+                "pessoa3",
+            ],
+        )
         db.execute(
             """UPDATE responsavel SET nome_mae=?,cpf_mae=?,rg_mae=?,uf_rg_mae=?,
                expedicao_rg_mae=?,estado_civil_mae=?,profissao_mae=?,nome_pai=?,cpf_pai=?,
@@ -1020,19 +1331,40 @@ def editar_matricula(id):
             list(r.values()) + [id],
         )
 
-        e = form_para_dict(f, ["logradouro","numero","bairro","cidade_end","estado","cep"])
+        e = form_para_dict(
+            f, ["logradouro", "numero", "bairro", "cidade_end", "estado", "cep"]
+        )
         db.execute(
             """UPDATE endereco SET logradouro=?,numero=?,bairro=?,cidade=?,estado=?,cep=?
                WHERE aluno_id=?""",
-            [e["logradouro"], e["numero"], e["bairro"],
-             e["cidade_end"], e["estado"], e["cep"], id],
+            [
+                e["logradouro"],
+                e["numero"],
+                e["bairro"],
+                e["cidade_end"],
+                e["estado"],
+                e["cep"],
+                id,
+            ],
         )
 
-        s = form_para_dict(f, [
-            "tipo_sanguineo","alergico","diabetico","lactose","aplv",
-            "plano","uniforme","calcado","observacoes","validade_vacina",
-            "peso","altura",
-        ])
+        s = form_para_dict(
+            f,
+            [
+                "tipo_sanguineo",
+                "alergico",
+                "diabetico",
+                "lactose",
+                "aplv",
+                "plano",
+                "uniforme",
+                "calcado",
+                "observacoes",
+                "validade_vacina",
+                "peso",
+                "altura",
+            ],
+        )
         db.execute(
             """UPDATE saude SET tipo_sanguineo=?,alergico=?,diabetico=?,lactose=?,aplv=?,
                plano=?,uniforme=?,calcado=?,observacoes=?,validade_vacina=?,peso=?,altura=?
@@ -1040,20 +1372,39 @@ def editar_matricula(id):
             list(s.values()) + [id],
         )
 
-        m = form_para_dict(f, [
-            "nivel","sala","integral","escola_anterior",
-            "permite_edfisica","permite_fotos","permite_passeios",
-            "contribuicao","tipo_contribuicao",
-        ])
+        m = form_para_dict(
+            f,
+            [
+                "nivel",
+                "sala",
+                "integral",
+                "escola_anterior",
+                "permite_edfisica",
+                "permite_fotos",
+                "permite_passeios",
+                "contribuicao",
+                "tipo_contribuicao",
+            ],
+        )
         ano_val = normalizar("ano_texto", f.get("ano_matricula", ""))
         db.execute(
             """UPDATE matricula SET nivel=?,sala=?,integral=?,ano=?,escola_anterior=?,
                permite_edfisica=?,permite_fotos=?,permite_passeios=?,contribuicao=?,
                tipo_contribuicao=?,data_modificacao=? WHERE aluno_id=?""",
-            [m["nivel"], m["sala"], m["integral"], ano_val,
-             m["escola_anterior"], m["permite_edfisica"], m["permite_fotos"],
-             m["permite_passeios"], m["contribuicao"], m["tipo_contribuicao"],
-             agora(), id],
+            [
+                m["nivel"],
+                m["sala"],
+                m["integral"],
+                ano_val,
+                m["escola_anterior"],
+                m["permite_edfisica"],
+                m["permite_fotos"],
+                m["permite_passeios"],
+                m["contribuicao"],
+                m["tipo_contribuicao"],
+                agora(),
+                id,
+            ],
         )
         db.commit()
 
@@ -1069,16 +1420,26 @@ def editar_matricula(id):
         flash(f"Matrícula de {a['nome_completo']} atualizada com sucesso!", "success")
         return redirect(url_for("listar_alunos"))
 
-    docs = get_db().execute(
-        "SELECT * FROM documento WHERE aluno_id=? ORDER BY enviado_em DESC", (id,)
-    ).fetchall()
+    docs = (
+        get_db()
+        .execute(
+            "SELECT * FROM documento WHERE aluno_id=? ORDER BY enviado_em DESC", (id,)
+        )
+        .fetchall()
+    )
     divergencias = verificar_divergencias(id) if edicao_habilitada else None
 
     return render_template(
         "nova_matricula.html",
-        modo="editar", edicao_habilitada=edicao_habilitada,
-        aluno=aluno, documentos=docs, divergencias=divergencias,
-        salas=SALAS, salas_iv=SALAS_IV, salas_v=SALAS_V, ufs=UFS,
+        modo="editar",
+        edicao_habilitada=edicao_habilitada,
+        aluno=aluno,
+        documentos=docs,
+        divergencias=divergencias,
+        salas=SALAS,
+        salas_iv=SALAS_IV,
+        salas_v=SALAS_V,
+        ufs=UFS,
         ano_atual=datetime.now().year,
         drive_ativo=_drive_ativo(),
     )
@@ -1087,7 +1448,7 @@ def editar_matricula(id):
 @app.route("/excluir/<int:id>", methods=["POST"])
 @login_required
 def excluir_matricula(id):
-    db  = get_db()
+    db = get_db()
     row = db.execute(
         """SELECT a.nome_completo, m.ano, m.sala
            FROM aluno a LEFT JOIN matricula m ON m.aluno_id = a.id
@@ -1100,7 +1461,7 @@ def excluir_matricula(id):
         return redirect(url_for("listar_alunos"))
 
     nome = row["nome_completo"]
-    ano  = row["ano"]  or "SEM_ANO"
+    ano = row["ano"] or "SEM_ANO"
     sala = row["sala"] or "SEM_SALA"
 
     if _drive_ativo():
@@ -1122,7 +1483,7 @@ def excluir_matricula(id):
 @app.route("/excluir_documento/<int:doc_id>", methods=["POST"])
 @login_required
 def excluir_documento(doc_id):
-    db  = get_db()
+    db = get_db()
     doc = db.execute("SELECT * FROM documento WHERE id=?", (doc_id,)).fetchone()
     if not doc:
         flash("Documento não encontrado.", "danger")
@@ -1132,7 +1493,9 @@ def excluir_documento(doc_id):
         try:
             drive.deletar_arquivo(doc["drive_id"])
         except Exception as exc:
-            logger.warning("Drive: erro ao deletar arquivo %s: %s", doc["drive_id"], exc)
+            logger.warning(
+                "Drive: erro ao deletar arquivo %s: %s", doc["drive_id"], exc
+            )
 
     db.execute("DELETE FROM documento WHERE id=?", (doc_id,))
     db.commit()
@@ -1171,8 +1534,11 @@ def documentacao():
 
     contexto = dict(
         aba=aba,
-        salas=SALAS, salas_iv=SALAS_IV, salas_v=SALAS_V,
-        campos_upload=CAMPOS_UPLOAD, doc_labels=DOC_LABELS,
+        salas=SALAS,
+        salas_iv=SALAS_IV,
+        salas_v=SALAS_V,
+        campos_upload=CAMPOS_UPLOAD,
+        doc_labels=DOC_LABELS,
         args=request.args,
     )
 
@@ -1249,7 +1615,8 @@ if _DRIVE_IMPORT_OK:
     except Exception as exc:
         logger.warning(
             "Drive: %s — app segue sem Drive (uploads vão para o disco local). "
-            "Rode 'python autenticar_drive.py' para autenticar.", exc
+            "Rode 'python autenticar_drive.py' para autenticar.",
+            exc,
         )
 
 with app.app_context():
@@ -1268,4 +1635,4 @@ if __name__ == "__main__":
         threading.Timer(1.5, _abrir_navegador).start()
         app.run(debug=False, use_reloader=False, host="0.0.0.0", port=5000)
     else:
-        app.run(debug=True, host="0.0.0.0", port=5000)
+        app.run(debug=False, host="0.0.0.0", port=5000)
