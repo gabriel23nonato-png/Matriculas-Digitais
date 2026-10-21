@@ -28,7 +28,7 @@ def app_dir() -> str:
     return os.path.dirname(os.path.abspath(__file__))
 
 
-DATABASE = os.path.join(app_dir(), "database", "database", "alunosv3_novo.db")
+DATABASE = os.path.join(app_dir(), "database", "database", "alunosv3.db")
 
 
 def main():

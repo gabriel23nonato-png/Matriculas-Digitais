@@ -9,7 +9,13 @@ Config : .env  →  DRIVE_ROOT_FOLDER_ID, SECRET_KEY
 import os
 import sys
 import logging
+import atexit
+import faulthandler
+import re
 import sqlite3
+import threading
+import time
+from contextlib import contextmanager
 from datetime import datetime, timedelta
 
 from dotenv import load_dotenv
@@ -59,7 +65,7 @@ except ImportError:
     _DRIVE_IMPORT_OK = False
 
 BASE_DIR = app_dir()
-DATABASE = os.path.join(BASE_DIR, "database", "database", "alunosv3_novo.db")
+DATABASE = os.path.join(BASE_DIR, "database", "database", "alunosv3.db")
 UPLOAD_FOLDER = os.path.join(BASE_DIR, "uploads")
 ALLOWED_EXTENSIONS = {"pdf", "jpg", "jpeg", "png", "webp"}
 
@@ -112,11 +118,148 @@ CAMPOS_UPLOAD = [
     "doc_comprovante_vacinacao",
 ]
 
+CAMPOS_ALUNO = [
+    "ra",
+    "rm",
+    "nome_completo",
+    "data_nascimento",
+    "sexo",
+    "raca_cor",
+    "nacionalidade",
+    "municipio_nascimento",
+    "rg_aluno",
+    "cpf_aluno",
+    "cartao_sus",
+    "certidao_nascimento",
+    "rne",
+    "gemeo",
+]
+CAMPOS_RESPONSAVEL = [
+    "nome_mae",
+    "cpf_mae",
+    "rg_mae",
+    "uf_rg_mae",
+    "expedicao_rg_mae",
+    "estado_civil_mae",
+    "profissao_mae",
+    "nome_pai",
+    "cpf_pai",
+    "rg_pai",
+    "profissao_pai",
+    "responsavel_matricula",
+    "telefone1",
+    "telefone2",
+    "telefone3",
+    "telefone4",
+    "bolsa_familia",
+    "nis",
+    "pessoa1",
+    "pessoa2",
+    "pessoa3",
+]
+CAMPOS_ENDERECO = ["logradouro", "numero", "bairro", "cidade_end", "estado", "cep"]
+CAMPOS_SAUDE = [
+    "tipo_sanguineo",
+    "alergico",
+    "diabetico",
+    "lactose",
+    "aplv",
+    "plano",
+    "uniforme",
+    "calcado",
+    "observacoes",
+    "validade_vacina",
+    "peso",
+    "altura",
+]
+CAMPOS_MATRICULA = [
+    "nivel",
+    "sala",
+    "integral",
+    "escola_anterior",
+    "permite_edfisica",
+    "permite_fotos",
+    "permite_passeios",
+    "contribuicao",
+    "tipo_contribuicao",
+]
+
 os.makedirs(os.path.dirname(DATABASE), exist_ok=True)
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+# Log em arquivo (servidor.log, ao lado do app.py / .exe): se o servidor cair ou
+# uma rota falhar, o traceback completo fica registrado aqui.
+from logging.handlers import RotatingFileHandler
+
+_fh = RotatingFileHandler(
+    os.path.join(BASE_DIR, "servidor.log"),
+    maxBytes=1_000_000,
+    backupCount=3,
+    encoding="utf-8",
+)
+_fh.setFormatter(logging.Formatter("%(asctime)s %(levelname)s %(name)s: %(message)s"))
+logging.getLogger().addHandler(_fh)
+
+# ── Caixa-preta: registra o que acontece quando o servidor cai ────────────────
+# diagnostico.log: queda "nativa" do Python (ex.: violação de memória em biblioteca
+# C) e a pilha de TODAS as threads quando uma requisição trava.
+_diag = open(
+    os.path.join(BASE_DIR, "diagnostico.log"), "a", buffering=1, encoding="utf-8"
+)
+faulthandler.enable(file=_diag, all_threads=True)
+_diag.write(f"\n=== processo iniciado {datetime.now():%Y-%m-%d %H:%M:%S} ===\n")
+
+
+def _excecao_em_thread(args):
+    logger.error(
+        "Exceção não tratada em thread '%s'",
+        args.thread.name if args.thread else "?",
+        exc_info=(args.exc_type, args.exc_value, args.exc_traceback),
+    )
+
+
+threading.excepthook = _excecao_em_thread
+
+
+def _registrar_saida():
+    logger.warning("Processo Python encerrando (atexit).")
+    for h in logging.getLogger().handlers:
+        h.flush()
+
+
+atexit.register(_registrar_saida)
+
+if os.name == "nt":
+    # Windows: avisa no log se o fim veio de Ctrl+C, janela fechada, logoff etc.
+    try:
+        import ctypes
+
+        _EVENTOS_CONSOLE = {
+            0: "CTRL+C",
+            1: "CTRL+BREAK",
+            2: "JANELA DO TERMINAL FECHADA",
+            5: "LOGOFF do usuário",
+            6: "DESLIGAMENTO do Windows",
+        }
+        _HandlerRoutine = ctypes.WINFUNCTYPE(ctypes.c_int, ctypes.c_uint)
+
+        def _evento_console(ev):
+            logger.warning(
+                "Evento do console do Windows: %s (%s)",
+                _EVENTOS_CONSOLE.get(ev, "?"),
+                ev,
+            )
+            for h in logging.getLogger().handlers:
+                h.flush()
+            return 0  # deixa o Windows seguir o comportamento padrão
+
+        _console_cb = _HandlerRoutine(_evento_console)  # manter referência viva
+        ctypes.windll.kernel32.SetConsoleCtrlHandler(_console_cb, True)
+    except Exception:  # diagnóstico nunca pode impedir o app de subir
+        logger.warning("Não foi possível instalar o monitor de eventos do console.")
 
 app = Flask(
     __name__,
@@ -144,26 +287,114 @@ app.config["MAX_CONTENT_LENGTH"] = 100 * 1024 * 1024  # 100 MB
 csrf = CSRFProtect(app)
 
 
+# Lock global de escrita: só UMA requisição grava por vez (leituras não são
+# afetadas). Junto com BEGIN IMMEDIATE, garante que o "já existe esse aluno?"
+# e o INSERT acontecem como uma operação indivisível — é isso que impede a
+# matrícula duplicada quando dois usuários salvam ao mesmo tempo.
+_write_lock = threading.Lock()
+
+
 def get_db():
     db = getattr(g, "_database", None)
     if db is None:
-        db = g._database = sqlite3.connect(DATABASE)
+        # isolation_level=None → autocommit: as transações são controladas
+        # explicitamente (BEGIN IMMEDIATE / COMMIT / ROLLBACK) em transacao_escrita().
+        db = g._database = sqlite3.connect(
+            DATABASE, timeout=30, isolation_level=None, check_same_thread=False
+        )
         db.row_factory = sqlite3.Row
         db.execute("PRAGMA foreign_keys = ON")
-        db.execute(
-            "PRAGMA journal_mode = WAL"
-        )  # ← WAL (Write-Ahead Logging): permite leituras enquanto uma escrita está em andamento.
-        db.execute(
-            "PRAGMA busy_timeout = 30000"
-        )  # busy_timeout: em vez de travar com erro imediatamente, o SQLite aguarda até 30 segundos antes de desistir.
+        db.execute("PRAGMA journal_mode = WAL")  # leitura não bloqueia durante escrita
+        db.execute("PRAGMA busy_timeout = 30000")  # espera até 30 s em vez de falhar
+        db.execute("PRAGMA synchronous = NORMAL")  # seguro com WAL e mais rápido
     return db
 
 
 @app.teardown_appcontext
-def close_db(_exc):
+def close_db(exc):
     db = getattr(g, "_database", None)
     if db is not None:
-        db.close()
+        try:
+            if db.in_transaction:
+                db.execute("ROLLBACK")  # rota caiu no meio de uma transação
+        finally:
+            db.close()
+
+
+@contextmanager
+def transacao_escrita(db):
+    """Escrita atômica e serializada: lock + BEGIN IMMEDIATE + COMMIT/ROLLBACK."""
+    with _write_lock:
+        db.execute("BEGIN IMMEDIATE")
+        try:
+            yield db
+            db.execute("COMMIT")
+        except BaseException:
+            if db.in_transaction:
+                db.execute("ROLLBACK")
+            raise
+
+
+class MatriculaDuplicada(Exception):
+    """Aluno já cadastrado (mesmo CPF, ou mesmo nome + data de nascimento)."""
+
+    def __init__(self, existente):
+        super().__init__(existente["nome_completo"])
+        self.existente = existente
+
+
+# Registro de requisições: "→" quando começa, "←" quando termina. Se a queda
+# acontecer no meio, o log mostra um "→" sem o "←" correspondente = a requisição
+# que estava em andamento. Requisição parada > LIMITE segundos gera alerta + pilha.
+LIMITE_REQUISICAO_LENTA = 45
+
+
+def _alerta_requisicao_lenta(metodo, caminho, quando):
+    logger.warning(
+        "REQUISIÇÃO TRAVADA/LENTA (>%ss): %s %s — pilha das threads em diagnostico.log",
+        LIMITE_REQUISICAO_LENTA,
+        metodo,
+        caminho,
+    )
+    _diag.write(f"\n=== {quando} requisição lenta: {metodo} {caminho} ===\n")
+    faulthandler.dump_traceback(file=_diag, all_threads=True)
+
+
+@app.before_request
+def _inicio_requisicao():
+    if request.path.startswith("/static"):
+        return
+    g._t0 = time.monotonic()
+    logger.info("→ %s %s (de %s)", request.method, request.path, request.remote_addr)
+    timer = threading.Timer(
+        LIMITE_REQUISICAO_LENTA,
+        _alerta_requisicao_lenta,
+        args=(request.method, request.path, datetime.now().strftime("%H:%M:%S")),
+    )
+    timer.daemon = True
+    timer.start()
+    g._timer = timer
+
+
+@app.after_request
+def _fim_requisicao(resp):
+    t0 = getattr(g, "_t0", None)
+    if t0 is not None:
+        logger.info(
+            "← %s %s %s (%.2fs)",
+            request.method,
+            request.path,
+            resp.status_code,
+            time.monotonic() - t0,
+        )
+    return resp
+
+
+@app.teardown_request
+def _cancelar_alerta(_exc):
+    timer = getattr(g, "_timer", None)
+    if timer is not None:
+        timer.cancel()
 
 
 def _add_col(db, tabela, coluna, tipo):
@@ -292,7 +523,22 @@ def init_db():
         ("drive_url", "TEXT"),
     ]:
         _add_col(db, "documento", col, tipo)
-    db.commit()
+    # Rede de segurança no nível do banco: mesmo CPF não entra duas vezes.
+    # Se já existirem CPFs repetidos (duplicatas antigas), o índice não é criado
+    # até que elas sejam apagadas — o app continua protegido pela checagem em Python.
+    try:
+        db.execute(
+            "CREATE UNIQUE INDEX IF NOT EXISTS uq_aluno_cpf ON aluno(cpf_aluno) "
+            "WHERE cpf_aluno IS NOT NULL AND cpf_aluno != '' "
+            "AND cpf_aluno != 'NÃO INFORMADO'"
+        )
+    except sqlite3.IntegrityError:
+        logger.warning(
+            "Índice único de CPF NÃO criado: já existem alunos com CPF repetido. "
+            "Apague as duplicatas e reinicie o app."
+        )
+    if db.in_transaction:
+        db.commit()
 
 
 # ── Autenticação (Fase 1 — Segurança de Base) ─────────────────────────────────
@@ -384,6 +630,69 @@ def agora() -> str:
 
 def allowed_file(filename: str) -> bool:
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+def _so_digitos(v) -> str:
+    return re.sub(r"\D", "", str(v or ""))
+
+
+def _data_iso(v) -> str:
+    """Normaliza data para AAAA-MM-DD (aceita ISO, ISO com hora e DD/MM/AAAA)."""
+    s = str(v or "").strip()
+    m = re.match(r"^(\d{2})/(\d{2})/(\d{4})", s)
+    if m:
+        return f"{m.group(3)}-{m.group(2)}-{m.group(1)}"
+    return s[:10]
+
+
+def _buscar_duplicado(db, a: dict, ignorar_id=None):
+    """Devolve o aluno já cadastrado equivalente a `a`, ou None.
+
+    Regras: mesmo CPF (só dígitos)  OU  mesmo nome + mesma data de nascimento.
+    Sem data de nascimento informada, compara só o nome.
+    """
+    cpf = _so_digitos(a.get("cpf_aluno"))
+    nome = str(a.get("nome_completo") or "").strip().casefold()
+    nasc = _data_iso(a.get("data_nascimento"))
+
+    for row in db.execute(
+        "SELECT id, nome_completo, data_nascimento, cpf_aluno FROM aluno"
+    ):
+        if ignorar_id is not None and row["id"] == ignorar_id:
+            continue
+        if cpf and _so_digitos(row["cpf_aluno"]) == cpf:
+            return row
+        if nome and str(row["nome_completo"] or "").strip().casefold() == nome:
+            data_row = _data_iso(row["data_nascimento"])
+            if not nasc or not data_row or nasc == data_row:
+                return row
+    return None
+
+
+def _form_como_aluno(f, base=None) -> dict:
+    """Reaproveita o que o usuário digitou para re-exibir o formulário após erro."""
+    d = dict(base) if base is not None else {}
+    d.update(f.to_dict())
+    d["cidade"] = f.get("cidade_end", "")
+    d["ano"] = f.get("ano_matricula", "")
+    return d
+
+
+def _render_formulario(modo, aluno, edicao_habilitada, documentos, divergencias):
+    return render_template(
+        "nova_matricula.html",
+        modo=modo,
+        edicao_habilitada=edicao_habilitada,
+        aluno=aluno,
+        documentos=documentos,
+        divergencias=divergencias,
+        salas=SALAS,
+        salas_iv=SALAS_IV,
+        salas_v=SALAS_V,
+        ufs=UFS,
+        ano_atual=datetime.now().year,
+        drive_ativo=_drive_ativo(),
+    )
 
 
 def _get_aluno_completo(aluno_id):
@@ -1087,147 +1396,106 @@ def nova_matricula():
         f = request.form
         db = get_db()
 
-        a = form_para_dict(
-            f,
-            [
-                "ra",
-                "rm",
-                "nome_completo",
-                "data_nascimento",
-                "sexo",
-                "raca_cor",
-                "nacionalidade",
-                "municipio_nascimento",
-                "rg_aluno",
-                "cpf_aluno",
-                "cartao_sus",
-                "certidao_nascimento",
-                "rne",
-                "gemeo",
-            ],
-        )
-        db.execute(
-            """INSERT INTO aluno (ra,rm,nome_completo,data_nascimento,sexo,raca_cor,
-               nacionalidade,municipio_nascimento,rg_aluno,cpf_aluno,
-               cartao_sus,certidao_nascimento,rne,gemeo)
-               VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
-            list(a.values()),
-        )
-        aluno_id = db.execute("SELECT last_insert_rowid()").fetchone()[0]
-
-        r = form_para_dict(
-            f,
-            [
-                "nome_mae",
-                "cpf_mae",
-                "rg_mae",
-                "uf_rg_mae",
-                "expedicao_rg_mae",
-                "estado_civil_mae",
-                "profissao_mae",
-                "nome_pai",
-                "cpf_pai",
-                "rg_pai",
-                "profissao_pai",
-                "responsavel_matricula",
-                "telefone1",
-                "telefone2",
-                "telefone3",
-                "telefone4",
-                "bolsa_familia",
-                "nis",
-                "pessoa1",
-                "pessoa2",
-                "pessoa3",
-            ],
-        )
-        db.execute(
-            """INSERT INTO responsavel (aluno_id,nome_mae,cpf_mae,rg_mae,uf_rg_mae,
-               expedicao_rg_mae,estado_civil_mae,profissao_mae,nome_pai,cpf_pai,rg_pai,
-               profissao_pai,responsavel_matricula,telefone1,telefone2,telefone3,telefone4,
-               bolsa_familia,nis,pessoa1,pessoa2,pessoa3)
-               VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
-            [aluno_id] + list(r.values()),
-        )
-
-        e = form_para_dict(
-            f, ["logradouro", "numero", "bairro", "cidade_end", "estado", "cep"]
-        )
-        db.execute(
-            """INSERT INTO endereco (aluno_id,logradouro,numero,bairro,cidade,estado,cep)
-               VALUES (?,?,?,?,?,?,?)""",
-            [
-                aluno_id,
-                e["logradouro"],
-                e["numero"],
-                e["bairro"],
-                e["cidade_end"],
-                e["estado"],
-                e["cep"],
-            ],
-        )
-
-        s = form_para_dict(
-            f,
-            [
-                "tipo_sanguineo",
-                "alergico",
-                "diabetico",
-                "lactose",
-                "aplv",
-                "plano",
-                "uniforme",
-                "calcado",
-                "observacoes",
-                "validade_vacina",
-                "peso",
-                "altura",
-            ],
-        )
-        db.execute(
-            """INSERT INTO saude (aluno_id,tipo_sanguineo,alergico,diabetico,lactose,aplv,
-               plano,uniforme,calcado,observacoes,validade_vacina,peso,altura)
-               VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)""",
-            [aluno_id] + list(s.values()),
-        )
-
-        m = form_para_dict(
-            f,
-            [
-                "nivel",
-                "sala",
-                "integral",
-                "escola_anterior",
-                "permite_edfisica",
-                "permite_fotos",
-                "permite_passeios",
-                "contribuicao",
-                "tipo_contribuicao",
-            ],
-        )
+        a = form_para_dict(f, CAMPOS_ALUNO)
+        r = form_para_dict(f, CAMPOS_RESPONSAVEL)
+        e = form_para_dict(f, CAMPOS_ENDERECO)
+        s = form_para_dict(f, CAMPOS_SAUDE)
+        m = form_para_dict(f, CAMPOS_MATRICULA)
         ano_val = normalizar("ano_texto", f.get("ano_matricula", ""))
-        db.execute(
-            """INSERT INTO matricula (aluno_id,nivel,sala,integral,ano,escola_anterior,
-               permite_edfisica,permite_fotos,permite_passeios,contribuicao,
-               tipo_contribuicao,data_modificacao)
-               VALUES (?,?,?,?,?,?,?,?,?,?,?,?)""",
-            [
-                aluno_id,
-                m["nivel"],
-                m["sala"],
-                m["integral"],
-                ano_val,
-                m["escola_anterior"],
-                m["permite_edfisica"],
-                m["permite_fotos"],
-                m["permite_passeios"],
-                m["contribuicao"],
-                m["tipo_contribuicao"],
-                agora(),
-            ],
-        )
-        db.commit()
 
+        try:
+            with transacao_escrita(db):
+                # Checagem e INSERTs na MESMA transação, sob o lock: o segundo
+                # salvamento simultâneo sempre enxerga o aluno que o primeiro criou.
+                existente = _buscar_duplicado(db, a)
+                if existente:
+                    raise MatriculaDuplicada(existente)
+
+                db.execute(
+                    """INSERT INTO aluno (ra,rm,nome_completo,data_nascimento,sexo,raca_cor,
+                       nacionalidade,municipio_nascimento,rg_aluno,cpf_aluno,
+                       cartao_sus,certidao_nascimento,rne,gemeo)
+                       VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+                    list(a.values()),
+                )
+                aluno_id = db.execute("SELECT last_insert_rowid()").fetchone()[0]
+
+                db.execute(
+                    """INSERT INTO responsavel (aluno_id,nome_mae,cpf_mae,rg_mae,uf_rg_mae,
+                       expedicao_rg_mae,estado_civil_mae,profissao_mae,nome_pai,cpf_pai,rg_pai,
+                       profissao_pai,responsavel_matricula,telefone1,telefone2,telefone3,telefone4,
+                       bolsa_familia,nis,pessoa1,pessoa2,pessoa3)
+                       VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+                    [aluno_id] + list(r.values()),
+                )
+                db.execute(
+                    """INSERT INTO endereco (aluno_id,logradouro,numero,bairro,cidade,estado,cep)
+                       VALUES (?,?,?,?,?,?,?)""",
+                    [
+                        aluno_id,
+                        e["logradouro"],
+                        e["numero"],
+                        e["bairro"],
+                        e["cidade_end"],
+                        e["estado"],
+                        e["cep"],
+                    ],
+                )
+                db.execute(
+                    """INSERT INTO saude (aluno_id,tipo_sanguineo,alergico,diabetico,lactose,aplv,
+                       plano,uniforme,calcado,observacoes,validade_vacina,peso,altura)
+                       VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+                    [aluno_id] + list(s.values()),
+                )
+                db.execute(
+                    """INSERT INTO matricula (aluno_id,nivel,sala,integral,ano,escola_anterior,
+                       permite_edfisica,permite_fotos,permite_passeios,contribuicao,
+                       tipo_contribuicao,data_modificacao)
+                       VALUES (?,?,?,?,?,?,?,?,?,?,?,?)""",
+                    [
+                        aluno_id,
+                        m["nivel"],
+                        m["sala"],
+                        m["integral"],
+                        ano_val,
+                        m["escola_anterior"],
+                        m["permite_edfisica"],
+                        m["permite_fotos"],
+                        m["permite_passeios"],
+                        m["contribuicao"],
+                        m["tipo_contribuicao"],
+                        agora(),
+                    ],
+                )
+        except MatriculaDuplicada as dup:
+            logger.warning(
+                "Matrícula duplicada bloqueada: '%s' (já existe id=%s)",
+                a["nome_completo"],
+                dup.existente["id"],
+            )
+            flash(
+                f"Nenhuma matrícula nova foi criada: {dup.existente['nome_completo']} "
+                f"já está cadastrado(a). Para alterar dados, use Editar na lista.",
+                "warning",
+            )
+            return redirect(url_for("listar_alunos"))
+        except sqlite3.IntegrityError:
+            logger.warning("Duplicidade barrada pelo banco: '%s'", a["nome_completo"])
+            flash(
+                "Nenhuma matrícula nova foi criada: já existe um aluno com este CPF.",
+                "warning",
+            )
+            return redirect(url_for("listar_alunos"))
+        except sqlite3.Error:
+            logger.exception("Erro ao salvar nova matrícula")
+            flash(
+                "Não foi possível salvar a matrícula agora (nada foi gravado). "
+                "Confira os dados abaixo e tente novamente.",
+                "danger",
+            )
+            return _render_formulario("novo", _form_como_aluno(f), True, [], None)
+
+        # Fora do lock: upload para o Drive pode demorar e não deve travar os outros.
         processar_uploads(
             aluno_id=aluno_id,
             ano=str(ano_val or "SEM_ANO"),
@@ -1240,20 +1508,7 @@ def nova_matricula():
         flash(f"Matrícula de {a['nome_completo']} salva com sucesso!", "success")
         return redirect(url_for("listar_alunos"))
 
-    return render_template(
-        "nova_matricula.html",
-        modo="novo",
-        edicao_habilitada=True,
-        aluno=None,
-        documentos=[],
-        divergencias=None,
-        salas=SALAS,
-        salas_iv=SALAS_IV,
-        salas_v=SALAS_V,
-        ufs=UFS,
-        ano_atual=datetime.now().year,
-        drive_ativo=_drive_ativo(),
-    )
+    return _render_formulario("novo", None, True, [], None)
 
 
 @app.route("/editar/<int:id>", methods=["GET", "POST"])
@@ -1270,143 +1525,96 @@ def editar_matricula(id):
         f = request.form
         db = get_db()
 
-        a = form_para_dict(
-            f,
-            [
-                "ra",
-                "rm",
-                "nome_completo",
-                "data_nascimento",
-                "sexo",
-                "raca_cor",
-                "nacionalidade",
-                "municipio_nascimento",
-                "rg_aluno",
-                "cpf_aluno",
-                "cartao_sus",
-                "certidao_nascimento",
-                "rne",
-                "gemeo",
-            ],
-        )
-        db.execute(
-            """UPDATE aluno SET ra=?,rm=?,nome_completo=?,data_nascimento=?,sexo=?,
-               raca_cor=?,nacionalidade=?,municipio_nascimento=?,rg_aluno=?,cpf_aluno=?,
-               cartao_sus=?,certidao_nascimento=?,rne=?,gemeo=? WHERE id=?""",
-            list(a.values()) + [id],
-        )
-
-        r = form_para_dict(
-            f,
-            [
-                "nome_mae",
-                "cpf_mae",
-                "rg_mae",
-                "uf_rg_mae",
-                "expedicao_rg_mae",
-                "estado_civil_mae",
-                "profissao_mae",
-                "nome_pai",
-                "cpf_pai",
-                "rg_pai",
-                "profissao_pai",
-                "responsavel_matricula",
-                "telefone1",
-                "telefone2",
-                "telefone3",
-                "telefone4",
-                "bolsa_familia",
-                "nis",
-                "pessoa1",
-                "pessoa2",
-                "pessoa3",
-            ],
-        )
-        db.execute(
-            """UPDATE responsavel SET nome_mae=?,cpf_mae=?,rg_mae=?,uf_rg_mae=?,
-               expedicao_rg_mae=?,estado_civil_mae=?,profissao_mae=?,nome_pai=?,cpf_pai=?,
-               rg_pai=?,profissao_pai=?,responsavel_matricula=?,telefone1=?,telefone2=?,
-               telefone3=?,telefone4=?,bolsa_familia=?,nis=?,pessoa1=?,pessoa2=?,pessoa3=?
-               WHERE aluno_id=?""",
-            list(r.values()) + [id],
-        )
-
-        e = form_para_dict(
-            f, ["logradouro", "numero", "bairro", "cidade_end", "estado", "cep"]
-        )
-        db.execute(
-            """UPDATE endereco SET logradouro=?,numero=?,bairro=?,cidade=?,estado=?,cep=?
-               WHERE aluno_id=?""",
-            [
-                e["logradouro"],
-                e["numero"],
-                e["bairro"],
-                e["cidade_end"],
-                e["estado"],
-                e["cep"],
-                id,
-            ],
-        )
-
-        s = form_para_dict(
-            f,
-            [
-                "tipo_sanguineo",
-                "alergico",
-                "diabetico",
-                "lactose",
-                "aplv",
-                "plano",
-                "uniforme",
-                "calcado",
-                "observacoes",
-                "validade_vacina",
-                "peso",
-                "altura",
-            ],
-        )
-        db.execute(
-            """UPDATE saude SET tipo_sanguineo=?,alergico=?,diabetico=?,lactose=?,aplv=?,
-               plano=?,uniforme=?,calcado=?,observacoes=?,validade_vacina=?,peso=?,altura=?
-               WHERE aluno_id=?""",
-            list(s.values()) + [id],
-        )
-
-        m = form_para_dict(
-            f,
-            [
-                "nivel",
-                "sala",
-                "integral",
-                "escola_anterior",
-                "permite_edfisica",
-                "permite_fotos",
-                "permite_passeios",
-                "contribuicao",
-                "tipo_contribuicao",
-            ],
-        )
+        a = form_para_dict(f, CAMPOS_ALUNO)
+        r = form_para_dict(f, CAMPOS_RESPONSAVEL)
+        e = form_para_dict(f, CAMPOS_ENDERECO)
+        s = form_para_dict(f, CAMPOS_SAUDE)
+        m = form_para_dict(f, CAMPOS_MATRICULA)
         ano_val = normalizar("ano_texto", f.get("ano_matricula", ""))
-        db.execute(
-            """UPDATE matricula SET nivel=?,sala=?,integral=?,ano=?,escola_anterior=?,
-               permite_edfisica=?,permite_fotos=?,permite_passeios=?,contribuicao=?,
-               tipo_contribuicao=?,data_modificacao=? WHERE aluno_id=?""",
-            [
-                m["nivel"],
-                m["sala"],
-                m["integral"],
-                ano_val,
-                m["escola_anterior"],
-                m["permite_edfisica"],
-                m["permite_fotos"],
-                m["permite_passeios"],
-                m["contribuicao"],
-                m["tipo_contribuicao"],
-                agora(),
-                id,
-            ],
-        )
-        db.commit()
+
+        try:
+            with transacao_escrita(db):
+                existente = _buscar_duplicado(db, a, ignorar_id=id)
+                if existente:
+                    raise MatriculaDuplicada(existente)
+
+                db.execute(
+                    """UPDATE aluno SET ra=?,rm=?,nome_completo=?,data_nascimento=?,sexo=?,
+                       raca_cor=?,nacionalidade=?,municipio_nascimento=?,rg_aluno=?,cpf_aluno=?,
+                       cartao_sus=?,certidao_nascimento=?,rne=?,gemeo=? WHERE id=?""",
+                    list(a.values()) + [id],
+                )
+                db.execute(
+                    """UPDATE responsavel SET nome_mae=?,cpf_mae=?,rg_mae=?,uf_rg_mae=?,
+                       expedicao_rg_mae=?,estado_civil_mae=?,profissao_mae=?,nome_pai=?,cpf_pai=?,
+                       rg_pai=?,profissao_pai=?,responsavel_matricula=?,telefone1=?,telefone2=?,
+                       telefone3=?,telefone4=?,bolsa_familia=?,nis=?,pessoa1=?,pessoa2=?,pessoa3=?
+                       WHERE aluno_id=?""",
+                    list(r.values()) + [id],
+                )
+                db.execute(
+                    """UPDATE endereco SET logradouro=?,numero=?,bairro=?,cidade=?,estado=?,cep=?
+                       WHERE aluno_id=?""",
+                    [
+                        e["logradouro"],
+                        e["numero"],
+                        e["bairro"],
+                        e["cidade_end"],
+                        e["estado"],
+                        e["cep"],
+                        id,
+                    ],
+                )
+                db.execute(
+                    """UPDATE saude SET tipo_sanguineo=?,alergico=?,diabetico=?,lactose=?,aplv=?,
+                       plano=?,uniforme=?,calcado=?,observacoes=?,validade_vacina=?,peso=?,altura=?
+                       WHERE aluno_id=?""",
+                    list(s.values()) + [id],
+                )
+                db.execute(
+                    """UPDATE matricula SET nivel=?,sala=?,integral=?,ano=?,escola_anterior=?,
+                       permite_edfisica=?,permite_fotos=?,permite_passeios=?,contribuicao=?,
+                       tipo_contribuicao=?,data_modificacao=? WHERE aluno_id=?""",
+                    [
+                        m["nivel"],
+                        m["sala"],
+                        m["integral"],
+                        ano_val,
+                        m["escola_anterior"],
+                        m["permite_edfisica"],
+                        m["permite_fotos"],
+                        m["permite_passeios"],
+                        m["contribuicao"],
+                        m["tipo_contribuicao"],
+                        agora(),
+                        id,
+                    ],
+                )
+        except MatriculaDuplicada as dup:
+            flash(
+                f"Não salvo: já existe outro cadastro igual "
+                f"({dup.existente['nome_completo']}, código {dup.existente['id']}). "
+                f"Se for uma duplicata, exclua um dos dois na lista.",
+                "warning",
+            )
+            docs = db.execute(
+                "SELECT * FROM documento WHERE aluno_id=? ORDER BY enviado_em DESC",
+                (id,),
+            ).fetchall()
+            return _render_formulario(
+                "editar", _form_como_aluno(f, base=aluno), True, docs, None
+            )
+        except sqlite3.IntegrityError:
+            flash("Não salvo: já existe outro aluno com este CPF.", "warning")
+            return redirect(url_for("editar_matricula", id=id, editar=1))
+        except sqlite3.Error:
+            logger.exception("Erro ao editar matrícula id=%s", id)
+            flash(
+                "Não foi possível salvar as alterações agora (nada foi gravado). "
+                "Tente novamente.",
+                "danger",
+            )
+            return redirect(url_for("editar_matricula", id=id, editar=1))
 
         processar_uploads(
             aluno_id=id,
@@ -1429,20 +1637,7 @@ def editar_matricula(id):
     )
     divergencias = verificar_divergencias(id) if edicao_habilitada else None
 
-    return render_template(
-        "nova_matricula.html",
-        modo="editar",
-        edicao_habilitada=edicao_habilitada,
-        aluno=aluno,
-        documentos=docs,
-        divergencias=divergencias,
-        salas=SALAS,
-        salas_iv=SALAS_IV,
-        salas_v=SALAS_V,
-        ufs=UFS,
-        ano_atual=datetime.now().year,
-        drive_ativo=_drive_ativo(),
-    )
+    return _render_formulario("editar", aluno, edicao_habilitada, docs, divergencias)
 
 
 @app.route("/excluir/<int:id>", methods=["POST"])
@@ -1471,8 +1666,8 @@ def excluir_matricula(id):
             logger.error("Drive: erro ao deletar pasta de '%s': %s", nome, exc)
             flash(f"Aviso: pasta do Drive não removida ({exc}).", "warning")
 
-    db.execute("DELETE FROM aluno WHERE id=?", (id,))
-    db.commit()
+    with transacao_escrita(db):
+        db.execute("DELETE FROM aluno WHERE id=?", (id,))
 
     registrar_log("excluir", "matricula", id, detalhe=nome)
 
@@ -1497,8 +1692,8 @@ def excluir_documento(doc_id):
                 "Drive: erro ao deletar arquivo %s: %s", doc["drive_id"], exc
             )
 
-    db.execute("DELETE FROM documento WHERE id=?", (doc_id,))
-    db.commit()
+    with transacao_escrita(db):
+        db.execute("DELETE FROM documento WHERE id=?", (doc_id,))
 
     registrar_log("excluir", "documento", doc_id, detalhe=doc["nome"])
 
@@ -1589,6 +1784,20 @@ def arquivo_muito_grande(e):
     return redirect(request.referrer or url_for("index"))
 
 
+@app.errorhandler(sqlite3.OperationalError)
+def erro_banco(e):
+    logger.exception("SQLite OperationalError em %s", request.path)
+    msg = str(e).lower()
+    if "locked" in msg or "busy" in msg:
+        flash(
+            "O banco de dados está ocupado no momento. Aguarde alguns segundos e "
+            "tente novamente.",
+            "danger",
+        )
+        return redirect(request.referrer or url_for("index"))
+    return "Erro interno do servidor. Veja o arquivo servidor.log.", 500
+
+
 @app.errorhandler(CSRFError)
 def erro_csrf(e):
     # POST sem token CSRF válido — rejeitado com 400 SEMPRE, mesmo quando
@@ -1622,17 +1831,32 @@ if _DRIVE_IMPORT_OK:
 with app.app_context():
     init_db()
 
-if __name__ == "__main__":
-    is_frozen = getattr(sys, "frozen", False)
 
-    if is_frozen:
-        import threading
+def _servir(host="0.0.0.0", port=5000):
+    """Waitress (servidor de produção) — uma rota com erro não derruba o processo.
+    Se o waitress não estiver instalado, cai para o servidor do Flask."""
+    try:
+        from waitress import serve
+    except ImportError:
+        logger.warning(
+            "waitress não instalado — usando o servidor de desenvolvimento do Flask. "
+            "Instale com:  pip install waitress"
+        )
+        app.run(debug=False, use_reloader=False, threaded=True, host=host, port=port)
+        return
+    logger.info("Servidor Waitress em http://%s:%s", host, port)
+    try:
+        serve(app, host=host, port=port, threads=8, channel_timeout=120)
+    except BaseException:
+        logger.exception("Waitress terminou com exceção")
+        raise
+    finally:
+        logger.warning("serve() finalizou — o servidor PAROU de atender.")
+
+
+if __name__ == "__main__":
+    if getattr(sys, "frozen", False):
         import webbrowser
 
-        def _abrir_navegador():
-            webbrowser.open("http://127.0.0.1:5000")
-
-        threading.Timer(1.5, _abrir_navegador).start()
-        app.run(debug=False, use_reloader=False, host="0.0.0.0", port=5000)
-    else:
-        app.run(debug=False, host="0.0.0.0", port=5000)
+        threading.Timer(1.5, lambda: webbrowser.open("http://127.0.0.1:5000")).start()
+    _servir()

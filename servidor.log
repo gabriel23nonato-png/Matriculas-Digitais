@@ -1,0 +1,158 @@
+2026-10-20 20:11:50,645 INFO drive_service: Google Drive: autenticado via OAuth 2.0.
+2026-10-20 20:11:50,645 INFO __main__: Drive: token carregado — integração ativa.
+2026-10-20 20:11:50,649 WARNING __main__: Índice único de CPF NÃO criado: já existem alunos com CPF repetido. Apague as duplicatas e reinicie o app.
+2026-10-20 20:11:50,723 INFO __main__: Servidor Waitress em http://0.0.0.0:5000
+2026-10-20 20:11:50,726 INFO waitress: Serving on http://0.0.0.0:5000
+2026-10-20 20:15:50,418 INFO drive_service: Drive: pasta de 'TESTE DE ANEXOS SEC 2' deletada.
+2026-10-20 20:37:52,353 INFO drive_service: Google Drive: autenticado via OAuth 2.0.
+2026-10-20 20:37:52,353 INFO __main__: Drive: token carregado — integração ativa.
+2026-10-20 20:37:52,378 WARNING __main__: Índice único de CPF NÃO criado: já existem alunos com CPF repetido. Apague as duplicatas e reinicie o app.
+2026-10-20 20:37:52,497 INFO __main__: Servidor Waitress em http://0.0.0.0:5000
+2026-10-20 20:37:52,500 INFO waitress: Serving on http://0.0.0.0:5000
+2026-10-20 20:38:07,787 INFO __main__: → GET / (de 192.168.1.81)
+2026-10-20 20:38:07,825 INFO __main__: ← GET / 200 (0.04s)
+2026-10-20 20:39:03,202 INFO __main__: → GET / (de 127.0.0.1)
+2026-10-20 20:39:03,205 INFO __main__: ← GET / 302 (0.00s)
+2026-10-20 20:39:03,220 INFO __main__: → GET /login (de 127.0.0.1)
+2026-10-20 20:39:03,235 INFO __main__: ← GET /login 200 (0.02s)
+2026-10-20 20:39:06,401 INFO __main__: → POST /login (de 127.0.0.1)
+2026-10-20 20:39:06,762 INFO __main__: ← POST /login 302 (0.36s)
+2026-10-20 20:39:06,778 INFO __main__: → GET / (de 127.0.0.1)
+2026-10-20 20:39:06,799 INFO __main__: ← GET / 200 (0.02s)
+2026-10-20 20:56:50,791 INFO __main__: → GET / (de 192.168.1.76)
+2026-10-20 20:56:50,796 INFO __main__: ← GET / 200 (0.00s)
+2026-10-20 21:02:34,787 INFO __main__: → GET /documentacao (de 192.168.1.76)
+2026-10-20 21:02:35,017 INFO __main__: ← GET /documentacao 200 (0.23s)
+2026-10-20 21:37:38,314 INFO __main__: → GET / (de 192.168.1.76)
+2026-10-20 21:37:38,320 INFO __main__: ← GET / 200 (0.01s)
+2026-10-20 21:38:08,587 INFO __main__: → GET /nova_matricula (de 192.168.1.76)
+2026-10-20 21:38:08,703 INFO __main__: ← GET /nova_matricula 200 (0.12s)
+2026-10-20 21:40:12,768 INFO __main__: → GET /alunos (de 127.0.0.1)
+2026-10-20 21:40:12,817 INFO __main__: ← GET /alunos 200 (0.05s)
+2026-10-20 21:40:18,033 INFO __main__: → POST /excluir/9 (de 127.0.0.1)
+2026-10-20 21:40:22,038 INFO __main__: ← POST /excluir/9 302 (4.00s)
+2026-10-20 21:40:22,056 INFO __main__: → GET /alunos (de 127.0.0.1)
+2026-10-20 21:40:22,085 INFO __main__: ← GET /alunos 200 (0.03s)
+2026-10-20 21:40:32,489 INFO __main__: → GET /editar/3 (de 127.0.0.1)
+2026-10-20 21:40:32,515 INFO __main__: ← GET /editar/3 200 (0.03s)
+2026-10-20 21:40:45,996 INFO __main__: → GET /alunos (de 127.0.0.1)
+2026-10-20 21:40:46,015 INFO __main__: ← GET /alunos 200 (0.02s)
+2026-10-20 21:40:47,299 INFO __main__: → GET /editar/5 (de 127.0.0.1)
+2026-10-20 21:40:47,322 INFO __main__: ← GET /editar/5 200 (0.02s)
+2026-10-20 21:40:51,575 INFO __main__: → GET /alunos (de 127.0.0.1)
+2026-10-20 21:40:51,587 INFO __main__: ← GET /alunos 200 (0.01s)
+2026-10-20 21:40:54,041 INFO __main__: → POST /excluir/5 (de 127.0.0.1)
+2026-10-20 21:40:55,425 INFO __main__: ← POST /excluir/5 302 (1.38s)
+2026-10-20 21:40:55,440 INFO __main__: → GET /alunos (de 127.0.0.1)
+2026-10-20 21:40:55,459 INFO __main__: ← GET /alunos 200 (0.02s)
+2026-10-20 21:41:41,964 INFO __main__: → GET /editar/3 (de 127.0.0.1)
+2026-10-20 21:41:41,981 INFO __main__: ← GET /editar/3 200 (0.02s)
+2026-10-20 21:41:45,166 INFO __main__: → GET /alunos (de 127.0.0.1)
+2026-10-20 21:41:45,189 INFO __main__: ← GET /alunos 200 (0.02s)
+2026-10-20 21:49:19,208 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-20 21:49:19,369 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-20 21:49:19,518 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-20 21:49:19,675 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-20 21:49:19,683 WARNING __main__: serve() finalizou — o servidor PAROU de atender.
+2026-10-20 21:49:19,686 WARNING __main__: Processo Python encerrando (atexit).
+2026-10-20 21:49:46,308 INFO drive_service: Drive: token renovado via refresh_token.
+2026-10-20 21:49:46,327 INFO drive_service: Google Drive: autenticado via OAuth 2.0.
+2026-10-20 21:49:46,328 INFO __main__: Drive: token carregado — integração ativa.
+2026-10-20 21:49:46,481 INFO __main__: Servidor Waitress em http://0.0.0.0:5000
+2026-10-20 21:49:46,484 INFO waitress: Serving on http://0.0.0.0:5000
+2026-10-20 21:49:50,176 INFO __main__: → GET /alunos (de 127.0.0.1)
+2026-10-20 21:49:50,275 INFO __main__: ← GET /alunos 200 (0.10s)
+2026-10-20 21:49:52,310 INFO __main__: → GET / (de 192.168.1.81)
+2026-10-20 21:49:52,333 INFO __main__: ← GET / 200 (0.02s)
+2026-10-20 21:49:53,481 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-20 21:49:53,502 INFO __main__: ← GET /alunos 200 (0.02s)
+2026-10-20 21:51:02,965 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-20 21:51:03,241 WARNING __main__: serve() finalizou — o servidor PAROU de atender.
+2026-10-20 21:51:03,243 WARNING __main__: Processo Python encerrando (atexit).
+2026-10-20 21:51:06,035 INFO drive_service: Google Drive: autenticado via OAuth 2.0.
+2026-10-20 21:51:06,035 INFO __main__: Drive: token carregado — integração ativa.
+2026-10-20 21:51:06,041 WARNING __main__: Índice único de CPF NÃO criado: já existem alunos com CPF repetido. Apague as duplicatas e reinicie o app.
+2026-10-20 21:51:06,172 INFO __main__: Servidor Waitress em http://0.0.0.0:5000
+2026-10-20 21:51:06,181 INFO waitress: Serving on http://0.0.0.0:5000
+2026-10-20 21:51:10,899 INFO __main__: → GET / (de 192.168.1.81)
+2026-10-20 21:51:10,963 INFO __main__: ← GET / 200 (0.06s)
+2026-10-20 21:51:12,390 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-20 21:51:12,490 INFO __main__: ← GET /alunos 200 (0.10s)
+2026-10-20 21:52:05,918 INFO __main__: → GET /editar/139 (de 192.168.1.81)
+2026-10-20 21:52:06,175 INFO __main__: ← GET /editar/139 200 (0.26s)
+2026-10-20 21:52:07,421 INFO __main__: → GET /editar/139 (de 192.168.1.81)
+2026-10-20 21:52:07,448 INFO __main__: ← GET /editar/139 200 (0.03s)
+2026-10-20 22:03:24,193 INFO __main__: → GET / (de 192.168.1.81)
+2026-10-20 22:03:24,204 INFO __main__: ← GET / 200 (0.01s)
+2026-10-20 22:03:25,668 INFO __main__: → GET /documentacao (de 192.168.1.81)
+2026-10-20 22:03:25,861 INFO __main__: ← GET /documentacao 200 (0.19s)
+2026-10-20 22:36:08,332 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-20 22:36:08,642 WARNING __main__: serve() finalizou — o servidor PAROU de atender.
+2026-10-20 22:36:08,644 WARNING __main__: Processo Python encerrando (atexit).
+2026-10-20 22:42:26,535 INFO drive_service: Google Drive: autenticado via OAuth 2.0.
+2026-10-20 22:42:26,535 INFO __main__: Drive: token carregado — integração ativa.
+2026-10-20 22:42:26,539 WARNING __main__: Índice único de CPF NÃO criado: já existem alunos com CPF repetido. Apague as duplicatas e reinicie o app.
+2026-10-20 22:42:26,671 INFO __main__: Servidor Waitress em http://0.0.0.0:5000
+2026-10-20 22:42:26,673 INFO waitress: Serving on http://0.0.0.0:5000
+2026-10-20 22:43:03,031 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-20 22:43:03,190 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-20 22:43:03,363 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-20 22:43:03,519 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-20 22:43:03,961 WARNING __main__: serve() finalizou — o servidor PAROU de atender.
+2026-10-20 22:43:03,963 WARNING __main__: Processo Python encerrando (atexit).
+2026-10-20 22:47:11,918 INFO drive_service: Drive: token renovado via refresh_token.
+2026-10-20 22:47:11,936 INFO drive_service: Google Drive: autenticado via OAuth 2.0.
+2026-10-20 22:47:11,937 INFO __main__: Drive: token carregado — integração ativa.
+2026-10-20 22:47:11,943 WARNING __main__: Índice único de CPF NÃO criado: já existem alunos com CPF repetido. Apague as duplicatas e reinicie o app.
+2026-10-20 22:47:12,114 INFO __main__: Servidor Waitress em http://0.0.0.0:5000
+2026-10-20 22:47:12,118 INFO waitress: Serving on http://0.0.0.0:5000
+2026-10-20 22:47:13,999 INFO __main__: → GET / (de 192.168.1.81)
+2026-10-20 22:47:14,050 INFO __main__: ← GET / 200 (0.05s)
+2026-10-20 22:47:15,654 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-20 22:47:15,774 INFO __main__: ← GET /alunos 200 (0.12s)
+2026-10-20 22:47:18,780 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-20 22:47:18,799 INFO __main__: ← GET /alunos 200 (0.02s)
+2026-10-20 22:52:05,808 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-20 22:52:05,966 WARNING __main__: serve() finalizou — o servidor PAROU de atender.
+2026-10-20 22:52:05,967 WARNING __main__: Processo Python encerrando (atexit).
+2026-10-20 22:52:28,768 INFO drive_service: Google Drive: autenticado via OAuth 2.0.
+2026-10-20 22:52:28,769 INFO __main__: Drive: token carregado — integração ativa.
+2026-10-20 22:52:28,778 WARNING __main__: Índice único de CPF NÃO criado: já existem alunos com CPF repetido. Apague as duplicatas e reinicie o app.
+2026-10-20 22:52:28,916 INFO __main__: Servidor Waitress em http://0.0.0.0:5000
+2026-10-20 22:52:28,921 INFO waitress: Serving on http://0.0.0.0:5000
+2026-10-20 22:52:31,400 INFO __main__: → GET / (de 192.168.1.81)
+2026-10-20 22:52:31,464 INFO __main__: ← GET / 200 (0.06s)
+2026-10-20 22:52:32,654 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-20 22:52:32,739 INFO __main__: ← GET /alunos 200 (0.09s)
+2026-10-20 22:52:34,117 INFO __main__: → GET / (de 192.168.1.81)
+2026-10-20 22:52:34,131 INFO __main__: ← GET / 200 (0.01s)
+2026-10-20 22:52:34,879 INFO __main__: → GET /documentacao (de 192.168.1.81)
+2026-10-20 22:52:35,133 INFO __main__: ← GET /documentacao 200 (0.25s)
+2026-10-20 22:52:38,366 INFO __main__: → GET / (de 192.168.1.81)
+2026-10-20 22:52:38,379 INFO __main__: ← GET / 200 (0.01s)
+2026-10-20 22:52:39,546 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-20 22:52:39,591 INFO __main__: ← GET /alunos 200 (0.04s)
+2026-10-20 22:52:49,415 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-20 22:52:49,439 INFO __main__: ← GET /alunos 200 (0.02s)
+2026-10-20 22:52:50,773 INFO __main__: → GET /editar/8 (de 192.168.1.81)
+2026-10-20 22:52:51,027 INFO __main__: ← GET /editar/8 200 (0.25s)
+2026-10-20 22:53:04,346 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-20 22:53:04,359 INFO __main__: ← GET /alunos 200 (0.01s)
+2026-10-20 22:53:25,047 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-20 22:53:25,071 INFO __main__: ← GET /alunos 200 (0.02s)
+2026-10-20 22:53:28,293 INFO __main__: → GET /editar/139 (de 192.168.1.81)
+2026-10-20 22:53:28,318 INFO __main__: ← GET /editar/139 200 (0.03s)
+2026-10-20 22:53:58,860 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-20 22:53:59,460 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-20 22:53:59,461 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-20 22:53:59,462 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-20 22:53:59,464 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-20 22:53:59,495 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-20 22:53:59,525 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-20 22:53:59,560 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-20 22:53:59,589 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-20 22:53:59,618 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-20 22:53:59,662 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-20 22:53:59,695 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-20 22:53:59,858 WARNING __main__: serve() finalizou — o servidor PAROU de atender.
+2026-10-20 22:53:59,860 WARNING __main__: Processo Python encerrando (atexit).
