@@ -94,45 +94,45 @@
 <div class="box">
   <div class="box-title">Identificação do Aluno</div>
   <div class="row g-1 field">
-    <div class="col-2"><span class="label">RA</span>{{ aluno.ra }}</div>
-    <div class="col-2"><span class="label">Nível</span>{{ aluno.nivel }}</div>
-    <div class="col-1"><span class="label">Sala</span>{{ aluno.sala }}</div>
-    <div class="col-3">
+    <div class="col-4">
       <span class="label">Nome completo</span>{{ aluno.nome_completo }}
     </div>
     <div class="col-2">
-      <span class="label">Data de Nascimento</span>23/23/2323
+      <span class="label">Data de Nascimento</span>{{ (aluno.data_nascimento | string)[:10] if aluno and aluno.data_nascimento else '' }}
     </div>
-    <div class="col-2">
+    <!-- <div class="col-2"><span class="label">RA</span>{{ aluno.ra | default('', true) }}</div> -->
+    <div class="col-2"><span class="label">Nível</span>{{ aluno.nivel | default('', true) }}</div>
+    <!-- <div class="col-2"><span class="label">Registro de Matrícula (RM)</span></div> -->
+    <!-- <div class="col-1"><span class="label">Sala</span>{{ aluno.sala }}</div> -->
+    <!-- <div class="col-2">
       <span class="label">Escola anterior</span>{{ aluno.escola_anterior }}
-    </div>
-    <div class="col-2"><span class="label">Sexo</span>MASCULINO</div>
+    </div> -->
+    <div class="col-2"><span class="label">Sexo</span>{{ aluno.sexo | default('', true) }}</div>
 
     <div class="col-2">
-      <span class="label">Raça/Cor</span>{{ aluno.raca_cor }}
+      <span class="label">Raça/Cor</span>{{ aluno.raca_cor | default('', true) }}
     </div>
 
-    <div class="col-2"><span class="label">CPF</span>{{ aluno.cpf_aluno }}</div>
-    <div class="col-2"><span class="label">RG</span>{{ aluno.rg_aluno }}</div>
+    <div class="col-2"><span class="label">CPF</span>{{ aluno.cpf_aluno | default('', true) }}</div>
+    <div class="col-2"><span class="label">RG</span>{{ aluno.rg_aluno | default('', true) }}</div>
     <div class="col-2">
-      <span class="label">Certidão de nascimento</span>{{
-      aluno.certidao_nascimento }}
+      <span class="label">Certidão de nascimento</span>{{ aluno.certidao_nascimento | default('', true) }}
     </div>
     <div class="col-2">
-      <span class="label">Cartão SUS</span>{{ aluno.cartao_sus }}
+      <span class="label">Cartão SUS</span>{{ aluno.cartao_sus | default('', true) }}
     </div>
     <div class="col-2">
-      <span class="label">Tipo sanguíneo</span>{{ aluno.tipo_sanguineo }}
+      <span class="label">Tipo sanguíneo</span>{{ aluno.tipo_sanguineo | default('', true) }}
     </div>
 
     <div class="col-2">
       <span class="label">Município de nascimento</span>{{
-      aluno.municipio_nascimento }}
+      aluno.municipio_nascimento | default('', true) }}
     </div>
     <div class="col-2">
-      <span class="label">Nacionalidade</span>{{ aluno.nacionalidade }}
+      <span class="label">Nacionalidade</span>{{ aluno.nacionalidade | default('', true) }}
     </div>
-    <div class="col-2"><span class="label">RNE</span>{{ aluno.rne }}</div>
+    <div class="col-2"><span class="label">RNE</span>{{ aluno.rne | default('', true) }}</div>
   </div>
 </div>
 
@@ -141,64 +141,67 @@
   <div class="box-title">Responsável Legal</div>
   <div class="row g-1 field">
     <div class="col-4">
-      <span class="label">Nome da mãe</span>{{ aluno.nome_mae }}
+      <span class="label">Nome da mãe</span>{{ aluno.nome_mae | default('', true) }}
     </div>
-    <div class="col-2"><span class="label">CPF</span>{{ aluno.cpf_mae }}</div>
+    <div class="col-2"><span class="label">CPF</span>{{ aluno.cpf_mae | default('', true) }}</div>
     <!-- <div class="col-2"><span class="label">RG / UF / Expedição</span>{{ aluno.rg_mae }} {{ aluno.uf_rg_mae }} {{ aluno.expedicao_rg_mae }}</div> -->
-    <div class="col-2"><span class="label">RG</span>{{ aluno.rg_mae }}</div>
+    <div class="col-2"><span class="label">RG</span>{{ aluno.rg_mae | default('', true) }}</div>
     <div class="col-2">
-      <span class="label">Telefone - mãe</span>{{ aluno.telefone1 }}
+      <span class="label">Telefone 1</span>{{ aluno.telefone1 | default('', true) }}
     </div>
 
     <div class="col-2">
-      <span class="label">Outro telefone</span>{{ aluno.telefone3 }}
+      <span class="label">Telefone 3</span>{{   aluno.telefone3 | default('', true) }}
     </div>
     <div class="col-4">
-      <span class="label">Nome do pai</span>{{ aluno.nome_pai }}
+      <span class="label">Nome do pai</span>{{ aluno.nome_pai | default('', true) }}
     </div>
-    <div class="col-2"><span class="label">CPF</span>{{ aluno.cpf_pai }}</div>
-    <div class="col-2"><span class="label">RG</span>{{ aluno.rg_pai }}</div>
+    <div class="col-2"><span class="label">CPF</span>{{ aluno.cpf_pai | default('', true) }}</div>
+    <div class="col-2"><span class="label">RG</span>{{ aluno.rg_pai | default('', true) }}</div>
     <div class="col-2">
-      <span class="label">Telefone - pai</span>{{ aluno.telefone2 }}
+      <span class="label">Telefone 2</span>{{ aluno.telefone2 | default('', true) }}
     </div>
     <div class="col-2">
-      <span class="label">Outro telefone</span>{{ aluno.telefone4 }}
+      <span class="label">Telefone 4</span>{{ aluno.telefone4 | default('', true) }}
     </div>
     <div class="col-4">
       <span class="label">Responsável pela matrícula</span>{{
-      aluno.responsavel_matricula }}
+      aluno.responsavel_matricula | default('', true) }}
     </div>
-    <div class="col-4">
-      <span class="label">Estado civil</span>{{ aluno.estado_civil_mae }}
+    <div class="col-2">
+      <span class="label">Estado civil</span>{{ aluno.estado_civil_mae or aluno.estado_civil_pai | default('', true) }}
     </div>
-    <div class="col-4">
-      <span class="label">Bolsa Família / NIS</span>{{ aluno.bolsa_familia }} /
-      {{ aluno.nis }}
+    <div class="col-2">
+      <span class="label">E-mail</span>{{ aluno.email | default('', true) }}
     </div>
-
+    <div class="col-3">
+      <span class="label">Bolsa Família (NIS)</span>{{ aluno.bolsa_familia | default('', true) }}    
+      {{ aluno.nis | default('', true) }}
+    </div>
+<!-- 
     <div class="col-2 text-center">
       <span class="label"
-        >Pessoas autorizadas a retirar a criança da escola:</span
+        >Quem pode retirar da escola:</span
       >
     </div>
     <div class="col-2">
-      <span class="label">Pessoa autorizada 1</span>{{ aluno.pessoa1 }}
+      <span class="label">Pessoa autorizada 1</span>{{ aluno.pessoa1 | default('', true) }}
     </div>
     <div class="col-2">
-      <span class="label">Pessoa autorizada 2</span>{{ aluno.pessoa2 }}
+      <span class="label">Pessoa autorizada 2</span>{{ aluno.pessoa2 | default('', true) }}
     </div>
     <div class="col-2">
-      <span class="label">Pessoa autorizada 3</span>{{ aluno.pessoa3 }}
+      <span class="label">Pessoa autorizada 3</span>{{ aluno.pessoa3 | default('', true) }}
     </div>
     <div class="col-2">
-      <span class="label">Pessoa autorizada 4</span>precisa criar o campo no banco
+      <span class="label">Pessoa autorizada 4</span>{{ aluno.pessoa4 | default('', true) }}
     </div>
     <div class="col-2">
-      <span class="label">Pessoa autorizada 5</span>precisa criar o campo no banco
+      <span class="label">Pessoa autorizada 5</span>{{ aluno.pessoa5 | default('', true) }}
     </div>
     <div class="col-12 mt-4">
       <span class="label"></span>
-    </div>
+    </div> -->
   </div>
 </div>
 
@@ -213,9 +216,11 @@
     <div class="col-2"><span class="label">Bairro</span>{{ aluno.bairro }}</div>
 
     <div class="col-2">
-      <span class="label">Cidade</span>{{ aluno.cidade }} / {{ aluno.estado }}
+      <span class="label">Cidade</span>
+      {{ aluno.cidade | default('', true) }}
+      {{ aluno.estado | default('', true) }}
     </div>
-    <div class="col-2"><span class="label">CEP</span>{{ aluno.cep }}</div>
+    <div class="col-2"><span class="label">CEP</span>{{ aluno.cep | default('', true) }}</div>
     <!-- <div class="col-4"><span class="label">Cidade</span>{{ aluno.cidade }}</div>
     <div class="col-2"><span class="label">Estado</span>{{ aluno.estado }}</div> -->
   </div>
@@ -226,20 +231,19 @@
   <div class="box-title">Sobre o Aluno</div>
   <div class="row g-1 field">
     <div class="col-3">
-      <span class="label">Uniforme / Calçado</span>{{ aluno.uniforme }} / {{
-      aluno.calcado }}
+      <span class="label">Uniforme / Calçado</span>{{ aluno.uniforme | default('', true) }}   {{ aluno.calcado | default('', true) }}
     </div>
     <div class="col-2">
-      <span class="label">Alergia</span> {{ aluno.alergico}}
+      <span class="label">Alergia</span> {{ aluno.alergico|default('', true) }}
     </div>
     <div class="col-2">
-      <span class="label">Diabetes</span> {{ aluno.diabetico}}
+      <span class="label">Diabetes</span> {{ aluno.diabetico|default('', true) }}
     </div>
     <div class="col-2">
-      <span class="label">Lactose</span> {{ aluno.lactose}}
+      <span class="label">Lactose</span> {{ aluno.lactose|default('', true) }}
     </div>
-    <div class="col-2"><span class="label">APLV</span> {{ aluno.aplv}}</div>
-    <div class="col-1"><span class="label">Plano</span> {{ aluno.plano}}</div>
+    <div class="col-2"><span class="label">APLV</span> {{ aluno.aplv|default('', true) }}</div>
+    <div class="col-1"><span class="label">Plano de saúde</span> {{ aluno.plano|default('', true) }}</div>
 
     <div></div>
 
@@ -258,17 +262,17 @@
 <div class="box">
   <div class="box-title">Informações Escolares e Financeiras</div>
   <div class="row g-1 field">
-    <div class="col-3"><span class="label">Nível</span>{{ aluno.nivel }}</div>
-    <div class="col-2"><span class="label">Sala</span>{{ aluno.sala }}</div>
+    <!-- <div class="col-3"><span class="label">Nível</span>{{ aluno.nivel }}</div> -->
+    <!-- <div class="col-2"><span class="label">Sala</span>{{ aluno.sala }}</div> -->
     <div class="col-2">
-      <span class="label">Integral</span>{{ aluno.integral }}
+      <span class="label">Integral</span>{{ aluno.integral | default('', true) }}
     </div>
     <div class="col-2">
-      <span class="label">Escola anterior</span>{{ aluno.escola_anterior }}
+      <span class="label">Escola anterior</span>{{ aluno.escola_anterior | default('', true) }}
     </div>
     <div class="col-3">
-      <span class="label">Contribuição</span>R$ {{ aluno.contribuicao or '—' }}
-      ({{ aluno.tipo_contribuicao or '—' }})
+      <span class="label">Contribuição</span>{{ aluno.contribuicao | default('', true) }}      
+      {{ aluno.tipo_contribuicao | default('', true) }}
     </div>
   </div>
 </div>
@@ -281,9 +285,7 @@
   <div>
     <p>
       <strong>
-        Estou ciente que o aluno será encaminhado ao Conselho Tutelar caso as
-        ausências se estendam em mais de 05 (cinco) dias consecutivos sem
-        justificativa.
+        ESTOU CIENTE QUE O ALUNO SERÁ ENCAMINHADO AO CONSELHO TUTELAR CASO AS AUSÊNCIAS SE ESTENDAM EM MAIS DE 05 (CINCO) DIAS CONSECUTIVOS SEM JUSTIFICATIVA.
       </strong>
     </p>
     <p>
@@ -297,16 +299,38 @@
     </p>
 
     <div class="row mt-4 text-center">
-      <div class="col-6">
+      <div class="col-4">
         <br />
         <hr class="border-dark" />
-        <strong> Infantil V - Assinatura do(a) Responsável</strong>
+        <strong> Infantil IV -Responsável</strong>
       </div>
 
-      <div class="col-6">
+      <div class="col-4">
+        <!-- <br />
+        <hr class="border-dark" />
+        <strong> Infantil V - Responsável</strong> -->
+      </div>
+
+      <div class="col-4">
         <br />
         <hr class="border-dark" />
-        <strong>Rematrícula - Infantil V - Assinatura do(a) Responsável</strong>
+        <strong> Responsável pela matrícula</strong>
+      </div>
+    </div>
+
+        <div class="row mt-4 text-center">
+      <div class="col-4">
+        <br />
+        <hr class="border-dark" />
+        <strong>Infantil V - Responsável</strong>
+      </div>
+      <div class="col-4">
+      </div>
+
+      <div class="col-4">
+        <br />
+        <hr class="border-dark" />
+        <strong>Responsável pela rematrícula</strong>
       </div>
     </div>
   </div>

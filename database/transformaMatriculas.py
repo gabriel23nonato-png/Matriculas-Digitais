@@ -3,7 +3,7 @@ from openpyxl import load_workbook
 import os
 
 # ===== BANCO =====
-conn = sqlite3.connect("database\\database\\alunosv3.db")
+conn = sqlite3.connect("database\\alunosv3.db")
 cursor = conn.cursor()
 
 # # # # # ===== TABELA (UMA VEZ) =====
@@ -26,7 +26,7 @@ cursor = conn.cursor()
 # # # # )
 
 # ===== PASTA =====
-pasta = "primeirosAlunos"
+pasta = "restantes"
 
 # ===== INSERT =====
 sql_insert = """

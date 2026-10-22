@@ -156,3 +156,1505 @@
 2026-10-20 22:53:59,695 WARNING __main__: Evento do console do Windows: CTRL+C (0)
 2026-10-20 22:53:59,858 WARNING __main__: serve() finalizou — o servidor PAROU de atender.
 2026-10-20 22:53:59,860 WARNING __main__: Processo Python encerrando (atexit).
+2026-10-21 09:04:43,033 INFO drive_service: Drive: token renovado via refresh_token.
+2026-10-21 09:04:43,054 INFO drive_service: Google Drive: autenticado via OAuth 2.0.
+2026-10-21 09:04:43,055 INFO __main__: Drive: token carregado — integração ativa.
+2026-10-21 09:04:43,071 WARNING __main__: Índice único de CPF NÃO criado: já existem alunos com CPF repetido. Apague as duplicatas e reinicie o app.
+2026-10-21 09:04:43,223 INFO __main__: Servidor Waitress em http://0.0.0.0:5000
+2026-10-21 09:04:43,232 INFO waitress: Serving on http://0.0.0.0:5000
+2026-10-21 09:05:05,676 INFO __main__: → GET / (de 192.168.1.76)
+2026-10-21 09:05:05,695 INFO __main__: ← GET / 200 (0.02s)
+2026-10-21 09:05:07,824 INFO __main__: → GET /alunos (de 192.168.1.76)
+2026-10-21 09:05:07,864 INFO __main__: ← GET /alunos 200 (0.04s)
+2026-10-21 09:07:43,344 INFO __main__: → GET / (de 192.168.1.49)
+2026-10-21 09:07:43,347 INFO __main__: ← GET / 302 (0.00s)
+2026-10-21 09:07:43,382 INFO __main__: → GET /login (de 192.168.1.49)
+2026-10-21 09:07:43,395 INFO __main__: ← GET /login 200 (0.01s)
+2026-10-21 09:07:47,147 INFO __main__: → GET /favicon.ico (de 192.168.1.49)
+2026-10-21 09:07:47,149 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 09:22:10,260 INFO __main__: → GET /alunos (de 192.168.1.76)
+2026-10-21 09:22:10,292 INFO __main__: ← GET /alunos 200 (0.03s)
+2026-10-21 09:24:39,335 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 09:24:39,414 WARNING __main__: serve() finalizou — o servidor PAROU de atender.
+2026-10-21 09:24:39,416 WARNING __main__: Processo Python encerrando (atexit).
+2026-10-21 09:50:45,574 INFO drive_service: Google Drive: autenticado via OAuth 2.0.
+2026-10-21 09:50:45,575 INFO __main__: Drive: token carregado — integração ativa.
+2026-10-21 09:50:45,578 WARNING __main__: Índice único de CPF NÃO criado: já existem alunos com CPF repetido. Apague as duplicatas e reinicie o app.
+2026-10-21 09:50:45,702 INFO __main__: Servidor Waitress em http://0.0.0.0:5000
+2026-10-21 09:50:45,708 INFO waitress: Serving on http://0.0.0.0:5000
+2026-10-21 09:50:51,024 INFO __main__: → GET / (de 192.168.1.49)
+2026-10-21 09:50:51,025 INFO __main__: ← GET / 302 (0.00s)
+2026-10-21 09:50:51,042 INFO __main__: → GET /login (de 192.168.1.49)
+2026-10-21 09:50:51,092 INFO __main__: ← GET /login 200 (0.05s)
+2026-10-21 09:50:51,720 INFO __main__: → GET /favicon.ico (de 192.168.1.49)
+2026-10-21 09:50:51,722 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 09:50:54,294 INFO __main__: → POST /login (de 192.168.1.49)
+2026-10-21 09:50:54,666 INFO __main__: ← POST /login 302 (0.37s)
+2026-10-21 09:50:54,676 INFO __main__: → GET / (de 192.168.1.49)
+2026-10-21 09:50:54,705 INFO __main__: ← GET / 200 (0.03s)
+2026-10-21 09:50:54,819 INFO __main__: → GET /favicon.ico (de 192.168.1.49)
+2026-10-21 09:50:54,821 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 09:50:56,027 INFO __main__: → GET /nova_matricula (de 192.168.1.49)
+2026-10-21 09:50:56,260 INFO __main__: ← GET /nova_matricula 200 (0.23s)
+2026-10-21 09:51:01,091 INFO __main__: → GET /alunos (de 192.168.1.49)
+2026-10-21 09:51:01,167 INFO __main__: ← GET /alunos 200 (0.08s)
+2026-10-21 09:51:02,980 INFO __main__: → GET /resumo/2 (de 192.168.1.49)
+2026-10-21 09:51:03,079 INFO __main__: ← GET /resumo/2 200 (0.10s)
+2026-10-21 09:52:57,482 INFO __main__: → GET /resumo/2 (de 192.168.1.49)
+2026-10-21 09:52:57,494 INFO __main__: ← GET /resumo/2 200 (0.01s)
+2026-10-21 09:52:58,961 INFO __main__: → GET /resumo/2 (de 192.168.1.49)
+2026-10-21 09:52:58,973 INFO __main__: ← GET /resumo/2 200 (0.01s)
+2026-10-21 09:54:11,997 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 09:54:12,142 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 09:54:12,468 WARNING __main__: serve() finalizou — o servidor PAROU de atender.
+2026-10-21 09:54:12,470 WARNING __main__: Processo Python encerrando (atexit).
+2026-10-21 09:54:20,063 INFO drive_service: Google Drive: autenticado via OAuth 2.0.
+2026-10-21 09:54:20,064 INFO __main__: Drive: token carregado — integração ativa.
+2026-10-21 09:54:20,067 WARNING __main__: Índice único de CPF NÃO criado: já existem alunos com CPF repetido. Apague as duplicatas e reinicie o app.
+2026-10-21 09:54:20,172 INFO __main__: Servidor Waitress em http://0.0.0.0:5000
+2026-10-21 09:54:20,177 INFO waitress: Serving on http://0.0.0.0:5000
+2026-10-21 09:54:20,632 INFO __main__: → GET /resumo/2 (de 192.168.1.49)
+2026-10-21 09:54:20,668 INFO __main__: ← GET /resumo/2 200 (0.04s)
+2026-10-21 09:56:09,976 INFO __main__: → GET /resumo/2 (de 192.168.1.49)
+2026-10-21 09:56:09,988 INFO __main__: ← GET /resumo/2 200 (0.01s)
+2026-10-21 09:56:15,015 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 09:56:15,175 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 09:56:15,315 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 09:56:15,808 WARNING __main__: serve() finalizou — o servidor PAROU de atender.
+2026-10-21 09:56:15,810 WARNING __main__: Processo Python encerrando (atexit).
+2026-10-21 09:56:18,458 INFO drive_service: Google Drive: autenticado via OAuth 2.0.
+2026-10-21 09:56:18,459 INFO __main__: Drive: token carregado — integração ativa.
+2026-10-21 09:56:18,464 WARNING __main__: Índice único de CPF NÃO criado: já existem alunos com CPF repetido. Apague as duplicatas e reinicie o app.
+2026-10-21 09:56:18,565 INFO __main__: Servidor Waitress em http://0.0.0.0:5000
+2026-10-21 09:56:18,570 INFO waitress: Serving on http://0.0.0.0:5000
+2026-10-21 09:56:20,061 INFO __main__: → GET /resumo/2 (de 192.168.1.49)
+2026-10-21 09:56:20,093 INFO __main__: ← GET /resumo/2 200 (0.03s)
+2026-10-21 09:57:13,229 INFO __main__: → GET /resumo/2 (de 192.168.1.49)
+2026-10-21 09:57:13,241 INFO __main__: ← GET /resumo/2 200 (0.01s)
+2026-10-21 09:57:14,179 INFO __main__: → GET /resumo/2 (de 192.168.1.49)
+2026-10-21 09:57:14,195 INFO __main__: ← GET /resumo/2 200 (0.02s)
+2026-10-21 09:57:27,891 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 09:57:28,124 WARNING __main__: serve() finalizou — o servidor PAROU de atender.
+2026-10-21 09:57:28,126 WARNING __main__: Processo Python encerrando (atexit).
+2026-10-21 09:57:32,379 INFO drive_service: Google Drive: autenticado via OAuth 2.0.
+2026-10-21 09:57:32,380 INFO __main__: Drive: token carregado — integração ativa.
+2026-10-21 09:57:32,384 WARNING __main__: Índice único de CPF NÃO criado: já existem alunos com CPF repetido. Apague as duplicatas e reinicie o app.
+2026-10-21 09:57:32,476 INFO __main__: Servidor Waitress em http://0.0.0.0:5000
+2026-10-21 09:57:32,481 INFO waitress: Serving on http://0.0.0.0:5000
+2026-10-21 09:57:35,048 INFO __main__: → GET /resumo/2 (de 192.168.1.49)
+2026-10-21 09:57:35,128 INFO __main__: ← GET /resumo/2 200 (0.08s)
+2026-10-21 09:57:36,400 INFO __main__: → GET /resumo/2 (de 192.168.1.49)
+2026-10-21 09:57:36,416 INFO __main__: ← GET /resumo/2 200 (0.02s)
+2026-10-21 09:58:00,360 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 09:58:00,861 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 09:58:00,891 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 09:58:00,922 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 09:58:00,951 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 09:58:01,334 WARNING __main__: serve() finalizou — o servidor PAROU de atender.
+2026-10-21 09:58:01,336 WARNING __main__: Processo Python encerrando (atexit).
+2026-10-21 09:58:05,467 INFO drive_service: Google Drive: autenticado via OAuth 2.0.
+2026-10-21 09:58:05,467 INFO __main__: Drive: token carregado — integração ativa.
+2026-10-21 09:58:05,470 WARNING __main__: Índice único de CPF NÃO criado: já existem alunos com CPF repetido. Apague as duplicatas e reinicie o app.
+2026-10-21 09:58:05,553 INFO __main__: Servidor Waitress em http://0.0.0.0:5000
+2026-10-21 09:58:05,557 INFO waitress: Serving on http://0.0.0.0:5000
+2026-10-21 09:58:12,839 INFO __main__: → GET /resumo/2 (de 192.168.1.49)
+2026-10-21 09:58:12,930 INFO __main__: ← GET /resumo/2 200 (0.09s)
+2026-10-21 10:03:21,374 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:03:21,545 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:03:21,696 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:03:21,846 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:03:21,895 WARNING __main__: serve() finalizou — o servidor PAROU de atender.
+2026-10-21 10:03:21,897 WARNING __main__: Processo Python encerrando (atexit).
+2026-10-21 10:03:28,227 INFO drive_service: Drive: token renovado via refresh_token.
+2026-10-21 10:03:28,243 INFO drive_service: Google Drive: autenticado via OAuth 2.0.
+2026-10-21 10:03:28,244 INFO __main__: Drive: token carregado — integração ativa.
+2026-10-21 10:03:28,252 WARNING __main__: Índice único de CPF NÃO criado: já existem alunos com CPF repetido. Apague as duplicatas e reinicie o app.
+2026-10-21 10:03:28,404 INFO __main__: Servidor Waitress em http://0.0.0.0:5000
+2026-10-21 10:03:28,408 INFO waitress: Serving on http://0.0.0.0:5000
+2026-10-21 10:03:30,185 INFO __main__: → GET /resumo/2 (de 192.168.1.49)
+2026-10-21 10:03:30,274 INFO __main__: ← GET /resumo/2 200 (0.09s)
+2026-10-21 10:06:50,172 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:06:50,421 WARNING __main__: serve() finalizou — o servidor PAROU de atender.
+2026-10-21 10:06:50,423 WARNING __main__: Processo Python encerrando (atexit).
+2026-10-21 10:06:53,435 INFO drive_service: Google Drive: autenticado via OAuth 2.0.
+2026-10-21 10:06:53,436 INFO __main__: Drive: token carregado — integração ativa.
+2026-10-21 10:06:53,443 WARNING __main__: Índice único de CPF NÃO criado: já existem alunos com CPF repetido. Apague as duplicatas e reinicie o app.
+2026-10-21 10:06:53,555 INFO __main__: Servidor Waitress em http://0.0.0.0:5000
+2026-10-21 10:06:53,561 INFO waitress: Serving on http://0.0.0.0:5000
+2026-10-21 10:06:54,756 INFO __main__: → GET /resumo/2 (de 192.168.1.49)
+2026-10-21 10:06:54,817 INFO __main__: ← GET /resumo/2 200 (0.06s)
+2026-10-21 10:10:12,549 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:10:13,015 WARNING __main__: serve() finalizou — o servidor PAROU de atender.
+2026-10-21 10:10:13,017 WARNING __main__: Processo Python encerrando (atexit).
+2026-10-21 10:10:27,892 INFO drive_service: Google Drive: autenticado via OAuth 2.0.
+2026-10-21 10:10:27,895 INFO __main__: Drive: token carregado — integração ativa.
+2026-10-21 10:10:27,905 WARNING __main__: Índice único de CPF NÃO criado: já existem alunos com CPF repetido. Apague as duplicatas e reinicie o app.
+2026-10-21 10:10:28,113 INFO __main__: Servidor Waitress em http://0.0.0.0:5000
+2026-10-21 10:10:28,121 INFO waitress: Serving on http://0.0.0.0:5000
+2026-10-21 10:10:28,556 INFO __main__: → GET /resumo/2 (de 192.168.1.49)
+2026-10-21 10:10:28,664 INFO __main__: ← GET /resumo/2 200 (0.11s)
+2026-10-21 10:11:50,118 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:11:50,295 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:11:50,441 WARNING __main__: serve() finalizou — o servidor PAROU de atender.
+2026-10-21 10:11:50,443 WARNING __main__: Processo Python encerrando (atexit).
+2026-10-21 10:11:53,498 INFO drive_service: Google Drive: autenticado via OAuth 2.0.
+2026-10-21 10:11:53,498 INFO __main__: Drive: token carregado — integração ativa.
+2026-10-21 10:11:53,502 WARNING __main__: Índice único de CPF NÃO criado: já existem alunos com CPF repetido. Apague as duplicatas e reinicie o app.
+2026-10-21 10:11:53,605 INFO __main__: Servidor Waitress em http://0.0.0.0:5000
+2026-10-21 10:11:53,609 INFO waitress: Serving on http://0.0.0.0:5000
+2026-10-21 10:11:55,878 INFO __main__: → GET /resumo/2 (de 192.168.1.49)
+2026-10-21 10:11:55,983 INFO __main__: ← GET /resumo/2 200 (0.11s)
+2026-10-21 10:17:35,447 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:17:35,951 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:17:35,980 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:17:36,119 WARNING __main__: serve() finalizou — o servidor PAROU de atender.
+2026-10-21 10:17:36,120 WARNING __main__: Processo Python encerrando (atexit).
+2026-10-21 10:17:39,937 INFO drive_service: Google Drive: autenticado via OAuth 2.0.
+2026-10-21 10:17:39,937 INFO __main__: Drive: token carregado — integração ativa.
+2026-10-21 10:17:39,941 WARNING __main__: Índice único de CPF NÃO criado: já existem alunos com CPF repetido. Apague as duplicatas e reinicie o app.
+2026-10-21 10:17:40,066 INFO __main__: Servidor Waitress em http://0.0.0.0:5000
+2026-10-21 10:17:40,070 INFO waitress: Serving on http://0.0.0.0:5000
+2026-10-21 10:17:42,086 INFO __main__: → GET /resumo/2 (de 192.168.1.49)
+2026-10-21 10:17:42,141 ERROR app: Exception on /resumo/2 [GET]
+Traceback (most recent call last):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask_login\utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 1710, in resumo_matricula
+    return render_template("resumo_matricula.html", aluno=aluno)
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\jinja2\loaders.py", line 138, in load
+    code = environment.compile(source, name, filename)
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\jinja2\environment.py", line 771, in compile
+    self.handle_exception(source=source_hint)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Matriculas\Matriculas-Digitais\templates\resumo_matricula.html", line 177, in template
+    <aluno class="email">{{ aluno.email }}</aluno> | default('', true) }}
+    ^^^^^^^^^^^^^^^^^^^
+jinja2.exceptions.TemplateSyntaxError: unexpected '<'
+2026-10-21 10:17:42,164 INFO __main__: ← GET /resumo/2 500 (0.08s)
+2026-10-21 10:17:44,873 INFO __main__: → GET /resumo/2 (de 192.168.1.49)
+2026-10-21 10:17:44,903 ERROR app: Exception on /resumo/2 [GET]
+Traceback (most recent call last):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask_login\utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 1710, in resumo_matricula
+    return render_template("resumo_matricula.html", aluno=aluno)
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\jinja2\loaders.py", line 138, in load
+    code = environment.compile(source, name, filename)
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\jinja2\environment.py", line 771, in compile
+    self.handle_exception(source=source_hint)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Matriculas\Matriculas-Digitais\templates\resumo_matricula.html", line 177, in template
+    <aluno class="email">{{ aluno.email }}</aluno> | default('', true) }}
+    ^^^^^^^^^^^^^^^^^^^
+jinja2.exceptions.TemplateSyntaxError: unexpected '<'
+2026-10-21 10:17:44,917 INFO __main__: ← GET /resumo/2 500 (0.04s)
+2026-10-21 10:17:53,936 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:17:53,939 WARNING __main__: serve() finalizou — o servidor PAROU de atender.
+2026-10-21 10:17:53,940 WARNING __main__: Processo Python encerrando (atexit).
+2026-10-21 10:18:14,865 INFO drive_service: Google Drive: autenticado via OAuth 2.0.
+2026-10-21 10:18:14,866 INFO __main__: Drive: token carregado — integração ativa.
+2026-10-21 10:18:14,870 WARNING __main__: Índice único de CPF NÃO criado: já existem alunos com CPF repetido. Apague as duplicatas e reinicie o app.
+2026-10-21 10:18:14,960 INFO __main__: Servidor Waitress em http://0.0.0.0:5000
+2026-10-21 10:18:14,965 INFO waitress: Serving on http://0.0.0.0:5000
+2026-10-21 10:18:17,146 INFO __main__: → GET /resumo/2 (de 192.168.1.49)
+2026-10-21 10:18:17,193 ERROR app: Exception on /resumo/2 [GET]
+Traceback (most recent call last):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask_login\utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 1710, in resumo_matricula
+    return render_template("resumo_matricula.html", aluno=aluno)
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\jinja2\loaders.py", line 138, in load
+    code = environment.compile(source, name, filename)
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\jinja2\environment.py", line 771, in compile
+    self.handle_exception(source=source_hint)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Matriculas\Matriculas-Digitais\templates\resumo_matricula.html", line 177, in template
+    <aluno class="email">{{ aluno.email }}</aluno> | default('', true) }}
+    ^^^^^^^^^^^^^^^^^^^
+jinja2.exceptions.TemplateSyntaxError: unexpected '<'
+2026-10-21 10:18:17,215 INFO __main__: ← GET /resumo/2 500 (0.07s)
+2026-10-21 10:19:04,025 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:19:04,388 WARNING __main__: serve() finalizou — o servidor PAROU de atender.
+2026-10-21 10:19:04,389 WARNING __main__: Processo Python encerrando (atexit).
+2026-10-21 10:19:29,093 INFO drive_service: Google Drive: autenticado via OAuth 2.0.
+2026-10-21 10:19:29,094 INFO __main__: Drive: token carregado — integração ativa.
+2026-10-21 10:19:29,099 WARNING __main__: Índice único de CPF NÃO criado: já existem alunos com CPF repetido. Apague as duplicatas e reinicie o app.
+2026-10-21 10:19:29,215 INFO __main__: Servidor Waitress em http://0.0.0.0:5000
+2026-10-21 10:19:29,220 INFO waitress: Serving on http://0.0.0.0:5000
+2026-10-21 10:19:31,308 INFO __main__: → GET /resumo/2 (de 192.168.1.49)
+2026-10-21 10:19:31,365 ERROR app: Exception on /resumo/2 [GET]
+Traceback (most recent call last):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask_login\utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 1710, in resumo_matricula
+    return render_template("resumo_matricula.html", aluno=aluno)
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\jinja2\loaders.py", line 138, in load
+    code = environment.compile(source, name, filename)
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\jinja2\environment.py", line 771, in compile
+    self.handle_exception(source=source_hint)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Matriculas\Matriculas-Digitais\templates\resumo_matricula.html", line 177, in template
+    <span class="email"></span> {{ aluno.email }} | default('', true) }}
+    ^^^^^^^^^^^^^^^^^^^
+jinja2.exceptions.TemplateSyntaxError: unexpected '<'
+2026-10-21 10:19:31,385 INFO __main__: ← GET /resumo/2 500 (0.08s)
+2026-10-21 10:20:09,331 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:20:09,518 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:20:09,587 WARNING __main__: serve() finalizou — o servidor PAROU de atender.
+2026-10-21 10:20:09,590 WARNING __main__: Processo Python encerrando (atexit).
+2026-10-21 10:20:19,963 INFO drive_service: Google Drive: autenticado via OAuth 2.0.
+2026-10-21 10:20:19,963 INFO __main__: Drive: token carregado — integração ativa.
+2026-10-21 10:20:19,967 WARNING __main__: Índice único de CPF NÃO criado: já existem alunos com CPF repetido. Apague as duplicatas e reinicie o app.
+2026-10-21 10:20:20,094 INFO __main__: Servidor Waitress em http://0.0.0.0:5000
+2026-10-21 10:20:20,100 INFO waitress: Serving on http://0.0.0.0:5000
+2026-10-21 10:20:21,613 INFO __main__: → GET /resumo/2 (de 192.168.1.49)
+2026-10-21 10:20:21,716 INFO __main__: ← GET /resumo/2 200 (0.10s)
+2026-10-21 10:22:14,823 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:22:14,987 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:22:15,141 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:22:15,290 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:22:15,816 WARNING __main__: serve() finalizou — o servidor PAROU de atender.
+2026-10-21 10:22:15,817 WARNING __main__: Processo Python encerrando (atexit).
+2026-10-21 10:22:28,315 INFO drive_service: Google Drive: autenticado via OAuth 2.0.
+2026-10-21 10:22:28,316 INFO __main__: Drive: token carregado — integração ativa.
+2026-10-21 10:22:28,321 WARNING __main__: Índice único de CPF NÃO criado: já existem alunos com CPF repetido. Apague as duplicatas e reinicie o app.
+2026-10-21 10:22:28,439 INFO __main__: Servidor Waitress em http://0.0.0.0:5000
+2026-10-21 10:22:28,445 INFO waitress: Serving on http://0.0.0.0:5000
+2026-10-21 10:22:37,966 INFO __main__: → GET /resumo/2 (de 192.168.1.49)
+2026-10-21 10:22:38,075 INFO __main__: ← GET /resumo/2 200 (0.11s)
+2026-10-21 10:23:34,224 INFO __main__: → GET /nova_matricula (de 192.168.1.49)
+2026-10-21 10:23:34,561 INFO __main__: ← GET /nova_matricula 200 (0.34s)
+2026-10-21 10:28:15,075 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:28:15,266 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:28:15,420 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:28:15,535 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:28:16,071 WARNING __main__: serve() finalizou — o servidor PAROU de atender.
+2026-10-21 10:28:16,073 WARNING __main__: Processo Python encerrando (atexit).
+2026-10-21 10:28:22,868 INFO drive_service: Google Drive: autenticado via OAuth 2.0.
+2026-10-21 10:28:22,868 INFO __main__: Drive: token carregado — integração ativa.
+2026-10-21 10:28:22,873 WARNING __main__: Índice único de CPF NÃO criado: já existem alunos com CPF repetido. Apague as duplicatas e reinicie o app.
+2026-10-21 10:28:23,047 INFO __main__: Servidor Waitress em http://0.0.0.0:5000
+2026-10-21 10:28:23,053 INFO waitress: Serving on http://0.0.0.0:5000
+2026-10-21 10:28:23,501 INFO __main__: → GET /nova_matricula (de 192.168.1.49)
+2026-10-21 10:28:23,696 INFO __main__: ← GET /nova_matricula 200 (0.19s)
+2026-10-21 10:28:24,868 INFO __main__: → GET /nova_matricula (de 192.168.1.49)
+2026-10-21 10:28:24,883 INFO __main__: ← GET /nova_matricula 200 (0.01s)
+2026-10-21 10:28:43,491 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:28:43,993 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:28:44,026 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:28:44,035 WARNING __main__: serve() finalizou — o servidor PAROU de atender.
+2026-10-21 10:28:44,037 WARNING __main__: Processo Python encerrando (atexit).
+2026-10-21 10:28:47,735 INFO drive_service: Google Drive: autenticado via OAuth 2.0.
+2026-10-21 10:28:47,735 INFO __main__: Drive: token carregado — integração ativa.
+2026-10-21 10:28:47,740 WARNING __main__: Índice único de CPF NÃO criado: já existem alunos com CPF repetido. Apague as duplicatas e reinicie o app.
+2026-10-21 10:28:47,863 INFO __main__: Servidor Waitress em http://0.0.0.0:5000
+2026-10-21 10:28:47,867 INFO waitress: Serving on http://0.0.0.0:5000
+2026-10-21 10:28:49,131 INFO __main__: → GET /nova_matricula (de 192.168.1.49)
+2026-10-21 10:28:49,388 INFO __main__: ← GET /nova_matricula 200 (0.26s)
+2026-10-21 10:31:30,690 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:31:31,191 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:31:31,220 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:31:31,251 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:31:31,280 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:31:31,311 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:31:31,341 WARNING __main__: serve() finalizou — o servidor PAROU de atender.
+2026-10-21 10:31:31,343 WARNING __main__: Processo Python encerrando (atexit).
+2026-10-21 10:31:34,827 INFO drive_service: Google Drive: autenticado via OAuth 2.0.
+2026-10-21 10:31:34,828 INFO __main__: Drive: token carregado — integração ativa.
+2026-10-21 10:31:34,832 WARNING __main__: Índice único de CPF NÃO criado: já existem alunos com CPF repetido. Apague as duplicatas e reinicie o app.
+2026-10-21 10:31:34,984 INFO __main__: Servidor Waitress em http://0.0.0.0:5000
+2026-10-21 10:31:34,992 INFO waitress: Serving on http://0.0.0.0:5000
+2026-10-21 10:31:35,374 INFO __main__: → GET /nova_matricula (de 192.168.1.49)
+2026-10-21 10:31:35,501 INFO __main__: ← GET /nova_matricula 200 (0.13s)
+2026-10-21 10:31:47,291 INFO __main__: → GET /resumo/2 (de 192.168.1.49)
+2026-10-21 10:31:47,382 INFO __main__: ← GET /resumo/2 200 (0.09s)
+2026-10-21 10:35:44,574 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:35:44,742 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:35:44,892 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:35:45,021 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:35:45,433 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:35:45,442 WARNING __main__: serve() finalizou — o servidor PAROU de atender.
+2026-10-21 10:35:45,444 WARNING __main__: Processo Python encerrando (atexit).
+2026-10-21 10:35:49,185 INFO drive_service: Google Drive: autenticado via OAuth 2.0.
+2026-10-21 10:35:49,186 INFO __main__: Drive: token carregado — integração ativa.
+2026-10-21 10:35:49,190 WARNING __main__: Índice único de CPF NÃO criado: já existem alunos com CPF repetido. Apague as duplicatas e reinicie o app.
+2026-10-21 10:35:49,366 INFO __main__: Servidor Waitress em http://0.0.0.0:5000
+2026-10-21 10:35:49,374 INFO waitress: Serving on http://0.0.0.0:5000
+2026-10-21 10:35:49,638 INFO __main__: → GET /resumo/2 (de 192.168.1.49)
+2026-10-21 10:35:49,697 INFO __main__: ← GET /resumo/2 200 (0.06s)
+2026-10-21 10:37:54,142 INFO __main__: → GET /nova_matricula (de 192.168.1.49)
+2026-10-21 10:37:54,379 INFO __main__: ← GET /nova_matricula 200 (0.24s)
+2026-10-21 10:38:34,994 INFO __main__: → GET /editar/2 (de 192.168.1.49)
+2026-10-21 10:38:35,016 INFO __main__: ← GET /editar/2 200 (0.02s)
+2026-10-21 10:38:37,997 INFO __main__: → GET /resumo/2 (de 192.168.1.49)
+2026-10-21 10:38:38,013 INFO __main__: ← GET /resumo/2 200 (0.02s)
+2026-10-21 10:41:29,160 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:41:29,254 WARNING __main__: serve() finalizou — o servidor PAROU de atender.
+2026-10-21 10:41:29,256 WARNING __main__: Processo Python encerrando (atexit).
+2026-10-21 10:41:33,033 INFO drive_service: Google Drive: autenticado via OAuth 2.0.
+2026-10-21 10:41:33,039 INFO __main__: Drive: token carregado — integração ativa.
+2026-10-21 10:41:33,043 WARNING __main__: Índice único de CPF NÃO criado: já existem alunos com CPF repetido. Apague as duplicatas e reinicie o app.
+2026-10-21 10:41:33,249 INFO __main__: Servidor Waitress em http://0.0.0.0:5000
+2026-10-21 10:41:33,255 INFO waitress: Serving on http://0.0.0.0:5000
+2026-10-21 10:41:33,365 INFO __main__: → GET /resumo/2 (de 192.168.1.49)
+2026-10-21 10:41:33,429 INFO __main__: ← GET /resumo/2 200 (0.06s)
+2026-10-21 10:41:34,268 INFO __main__: → GET /resumo/2 (de 192.168.1.49)
+2026-10-21 10:41:34,284 INFO __main__: ← GET /resumo/2 200 (0.02s)
+2026-10-21 10:41:35,696 INFO __main__: → GET /resumo/2 (de 192.168.1.49)
+2026-10-21 10:41:35,711 INFO __main__: ← GET /resumo/2 200 (0.01s)
+2026-10-21 10:41:37,017 INFO __main__: → GET /resumo/2 (de 192.168.1.49)
+2026-10-21 10:41:37,030 INFO __main__: ← GET /resumo/2 200 (0.01s)
+2026-10-21 10:45:52,857 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:45:52,882 WARNING __main__: serve() finalizou — o servidor PAROU de atender.
+2026-10-21 10:45:52,883 WARNING __main__: Processo Python encerrando (atexit).
+2026-10-21 10:45:56,035 INFO drive_service: Google Drive: autenticado via OAuth 2.0.
+2026-10-21 10:45:56,035 INFO __main__: Drive: token carregado — integração ativa.
+2026-10-21 10:45:56,037 WARNING __main__: Índice único de CPF NÃO criado: já existem alunos com CPF repetido. Apague as duplicatas e reinicie o app.
+2026-10-21 10:45:56,109 INFO __main__: Servidor Waitress em http://0.0.0.0:5000
+2026-10-21 10:45:56,111 INFO waitress: Serving on http://0.0.0.0:5000
+2026-10-21 10:45:58,103 INFO __main__: → GET /resumo/2 (de 192.168.1.49)
+2026-10-21 10:45:58,184 INFO __main__: ← GET /resumo/2 200 (0.08s)
+2026-10-21 10:46:37,336 INFO __main__: → GET /editar/2 (de 192.168.1.49)
+2026-10-21 10:46:37,503 INFO __main__: ← GET /editar/2 200 (0.17s)
+2026-10-21 10:46:39,590 INFO __main__: → GET /editar/2 (de 192.168.1.49)
+2026-10-21 10:46:39,601 INFO __main__: ← GET /editar/2 200 (0.01s)
+2026-10-21 10:47:53,985 INFO __main__: → GET /nova_matricula (de 192.168.1.49)
+2026-10-21 10:47:53,993 INFO __main__: ← GET /nova_matricula 200 (0.01s)
+2026-10-21 10:48:35,616 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:48:36,122 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:48:36,151 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:48:36,182 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:48:36,212 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:48:36,242 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:48:36,273 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:48:36,275 WARNING __main__: serve() finalizou — o servidor PAROU de atender.
+2026-10-21 10:48:36,276 WARNING __main__: Processo Python encerrando (atexit).
+2026-10-21 10:48:39,033 INFO drive_service: Google Drive: autenticado via OAuth 2.0.
+2026-10-21 10:48:39,033 INFO __main__: Drive: token carregado — integração ativa.
+2026-10-21 10:48:39,042 WARNING __main__: Índice único de CPF NÃO criado: já existem alunos com CPF repetido. Apague as duplicatas e reinicie o app.
+2026-10-21 10:48:39,184 INFO __main__: Servidor Waitress em http://0.0.0.0:5000
+2026-10-21 10:48:39,209 INFO waitress: Serving on http://0.0.0.0:5000
+2026-10-21 10:48:41,719 INFO __main__: → GET /nova_matricula (de 192.168.1.49)
+2026-10-21 10:48:41,889 INFO __main__: ← GET /nova_matricula 200 (0.17s)
+2026-10-21 10:48:49,850 INFO __main__: → GET / (de 192.168.1.49)
+2026-10-21 10:48:49,881 INFO __main__: ← GET / 200 (0.03s)
+2026-10-21 10:48:51,137 INFO __main__: → GET /alunos (de 192.168.1.49)
+2026-10-21 10:48:51,231 INFO __main__: ← GET /alunos 200 (0.09s)
+2026-10-21 10:48:52,868 INFO __main__: → GET /editar/2 (de 192.168.1.49)
+2026-10-21 10:48:52,875 INFO __main__: ← GET /editar/2 200 (0.01s)
+2026-10-21 10:48:55,544 INFO __main__: → GET /resumo/2 (de 192.168.1.49)
+2026-10-21 10:48:55,595 INFO __main__: ← GET /resumo/2 200 (0.05s)
+2026-10-21 10:52:37,620 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:52:38,122 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:52:38,152 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:52:38,181 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:52:38,212 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:52:38,241 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:52:38,271 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 10:52:38,319 WARNING __main__: serve() finalizou — o servidor PAROU de atender.
+2026-10-21 10:52:38,320 WARNING __main__: Processo Python encerrando (atexit).
+2026-10-21 10:52:41,405 INFO drive_service: Google Drive: autenticado via OAuth 2.0.
+2026-10-21 10:52:41,405 INFO __main__: Drive: token carregado — integração ativa.
+2026-10-21 10:52:41,410 WARNING __main__: Índice único de CPF NÃO criado: já existem alunos com CPF repetido. Apague as duplicatas e reinicie o app.
+2026-10-21 10:52:41,531 INFO __main__: Servidor Waitress em http://0.0.0.0:5000
+2026-10-21 10:52:41,535 INFO waitress: Serving on http://0.0.0.0:5000
+2026-10-21 10:52:43,558 INFO __main__: → GET /resumo/2 (de 192.168.1.49)
+2026-10-21 10:52:43,630 INFO __main__: ← GET /resumo/2 200 (0.07s)
+2026-10-21 11:02:28,453 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 11:02:28,631 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 11:02:28,784 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 11:02:29,045 WARNING __main__: serve() finalizou — o servidor PAROU de atender.
+2026-10-21 11:02:29,046 WARNING __main__: Processo Python encerrando (atexit).
+2026-10-21 11:05:55,431 INFO drive_service: Drive: token renovado via refresh_token.
+2026-10-21 11:05:55,444 INFO drive_service: Google Drive: autenticado via OAuth 2.0.
+2026-10-21 11:05:55,444 INFO __main__: Drive: token carregado — integração ativa.
+2026-10-21 11:05:55,447 WARNING __main__: Índice único de CPF NÃO criado: já existem alunos com CPF repetido. Apague as duplicatas e reinicie o app.
+2026-10-21 11:05:55,541 INFO __main__: Servidor Waitress em http://0.0.0.0:5000
+2026-10-21 11:05:55,545 INFO waitress: Serving on http://0.0.0.0:5000
+2026-10-21 11:05:58,162 INFO __main__: → GET / (de 192.168.1.76)
+2026-10-21 11:05:58,190 INFO __main__: ← GET / 200 (0.03s)
+2026-10-21 11:05:59,379 INFO __main__: → GET /alunos (de 192.168.1.76)
+2026-10-21 11:05:59,420 INFO __main__: ← GET /alunos 200 (0.04s)
+2026-10-21 11:06:02,970 INFO __main__: → GET /alunos (de 192.168.1.76)
+2026-10-21 11:06:02,982 INFO __main__: ← GET /alunos 200 (0.01s)
+2026-10-21 11:06:05,895 INFO __main__: → GET /editar/72 (de 192.168.1.76)
+2026-10-21 11:06:06,023 INFO __main__: ← GET /editar/72 200 (0.13s)
+2026-10-21 11:06:07,741 INFO __main__: → GET /editar/72 (de 192.168.1.76)
+2026-10-21 11:06:09,963 INFO __main__: ← GET /editar/72 200 (2.22s)
+2026-10-21 11:06:23,493 INFO __main__: → POST /editar/72 (de 192.168.1.76)
+2026-10-21 11:06:25,048 INFO drive_service: Drive: pasta criada '2025' (id=1XTDuKpgAUkscMXyRducbq2iAKn5feliJ)
+2026-10-21 11:06:26,673 INFO drive_service: Drive: pasta criada 'Sem Sala' (id=1xGlUsva1ElZ57MqG14C7giHE_n3-4YZm)
+2026-10-21 11:06:28,333 INFO drive_service: Drive: pasta criada 'ALUNOS' (id=1SICzj_N-y9Jx3t3eGvvtBnCFn7zZ_roH)
+2026-10-21 11:06:30,213 INFO drive_service: Drive: pasta criada 'HEITOR HENRIQUE OLIVEIRA OBANDO PARDO' (id=1aWnPEQw68LfU1pyO2o9vtTMo-awS4l1s)
+2026-10-21 11:06:31,873 INFO drive_service: Drive: pasta criada 'COMP_RESIDÊNCIA' (id=1nSB4ma1PIhhqPW8ZuS2e6nqkINDAvZFZ)
+2026-10-21 11:06:35,065 INFO drive_service: Drive: 'Acer_Wallpaper_01_3840x2400.jpg' → /2025/Sem Sala/ALUNOS/HEITOR HENRIQUE OLIVEIRA OBANDO PARDO/COMP_RESIDÊNCIA (id=1ljV3DDP-WqdtqbeRC4VkqKncAEGN6tmq)
+2026-10-21 11:06:35,066 INFO __main__: Drive: upload OK — Acer_Wallpaper_01_3840x2400.jpg → COMP_RESIDÊNCIA
+2026-10-21 11:06:35,067 INFO __main__: ← POST /editar/72 302 (11.57s)
+2026-10-21 11:06:35,095 INFO __main__: → GET /alunos (de 192.168.1.76)
+2026-10-21 11:06:35,131 INFO __main__: ← GET /alunos 200 (0.04s)
+2026-10-21 11:06:42,199 INFO __main__: → GET /alunos (de 192.168.1.49)
+2026-10-21 11:06:42,223 INFO __main__: ← GET /alunos 200 (0.02s)
+2026-10-21 11:07:36,253 INFO __main__: → GET /alunos (de 192.168.1.76)
+2026-10-21 11:07:36,264 INFO __main__: ← GET /alunos 200 (0.01s)
+2026-10-21 11:07:38,463 INFO __main__: → GET /editar/157 (de 192.168.1.76)
+2026-10-21 11:07:38,475 INFO __main__: ← GET /editar/157 200 (0.01s)
+2026-10-21 11:07:40,660 INFO __main__: → GET /editar/157 (de 192.168.1.76)
+2026-10-21 11:07:41,983 INFO __main__: ← GET /editar/157 200 (1.32s)
+2026-10-21 11:07:49,736 INFO __main__: → GET /alunos (de 192.168.1.49)
+2026-10-21 11:07:49,745 INFO __main__: ← GET /alunos 200 (0.01s)
+2026-10-21 11:08:04,481 INFO __main__: → GET /alunos (de 192.168.1.49)
+2026-10-21 11:08:04,499 INFO __main__: ← GET /alunos 200 (0.02s)
+2026-10-21 11:08:18,402 INFO __main__: → GET /alunos (de 192.168.1.49)
+2026-10-21 11:08:18,430 INFO __main__: ← GET /alunos 200 (0.03s)
+2026-10-21 11:08:22,286 INFO __main__: → GET /alunos (de 192.168.1.49)
+2026-10-21 11:08:22,291 INFO __main__: ← GET /alunos 200 (0.01s)
+2026-10-21 11:08:25,359 INFO __main__: → GET /editar/72 (de 192.168.1.49)
+2026-10-21 11:08:25,373 INFO __main__: ← GET /editar/72 200 (0.01s)
+2026-10-21 11:08:26,838 INFO __main__: → GET /editar/72 (de 192.168.1.49)
+2026-10-21 11:08:28,148 INFO __main__: → GET /editar/72 (de 192.168.1.49)
+2026-10-21 11:08:28,308 WARNING __main__: Drive: verificação de existência falhou: [SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:2711)
+2026-10-21 11:08:28,309 WARNING __main__: Drive: verificação de existência falhou: [SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:2711)
+2026-10-21 11:08:28,313 INFO __main__: ← GET /editar/72 200 (0.17s)
+2026-10-21 11:08:28,319 INFO __main__: ← GET /editar/72 200 (1.48s)
+2026-10-21 11:09:55,323 INFO __main__: → POST /editar/72 (de 192.168.1.49)
+2026-10-21 11:09:56,056 INFO __main__: → POST /editar/157 (de 192.168.1.76)
+2026-10-21 11:09:56,255 ERROR __main__: Drive: falha em 'Acer_Wallpaper_03_3840x2400.jpg': [SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:2711)
+2026-10-21 11:09:56,264 INFO __main__: ← POST /editar/157 302 (0.21s)
+2026-10-21 11:09:56,288 INFO __main__: → GET /alunos (de 192.168.1.76)
+2026-10-21 11:09:56,333 INFO __main__: ← GET /alunos 200 (0.04s)
+2026-10-21 11:10:01,103 INFO drive_service: Drive: 'Acer_Wallpaper_01_3840x2400.jpg' → /2025/Sem Sala/ALUNOS/HEITOR HENRIQUE OLIVEIRA OBANDO PARDO/COMP_RESIDÊNCIA (id=1pzDSOE0C7dHqFy0mi5ZQhHXiu3aSxN6h)
+2026-10-21 11:10:01,112 INFO __main__: Drive: upload OK — Acer_Wallpaper_01_3840x2400.jpg → COMP_RESIDÊNCIA
+2026-10-21 11:10:01,113 INFO __main__: ← POST /editar/72 302 (5.79s)
+2026-10-21 11:10:01,137 INFO __main__: → GET /alunos (de 192.168.1.49)
+2026-10-21 11:10:01,186 INFO __main__: ← GET /alunos 200 (0.05s)
+2026-10-21 11:10:01,309 INFO __main__: → GET /favicon.ico (de 192.168.1.49)
+2026-10-21 11:10:01,312 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 11:10:26,265 INFO __main__: → GET /alunos (de 192.168.1.76)
+2026-10-21 11:10:26,275 INFO __main__: ← GET /alunos 200 (0.01s)
+2026-10-21 11:10:31,415 INFO __main__: → GET /alunos (de 192.168.1.49)
+2026-10-21 11:10:31,421 INFO __main__: ← GET /alunos 200 (0.01s)
+2026-10-21 11:10:35,525 INFO __main__: → GET /editar/157 (de 192.168.1.49)
+2026-10-21 11:10:35,538 INFO __main__: ← GET /editar/157 200 (0.01s)
+2026-10-21 11:10:45,900 INFO __main__: → GET /uploads/Acer_Wallpaper_03_3840x2400.jpg (de 192.168.1.49)
+2026-10-21 11:10:45,908 INFO __main__: ← GET /uploads/Acer_Wallpaper_03_3840x2400.jpg 404 (0.01s)
+2026-10-21 11:10:50,678 INFO __main__: → GET /editar/156 (de 192.168.1.76)
+2026-10-21 11:10:50,687 INFO __main__: ← GET /editar/156 200 (0.01s)
+2026-10-21 11:10:53,782 INFO __main__: → GET /editar/157 (de 192.168.1.76)
+2026-10-21 11:10:53,792 INFO __main__: ← GET /editar/157 200 (0.01s)
+2026-10-21 11:10:56,887 INFO __main__: → GET /uploads/Acer_Wallpaper_03_3840x2400.jpg (de 192.168.1.76)
+2026-10-21 11:10:56,894 INFO __main__: ← GET /uploads/Acer_Wallpaper_03_3840x2400.jpg 404 (0.01s)
+2026-10-21 11:12:01,529 INFO __main__: → GET /uploads/Acer_Wallpaper_03_3840x2400.jpg (de 192.168.1.76)
+2026-10-21 11:12:01,540 INFO __main__: ← GET /uploads/Acer_Wallpaper_03_3840x2400.jpg 404 (0.01s)
+2026-10-21 11:12:21,073 INFO __main__: → GET /editar/157 (de 192.168.1.49)
+2026-10-21 11:12:22,203 INFO __main__: ← GET /editar/157 200 (1.13s)
+2026-10-21 11:12:28,189 INFO __main__: → GET /editar/157 (de 192.168.1.76)
+2026-10-21 11:12:29,398 INFO __main__: ← GET /editar/157 200 (1.21s)
+2026-10-21 11:12:31,076 INFO __main__: → POST /editar/157 (de 192.168.1.76)
+2026-10-21 11:12:31,093 INFO __main__: ← POST /editar/157 302 (0.02s)
+2026-10-21 11:12:31,113 INFO __main__: → GET /alunos (de 192.168.1.76)
+2026-10-21 11:12:31,140 INFO __main__: ← GET /alunos 200 (0.03s)
+2026-10-21 11:12:37,977 INFO __main__: → GET /alunos (de 192.168.1.76)
+2026-10-21 11:12:37,986 INFO __main__: ← GET /alunos 200 (0.01s)
+2026-10-21 11:12:39,634 INFO __main__: → GET /editar/157 (de 192.168.1.76)
+2026-10-21 11:12:39,648 INFO __main__: ← GET /editar/157 200 (0.01s)
+2026-10-21 11:12:40,885 INFO __main__: → GET /editar/157 (de 192.168.1.76)
+2026-10-21 11:12:41,948 INFO __main__: ← GET /editar/157 200 (1.06s)
+2026-10-21 11:12:51,566 INFO __main__: → GET /editar/157 (de 192.168.1.49)
+2026-10-21 11:12:52,719 INFO __main__: ← GET /editar/157 200 (1.15s)
+2026-10-21 11:13:01,549 INFO __main__: → GET /alunos (de 192.168.1.49)
+2026-10-21 11:13:01,560 INFO __main__: ← GET /alunos 200 (0.01s)
+2026-10-21 11:13:03,731 INFO __main__: → GET /editar/72 (de 192.168.1.49)
+2026-10-21 11:13:03,747 INFO __main__: ← GET /editar/72 200 (0.02s)
+2026-10-21 11:13:10,681 INFO __main__: → GET /editar/72 (de 192.168.1.49)
+2026-10-21 11:13:13,325 INFO __main__: ← GET /editar/72 200 (2.64s)
+2026-10-21 11:13:26,619 INFO __main__: → POST /editar/72 (de 192.168.1.49)
+2026-10-21 11:13:27,184 INFO __main__: → POST /editar/157 (de 192.168.1.76)
+2026-10-21 11:13:27,649 ERROR __main__: Drive: falha em 'Acer_Wallpaper_01_3840x2400.jpg': [SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:2711)
+2026-10-21 11:13:27,649 ERROR __main__: Drive: falha em 'Acer_Wallpaper_02_3840x2400.jpg': [SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:2711)
+2026-10-21 11:13:27,657 INFO __main__: ← POST /editar/72 302 (1.04s)
+2026-10-21 11:13:27,665 INFO __main__: ← POST /editar/157 302 (0.48s)
+2026-10-21 11:13:27,667 INFO __main__: → GET /alunos (de 192.168.1.49)
+2026-10-21 11:13:27,701 INFO __main__: ← GET /alunos 200 (0.03s)
+2026-10-21 11:13:27,703 INFO __main__: → GET /alunos (de 192.168.1.76)
+2026-10-21 11:13:27,734 INFO __main__: ← GET /alunos 200 (0.03s)
+2026-10-21 11:13:27,823 INFO __main__: → GET /favicon.ico (de 192.168.1.49)
+2026-10-21 11:13:27,824 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 11:13:43,160 INFO __main__: → GET /alunos (de 192.168.1.49)
+2026-10-21 11:13:43,168 INFO __main__: ← GET /alunos 200 (0.01s)
+2026-10-21 11:13:45,470 INFO __main__: → GET /editar/72 (de 192.168.1.49)
+2026-10-21 11:13:45,487 INFO __main__: ← GET /editar/72 200 (0.02s)
+2026-10-21 11:13:46,614 INFO __main__: → GET /editar/72 (de 192.168.1.49)
+2026-10-21 11:13:48,533 INFO __main__: ← GET /editar/72 200 (1.92s)
+2026-10-21 11:17:21,634 INFO __main__: → GET / (de 192.168.1.49)
+2026-10-21 11:17:21,640 INFO __main__: ← GET / 200 (0.01s)
+2026-10-21 11:17:23,167 INFO __main__: → GET /alunos (de 192.168.1.49)
+2026-10-21 11:17:23,185 INFO __main__: ← GET /alunos 200 (0.02s)
+2026-10-21 11:18:18,546 INFO __main__: → GET /editar/2 (de 192.168.1.49)
+2026-10-21 11:18:18,558 INFO __main__: ← GET /editar/2 200 (0.01s)
+2026-10-21 11:18:19,737 INFO __main__: → GET /editar/2 (de 192.168.1.49)
+2026-10-21 11:18:19,761 INFO __main__: ← GET /editar/2 200 (0.02s)
+2026-10-21 11:18:27,932 INFO __main__: → GET /alunos (de 192.168.1.49)
+2026-10-21 11:18:27,954 INFO __main__: ← GET /alunos 200 (0.02s)
+2026-10-21 11:18:29,201 INFO __main__: → GET /resumo/2 (de 192.168.1.49)
+2026-10-21 11:18:29,246 INFO __main__: ← GET /resumo/2 200 (0.05s)
+2026-10-21 11:48:44,267 INFO __main__: → GET /alunos (de 192.168.1.49)
+2026-10-21 11:48:44,301 INFO __main__: ← GET /alunos 200 (0.03s)
+2026-10-21 11:48:51,424 INFO __main__: → GET /alunos (de 192.168.1.49)
+2026-10-21 11:48:51,431 INFO __main__: ← GET /alunos 200 (0.01s)
+2026-10-21 11:48:53,891 INFO __main__: → GET /editar/72 (de 192.168.1.49)
+2026-10-21 11:48:53,905 INFO __main__: ← GET /editar/72 200 (0.01s)
+2026-10-21 11:48:55,632 INFO __main__: → GET /editar/72 (de 192.168.1.49)
+2026-10-21 11:48:59,380 INFO __main__: ← GET /editar/72 200 (3.75s)
+2026-10-21 11:49:05,194 INFO __main__: → POST /editar/72 (de 192.168.1.49)
+2026-10-21 11:49:10,585 INFO drive_service: Drive: 'Acer_Wallpaper_01_3840x2400.jpg' → /2025/Sem Sala/ALUNOS/HEITOR HENRIQUE OLIVEIRA OBANDO PARDO/COMP_RESIDÊNCIA (id=13MrgrvXPvJcMuIg87SR-1H6Nvu27cthQ)
+2026-10-21 11:49:10,587 INFO __main__: Drive: upload OK — Acer_Wallpaper_01_3840x2400.jpg → COMP_RESIDÊNCIA
+2026-10-21 11:49:10,590 INFO __main__: ← POST /editar/72 302 (5.40s)
+2026-10-21 11:49:10,614 INFO __main__: → GET /alunos (de 192.168.1.49)
+2026-10-21 11:49:10,639 INFO __main__: ← GET /alunos 200 (0.02s)
+2026-10-21 11:49:10,711 INFO __main__: → GET /favicon.ico (de 192.168.1.49)
+2026-10-21 11:49:10,713 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 11:58:50,450 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 11:58:50,618 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 11:58:50,788 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 11:58:50,958 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 11:58:51,400 WARNING __main__: serve() finalizou — o servidor PAROU de atender.
+2026-10-21 11:58:51,402 WARNING __main__: Processo Python encerrando (atexit).
+2026-10-21 14:22:41,847 INFO drive_service: Drive: token renovado via refresh_token.
+2026-10-21 14:22:41,862 INFO drive_service: Google Drive: autenticado via OAuth 2.0.
+2026-10-21 14:22:41,863 INFO __main__: Drive: token carregado — integração ativa.
+2026-10-21 14:22:41,868 WARNING __main__: Índice único de CPF NÃO criado: já existem alunos com CPF repetido. Apague as duplicatas e reinicie o app.
+2026-10-21 14:22:41,997 INFO __main__: Servidor Waitress em http://0.0.0.0:5000
+2026-10-21 14:22:42,001 INFO waitress: Serving on http://0.0.0.0:5000
+2026-10-21 14:24:24,563 INFO __main__: → GET /editar/2 (de 192.168.1.49)
+2026-10-21 14:24:24,780 INFO __main__: ← GET /editar/2 200 (0.22s)
+2026-10-21 14:24:42,932 INFO __main__: → GET / (de 192.168.1.49)
+2026-10-21 14:24:42,947 INFO __main__: ← GET / 200 (0.01s)
+2026-10-21 14:24:56,880 INFO __main__: → GET / (de 192.168.1.79)
+2026-10-21 14:24:56,890 INFO __main__: ← GET / 302 (0.01s)
+2026-10-21 14:24:56,907 INFO __main__: → GET /login (de 192.168.1.79)
+2026-10-21 14:24:56,975 INFO __main__: ← GET /login 200 (0.07s)
+2026-10-21 14:24:57,063 INFO __main__: → GET /favicon.ico (de 192.168.1.79)
+2026-10-21 14:24:57,065 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 14:24:59,643 INFO __main__: → GET / (de 192.168.1.79)
+2026-10-21 14:24:59,647 INFO __main__: ← GET / 302 (0.00s)
+2026-10-21 14:24:59,658 INFO __main__: → GET /login (de 192.168.1.79)
+2026-10-21 14:24:59,662 INFO __main__: ← GET /login 200 (0.00s)
+2026-10-21 14:25:04,559 INFO __main__: → POST /login (de 192.168.1.79)
+2026-10-21 14:25:04,954 INFO __main__: ← POST /login 302 (0.40s)
+2026-10-21 14:25:04,967 INFO __main__: → GET / (de 192.168.1.79)
+2026-10-21 14:25:05,014 INFO __main__: ← GET / 200 (0.05s)
+2026-10-21 14:25:07,733 INFO __main__: → GET /alunos (de 192.168.1.79)
+2026-10-21 14:25:07,795 INFO __main__: ← GET /alunos 200 (0.06s)
+2026-10-21 14:25:17,052 INFO __main__: → GET /alunos (de 192.168.1.79)
+2026-10-21 14:25:17,093 INFO __main__: ← GET /alunos 200 (0.04s)
+2026-10-21 14:25:20,942 INFO __main__: → GET /resumo/72 (de 192.168.1.79)
+2026-10-21 14:25:21,021 INFO __main__: ← GET /resumo/72 200 (0.08s)
+2026-10-21 14:30:42,016 INFO __main__: → GET /alunos (de 192.168.1.49)
+2026-10-21 14:30:42,060 INFO __main__: ← GET /alunos 200 (0.04s)
+2026-10-21 14:30:47,074 INFO __main__: → GET /alunos (de 192.168.1.49)
+2026-10-21 14:30:47,087 INFO __main__: ← GET /alunos 200 (0.01s)
+2026-10-21 14:30:49,236 INFO __main__: → GET /resumo/72 (de 192.168.1.49)
+2026-10-21 14:30:49,252 INFO __main__: ← GET /resumo/72 200 (0.02s)
+2026-10-21 14:33:20,201 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 14:33:20,296 WARNING __main__: serve() finalizou — o servidor PAROU de atender.
+2026-10-21 14:33:20,298 WARNING __main__: Processo Python encerrando (atexit).
+2026-10-21 14:33:24,066 INFO drive_service: Google Drive: autenticado via OAuth 2.0.
+2026-10-21 14:33:24,067 INFO __main__: Drive: token carregado — integração ativa.
+2026-10-21 14:33:24,070 WARNING __main__: Índice único de CPF NÃO criado: já existem alunos com CPF repetido. Apague as duplicatas e reinicie o app.
+2026-10-21 14:33:24,223 INFO __main__: Servidor Waitress em http://0.0.0.0:5000
+2026-10-21 14:33:24,229 INFO waitress: Serving on http://0.0.0.0:5000
+2026-10-21 14:33:26,123 INFO __main__: → GET /resumo/72 (de 192.168.1.49)
+2026-10-21 14:33:26,239 INFO __main__: ← GET /resumo/72 200 (0.12s)
+2026-10-21 14:35:55,122 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 14:35:55,268 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 14:35:55,400 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 14:35:55,827 WARNING __main__: serve() finalizou — o servidor PAROU de atender.
+2026-10-21 14:35:55,830 WARNING __main__: Processo Python encerrando (atexit).
+2026-10-21 14:36:02,814 INFO drive_service: Google Drive: autenticado via OAuth 2.0.
+2026-10-21 14:36:02,815 INFO __main__: Drive: token carregado — integração ativa.
+2026-10-21 14:36:02,820 WARNING __main__: Índice único de CPF NÃO criado: já existem alunos com CPF repetido. Apague as duplicatas e reinicie o app.
+2026-10-21 14:36:02,962 INFO __main__: Servidor Waitress em http://0.0.0.0:5000
+2026-10-21 14:36:02,966 INFO waitress: Serving on http://0.0.0.0:5000
+2026-10-21 14:36:04,330 INFO __main__: → GET /resumo/72 (de 192.168.1.49)
+2026-10-21 14:36:04,438 INFO __main__: ← GET /resumo/72 200 (0.11s)
+2026-10-21 14:38:12,131 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 14:38:12,450 WARNING __main__: serve() finalizou — o servidor PAROU de atender.
+2026-10-21 14:38:12,452 WARNING __main__: Processo Python encerrando (atexit).
+2026-10-21 14:38:15,238 INFO drive_service: Google Drive: autenticado via OAuth 2.0.
+2026-10-21 14:38:15,239 INFO __main__: Drive: token carregado — integração ativa.
+2026-10-21 14:38:15,242 WARNING __main__: Índice único de CPF NÃO criado: já existem alunos com CPF repetido. Apague as duplicatas e reinicie o app.
+2026-10-21 14:38:15,336 INFO __main__: Servidor Waitress em http://0.0.0.0:5000
+2026-10-21 14:38:15,339 INFO waitress: Serving on http://0.0.0.0:5000
+2026-10-21 14:38:17,345 INFO __main__: → GET /resumo/72 (de 192.168.1.49)
+2026-10-21 14:38:17,460 INFO __main__: ← GET /resumo/72 200 (0.12s)
+2026-10-21 14:38:44,703 INFO __main__: → GET /resumo/72 (de 192.168.1.79)
+2026-10-21 14:38:44,727 INFO __main__: ← GET /resumo/72 200 (0.02s)
+2026-10-21 15:31:18,523 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 15:31:18,711 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 15:31:18,781 WARNING __main__: serve() finalizou — o servidor PAROU de atender.
+2026-10-21 15:31:18,782 WARNING __main__: Processo Python encerrando (atexit).
+2026-10-21 19:08:24,427 INFO drive_service: Drive: token renovado via refresh_token.
+2026-10-21 19:08:24,481 INFO drive_service: Google Drive: autenticado via OAuth 2.0.
+2026-10-21 19:08:24,482 INFO __main__: Drive: token carregado — integração ativa.
+2026-10-21 19:08:24,501 WARNING __main__: Índice único de CPF NÃO criado: já existem alunos com CPF repetido. Apague as duplicatas e reinicie o app.
+2026-10-21 19:08:24,856 INFO __main__: Servidor Waitress em http://0.0.0.0:5000
+2026-10-21 19:08:24,866 INFO waitress: Serving on http://0.0.0.0:5000
+2026-10-21 19:08:25,126 INFO __main__: → GET / (de 192.168.1.81)
+2026-10-21 19:08:25,132 INFO __main__: ← GET / 302 (0.01s)
+2026-10-21 19:08:25,149 INFO __main__: → GET /login (de 192.168.1.81)
+2026-10-21 19:08:25,210 INFO __main__: ← GET /login 200 (0.06s)
+2026-10-21 19:08:31,675 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:08:31,678 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:08:35,526 INFO __main__: → POST /login (de 192.168.1.81)
+2026-10-21 19:08:35,893 INFO __main__: ← POST /login 302 (0.37s)
+2026-10-21 19:08:35,914 INFO __main__: → GET / (de 192.168.1.81)
+2026-10-21 19:08:35,948 INFO __main__: ← GET / 200 (0.03s)
+2026-10-21 19:08:36,136 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:08:36,141 INFO __main__: ← GET /favicon.ico 404 (0.01s)
+2026-10-21 19:16:11,225 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:16:11,340 INFO __main__: ← GET /alunos 200 (0.11s)
+2026-10-21 19:16:24,050 INFO __main__: → GET /editar/2 (de 192.168.1.81)
+2026-10-21 19:16:24,313 INFO __main__: ← GET /editar/2 200 (0.26s)
+2026-10-21 19:16:25,389 INFO __main__: → GET /editar/2 (de 192.168.1.81)
+2026-10-21 19:16:25,418 INFO __main__: ← GET /editar/2 200 (0.03s)
+2026-10-21 19:16:36,339 INFO __main__: → POST /editar/2 (de 192.168.1.81)
+2026-10-21 19:16:36,391 INFO __main__: ← POST /editar/2 302 (0.05s)
+2026-10-21 19:16:36,438 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:16:36,494 INFO __main__: ← GET /alunos 200 (0.06s)
+2026-10-21 19:16:36,870 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:16:36,873 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:16:42,650 INFO __main__: → GET /editar/3 (de 192.168.1.81)
+2026-10-21 19:16:42,681 INFO __main__: ← GET /editar/3 200 (0.03s)
+2026-10-21 19:16:44,046 INFO __main__: → GET /editar/3 (de 192.168.1.81)
+2026-10-21 19:16:44,068 INFO __main__: ← GET /editar/3 200 (0.02s)
+2026-10-21 19:16:53,450 INFO __main__: → POST /editar/3 (de 192.168.1.81)
+2026-10-21 19:16:53,507 INFO __main__: ← POST /editar/3 302 (0.06s)
+2026-10-21 19:16:53,574 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:16:53,623 INFO __main__: ← GET /alunos 200 (0.05s)
+2026-10-21 19:16:54,050 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:16:54,054 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:16:55,127 INFO __main__: → GET /editar/4 (de 192.168.1.81)
+2026-10-21 19:16:55,149 INFO __main__: ← GET /editar/4 200 (0.02s)
+2026-10-21 19:16:56,835 INFO __main__: → GET /editar/4 (de 192.168.1.81)
+2026-10-21 19:16:56,853 INFO __main__: ← GET /editar/4 200 (0.02s)
+2026-10-21 19:17:03,576 INFO __main__: → POST /editar/4 (de 192.168.1.81)
+2026-10-21 19:17:03,645 INFO __main__: ← POST /editar/4 302 (0.07s)
+2026-10-21 19:17:03,695 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:17:03,759 INFO __main__: ← GET /alunos 200 (0.06s)
+2026-10-21 19:17:04,104 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:17:04,106 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:17:12,638 INFO __main__: → GET /editar/7 (de 192.168.1.81)
+2026-10-21 19:17:12,660 INFO __main__: ← GET /editar/7 200 (0.02s)
+2026-10-21 19:17:13,948 INFO __main__: → GET /editar/7 (de 192.168.1.81)
+2026-10-21 19:17:13,982 INFO __main__: ← GET /editar/7 200 (0.03s)
+2026-10-21 19:17:20,079 INFO __main__: → POST /editar/7 (de 192.168.1.81)
+2026-10-21 19:17:20,104 INFO __main__: ← POST /editar/7 302 (0.02s)
+2026-10-21 19:17:20,169 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:17:20,222 INFO __main__: ← GET /alunos 200 (0.05s)
+2026-10-21 19:17:20,458 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:17:20,462 INFO __main__: ← GET /favicon.ico 404 (0.01s)
+2026-10-21 19:17:25,385 INFO __main__: → GET /editar/8 (de 192.168.1.81)
+2026-10-21 19:17:25,415 INFO __main__: ← GET /editar/8 200 (0.03s)
+2026-10-21 19:17:48,718 INFO __main__: → GET /editar/8 (de 192.168.1.81)
+2026-10-21 19:17:51,875 INFO __main__: ← GET /editar/8 200 (3.16s)
+2026-10-21 19:17:58,005 INFO __main__: → POST /editar/8 (de 192.168.1.81)
+2026-10-21 19:17:58,053 INFO __main__: ← POST /editar/8 302 (0.05s)
+2026-10-21 19:17:58,091 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:17:58,160 INFO __main__: ← GET /alunos 200 (0.07s)
+2026-10-21 19:17:58,526 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:17:58,530 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:18:03,919 INFO __main__: → GET /editar/10 (de 192.168.1.81)
+2026-10-21 19:18:03,938 INFO __main__: ← GET /editar/10 200 (0.02s)
+2026-10-21 19:18:04,897 INFO __main__: → GET /editar/10 (de 192.168.1.81)
+2026-10-21 19:18:04,928 INFO __main__: ← GET /editar/10 200 (0.03s)
+2026-10-21 19:18:10,252 INFO __main__: → POST /editar/10 (de 192.168.1.81)
+2026-10-21 19:18:10,297 INFO __main__: ← POST /editar/10 302 (0.05s)
+2026-10-21 19:18:10,373 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:18:10,439 INFO __main__: ← GET /alunos 200 (0.07s)
+2026-10-21 19:18:10,624 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:18:10,629 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:18:14,721 INFO __main__: → GET /editar/11 (de 192.168.1.81)
+2026-10-21 19:18:14,740 INFO __main__: ← GET /editar/11 200 (0.02s)
+2026-10-21 19:18:15,985 INFO __main__: → GET /editar/11 (de 192.168.1.81)
+2026-10-21 19:18:16,008 INFO __main__: ← GET /editar/11 200 (0.02s)
+2026-10-21 19:18:21,284 INFO __main__: → POST /editar/11 (de 192.168.1.81)
+2026-10-21 19:18:21,346 INFO __main__: ← POST /editar/11 302 (0.06s)
+2026-10-21 19:18:21,385 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:18:21,446 INFO __main__: ← GET /alunos 200 (0.06s)
+2026-10-21 19:18:21,706 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:18:21,711 INFO __main__: ← GET /favicon.ico 404 (0.01s)
+2026-10-21 19:18:25,535 INFO __main__: → GET /editar/12 (de 192.168.1.81)
+2026-10-21 19:18:25,552 INFO __main__: ← GET /editar/12 200 (0.02s)
+2026-10-21 19:18:26,689 INFO __main__: → GET /editar/12 (de 192.168.1.81)
+2026-10-21 19:18:26,720 INFO __main__: ← GET /editar/12 200 (0.03s)
+2026-10-21 19:18:31,083 INFO __main__: → POST /editar/12 (de 192.168.1.81)
+2026-10-21 19:18:31,128 INFO __main__: ← POST /editar/12 302 (0.05s)
+2026-10-21 19:18:31,169 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:18:31,218 INFO __main__: ← GET /alunos 200 (0.05s)
+2026-10-21 19:18:31,416 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:18:31,417 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:18:34,683 INFO __main__: → GET /editar/13 (de 192.168.1.81)
+2026-10-21 19:18:34,715 INFO __main__: ← GET /editar/13 200 (0.03s)
+2026-10-21 19:18:35,568 INFO __main__: → GET /editar/13 (de 192.168.1.81)
+2026-10-21 19:18:35,591 INFO __main__: ← GET /editar/13 200 (0.02s)
+2026-10-21 19:18:41,416 INFO __main__: → POST /editar/13 (de 192.168.1.81)
+2026-10-21 19:18:41,474 INFO __main__: ← POST /editar/13 302 (0.06s)
+2026-10-21 19:18:41,533 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:18:41,588 INFO __main__: ← GET /alunos 200 (0.05s)
+2026-10-21 19:18:41,831 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:18:41,836 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:19:04,654 INFO __main__: → GET /editar/15 (de 192.168.1.81)
+2026-10-21 19:19:04,683 INFO __main__: ← GET /editar/15 200 (0.03s)
+2026-10-21 19:19:06,706 INFO __main__: → GET /editar/15 (de 192.168.1.81)
+2026-10-21 19:19:08,664 INFO __main__: ← GET /editar/15 200 (1.96s)
+2026-10-21 19:19:20,348 INFO __main__: → POST /editar/15 (de 192.168.1.81)
+2026-10-21 19:19:20,400 INFO __main__: ← POST /editar/15 302 (0.05s)
+2026-10-21 19:19:20,477 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:19:20,544 INFO __main__: ← GET /alunos 200 (0.07s)
+2026-10-21 19:19:20,908 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:19:20,916 INFO __main__: ← GET /favicon.ico 404 (0.01s)
+2026-10-21 19:19:24,502 INFO __main__: → GET /editar/17 (de 192.168.1.81)
+2026-10-21 19:19:24,533 INFO __main__: ← GET /editar/17 200 (0.03s)
+2026-10-21 19:19:26,412 INFO __main__: → GET /editar/17 (de 192.168.1.81)
+2026-10-21 19:19:26,433 INFO __main__: ← GET /editar/17 200 (0.02s)
+2026-10-21 19:19:32,749 INFO __main__: → POST /editar/17 (de 192.168.1.81)
+2026-10-21 19:19:32,802 INFO __main__: ← POST /editar/17 302 (0.05s)
+2026-10-21 19:19:32,853 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:19:32,900 INFO __main__: ← GET /alunos 200 (0.05s)
+2026-10-21 19:19:33,179 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:19:33,193 INFO __main__: ← GET /favicon.ico 404 (0.01s)
+2026-10-21 19:19:41,194 INFO __main__: → GET /editar/16 (de 192.168.1.81)
+2026-10-21 19:19:41,220 INFO __main__: ← GET /editar/16 200 (0.03s)
+2026-10-21 19:19:42,249 INFO __main__: → GET /editar/16 (de 192.168.1.81)
+2026-10-21 19:19:44,244 INFO __main__: ← GET /editar/16 200 (2.00s)
+2026-10-21 19:19:49,955 INFO __main__: → POST /editar/16 (de 192.168.1.81)
+2026-10-21 19:19:50,011 INFO __main__: ← POST /editar/16 302 (0.06s)
+2026-10-21 19:19:50,095 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:19:50,163 INFO __main__: ← GET /alunos 200 (0.07s)
+2026-10-21 19:19:50,399 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:19:50,408 INFO __main__: ← GET /favicon.ico 404 (0.01s)
+2026-10-21 19:19:56,136 INFO __main__: → GET /editar/18 (de 192.168.1.81)
+2026-10-21 19:19:56,154 INFO __main__: ← GET /editar/18 200 (0.02s)
+2026-10-21 19:19:57,107 INFO __main__: → GET /editar/18 (de 192.168.1.81)
+2026-10-21 19:19:57,137 INFO __main__: ← GET /editar/18 200 (0.03s)
+2026-10-21 19:20:03,397 INFO __main__: → POST /editar/18 (de 192.168.1.81)
+2026-10-21 19:20:03,452 INFO __main__: ← POST /editar/18 302 (0.05s)
+2026-10-21 19:20:03,553 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:20:03,615 INFO __main__: ← GET /alunos 200 (0.06s)
+2026-10-21 19:20:03,820 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:20:03,822 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:20:11,591 INFO __main__: → GET /editar/14 (de 192.168.1.81)
+2026-10-21 19:20:11,619 INFO __main__: ← GET /editar/14 200 (0.03s)
+2026-10-21 19:20:12,555 INFO __main__: → GET /editar/14 (de 192.168.1.81)
+2026-10-21 19:20:12,581 INFO __main__: ← GET /editar/14 200 (0.03s)
+2026-10-21 19:20:18,924 INFO __main__: → POST /editar/14 (de 192.168.1.81)
+2026-10-21 19:20:18,979 INFO __main__: ← POST /editar/14 302 (0.06s)
+2026-10-21 19:20:19,025 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:20:19,088 INFO __main__: ← GET /alunos 200 (0.06s)
+2026-10-21 19:20:19,414 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:20:19,417 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:20:35,506 INFO __main__: → GET /editar/19 (de 192.168.1.81)
+2026-10-21 19:20:35,529 INFO __main__: ← GET /editar/19 200 (0.02s)
+2026-10-21 19:20:36,627 INFO __main__: → GET /editar/19 (de 192.168.1.81)
+2026-10-21 19:20:36,659 INFO __main__: ← GET /editar/19 200 (0.03s)
+2026-10-21 19:20:40,702 INFO __main__: → POST /editar/19 (de 192.168.1.81)
+2026-10-21 19:20:40,743 INFO __main__: ← POST /editar/19 302 (0.04s)
+2026-10-21 19:20:40,777 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:20:40,855 INFO __main__: ← GET /alunos 200 (0.08s)
+2026-10-21 19:20:41,305 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:20:41,307 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:20:44,828 INFO __main__: → GET /editar/20 (de 192.168.1.81)
+2026-10-21 19:20:44,867 INFO __main__: ← GET /editar/20 200 (0.04s)
+2026-10-21 19:20:45,940 INFO __main__: → GET /editar/20 (de 192.168.1.81)
+2026-10-21 19:20:45,962 INFO __main__: ← GET /editar/20 200 (0.02s)
+2026-10-21 19:20:53,323 INFO __main__: → POST /editar/20 (de 192.168.1.81)
+2026-10-21 19:20:53,356 INFO __main__: ← POST /editar/20 302 (0.03s)
+2026-10-21 19:20:53,407 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:20:53,465 INFO __main__: ← GET /alunos 200 (0.06s)
+2026-10-21 19:20:53,739 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:20:53,741 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:20:56,375 INFO __main__: → GET /editar/21 (de 192.168.1.81)
+2026-10-21 19:20:56,397 INFO __main__: ← GET /editar/21 200 (0.02s)
+2026-10-21 19:20:58,007 INFO __main__: → GET /editar/21 (de 192.168.1.81)
+2026-10-21 19:20:58,027 INFO __main__: ← GET /editar/21 200 (0.02s)
+2026-10-21 19:21:05,122 INFO __main__: → POST /editar/21 (de 192.168.1.81)
+2026-10-21 19:21:05,172 INFO __main__: ← POST /editar/21 302 (0.05s)
+2026-10-21 19:21:05,294 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:21:05,351 INFO __main__: ← GET /alunos 200 (0.06s)
+2026-10-21 19:21:05,574 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:21:05,578 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:21:13,038 INFO __main__: → GET /editar/23 (de 192.168.1.81)
+2026-10-21 19:21:13,074 INFO __main__: ← GET /editar/23 200 (0.04s)
+2026-10-21 19:21:14,055 INFO __main__: → GET /editar/23 (de 192.168.1.81)
+2026-10-21 19:21:15,689 INFO __main__: ← GET /editar/23 200 (1.63s)
+2026-10-21 19:21:21,273 INFO __main__: → POST /editar/23 (de 192.168.1.81)
+2026-10-21 19:21:21,330 INFO __main__: ← POST /editar/23 302 (0.06s)
+2026-10-21 19:21:21,371 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:21:21,415 INFO __main__: ← GET /alunos 200 (0.04s)
+2026-10-21 19:21:21,573 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:21:21,579 INFO __main__: ← GET /favicon.ico 404 (0.01s)
+2026-10-21 19:21:39,309 INFO __main__: → GET /editar/2 (de 192.168.1.81)
+2026-10-21 19:21:39,332 INFO __main__: ← GET /editar/2 200 (0.02s)
+2026-10-21 19:21:40,966 INFO __main__: → GET /editar/2 (de 192.168.1.81)
+2026-10-21 19:21:40,989 INFO __main__: ← GET /editar/2 200 (0.02s)
+2026-10-21 19:21:48,521 INFO __main__: → POST /editar/2 (de 192.168.1.81)
+2026-10-21 19:21:48,571 INFO __main__: ← POST /editar/2 302 (0.05s)
+2026-10-21 19:21:48,607 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:21:48,667 INFO __main__: ← GET /alunos 200 (0.06s)
+2026-10-21 19:21:49,021 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:21:49,024 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:21:56,247 INFO __main__: → GET /editar/4 (de 192.168.1.81)
+2026-10-21 19:21:56,270 INFO __main__: ← GET /editar/4 200 (0.02s)
+2026-10-21 19:21:57,441 INFO __main__: → GET /editar/4 (de 192.168.1.81)
+2026-10-21 19:21:57,470 INFO __main__: ← GET /editar/4 200 (0.03s)
+2026-10-21 19:22:06,477 INFO __main__: → POST /editar/4 (de 192.168.1.81)
+2026-10-21 19:22:06,528 INFO __main__: ← POST /editar/4 302 (0.05s)
+2026-10-21 19:22:06,566 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:22:06,661 INFO __main__: ← GET /alunos 200 (0.09s)
+2026-10-21 19:22:07,117 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:22:07,120 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:22:16,046 INFO __main__: → GET /editar/3 (de 192.168.1.81)
+2026-10-21 19:22:16,071 INFO __main__: ← GET /editar/3 200 (0.03s)
+2026-10-21 19:22:17,402 INFO __main__: → GET /editar/3 (de 192.168.1.81)
+2026-10-21 19:22:17,428 INFO __main__: ← GET /editar/3 200 (0.03s)
+2026-10-21 19:22:26,029 INFO __main__: → POST /editar/3 (de 192.168.1.81)
+2026-10-21 19:22:26,062 INFO __main__: ← POST /editar/3 302 (0.03s)
+2026-10-21 19:22:26,253 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:22:26,317 INFO __main__: ← GET /alunos 200 (0.06s)
+2026-10-21 19:22:26,660 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:22:26,662 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:22:36,027 INFO __main__: → GET /editar/5 (de 192.168.1.81)
+2026-10-21 19:22:36,052 INFO __main__: ← GET /editar/5 200 (0.02s)
+2026-10-21 19:22:37,257 INFO __main__: → GET /editar/5 (de 192.168.1.81)
+2026-10-21 19:22:37,287 INFO __main__: ← GET /editar/5 200 (0.03s)
+2026-10-21 19:22:44,449 INFO __main__: → POST /editar/5 (de 192.168.1.81)
+2026-10-21 19:22:44,503 INFO __main__: ← POST /editar/5 302 (0.05s)
+2026-10-21 19:22:44,550 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:22:44,616 INFO __main__: ← GET /alunos 200 (0.07s)
+2026-10-21 19:22:44,908 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:22:44,914 INFO __main__: ← GET /favicon.ico 404 (0.01s)
+2026-10-21 19:22:47,672 INFO __main__: → GET /editar/6 (de 192.168.1.81)
+2026-10-21 19:22:47,703 INFO __main__: ← GET /editar/6 200 (0.03s)
+2026-10-21 19:22:48,789 INFO __main__: → GET /editar/6 (de 192.168.1.81)
+2026-10-21 19:22:48,812 INFO __main__: ← GET /editar/6 200 (0.02s)
+2026-10-21 19:22:56,836 INFO __main__: → POST /editar/6 (de 192.168.1.81)
+2026-10-21 19:22:56,896 INFO __main__: ← POST /editar/6 302 (0.06s)
+2026-10-21 19:22:56,948 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:22:57,007 INFO __main__: ← GET /alunos 200 (0.06s)
+2026-10-21 19:22:57,387 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:22:57,392 INFO __main__: ← GET /favicon.ico 404 (0.01s)
+2026-10-21 19:23:07,333 INFO __main__: → GET /editar/8 (de 192.168.1.81)
+2026-10-21 19:23:07,358 INFO __main__: ← GET /editar/8 200 (0.02s)
+2026-10-21 19:23:08,586 INFO __main__: → GET /editar/8 (de 192.168.1.81)
+2026-10-21 19:23:10,222 INFO __main__: ← GET /editar/8 200 (1.64s)
+2026-10-21 19:23:18,279 INFO __main__: → POST /editar/8 (de 192.168.1.81)
+2026-10-21 19:23:18,313 INFO __main__: ← POST /editar/8 302 (0.03s)
+2026-10-21 19:23:18,360 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:23:18,418 INFO __main__: ← GET /alunos 200 (0.06s)
+2026-10-21 19:23:18,917 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:23:18,920 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:24:25,261 INFO __main__: → GET /editar/9 (de 192.168.1.81)
+2026-10-21 19:24:25,286 INFO __main__: ← GET /editar/9 200 (0.03s)
+2026-10-21 19:24:26,441 INFO __main__: → GET /editar/9 (de 192.168.1.81)
+2026-10-21 19:24:26,475 INFO __main__: ← GET /editar/9 200 (0.03s)
+2026-10-21 19:24:32,737 INFO __main__: → POST /editar/9 (de 192.168.1.81)
+2026-10-21 19:24:32,777 INFO __main__: ← POST /editar/9 302 (0.04s)
+2026-10-21 19:24:32,815 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:24:32,874 INFO __main__: ← GET /alunos 200 (0.06s)
+2026-10-21 19:24:33,327 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:24:33,331 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:24:59,748 INFO __main__: → GET /editar/10 (de 192.168.1.81)
+2026-10-21 19:24:59,772 INFO __main__: ← GET /editar/10 200 (0.02s)
+2026-10-21 19:25:00,578 INFO __main__: → GET /editar/10 (de 192.168.1.81)
+2026-10-21 19:25:00,601 INFO __main__: ← GET /editar/10 200 (0.02s)
+2026-10-21 19:25:05,552 INFO __main__: → POST /editar/10 (de 192.168.1.81)
+2026-10-21 19:25:05,599 INFO __main__: ← POST /editar/10 302 (0.05s)
+2026-10-21 19:25:05,717 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:25:05,774 INFO __main__: ← GET /alunos 200 (0.06s)
+2026-10-21 19:25:06,101 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:25:06,105 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:25:13,704 INFO __main__: → GET /editar/11 (de 192.168.1.81)
+2026-10-21 19:25:13,723 INFO __main__: ← GET /editar/11 200 (0.02s)
+2026-10-21 19:25:14,752 INFO __main__: → GET /editar/11 (de 192.168.1.81)
+2026-10-21 19:25:14,777 INFO __main__: ← GET /editar/11 200 (0.03s)
+2026-10-21 19:25:24,589 INFO __main__: → POST /editar/11 (de 192.168.1.81)
+2026-10-21 19:25:24,635 INFO __main__: ← POST /editar/11 302 (0.05s)
+2026-10-21 19:25:24,693 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:25:24,751 INFO __main__: ← GET /alunos 200 (0.06s)
+2026-10-21 19:25:25,029 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:25:25,033 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:25:30,474 INFO __main__: → GET /editar/11 (de 192.168.1.81)
+2026-10-21 19:25:30,494 INFO __main__: ← GET /editar/11 200 (0.02s)
+2026-10-21 19:25:31,491 INFO __main__: → GET /editar/11 (de 192.168.1.81)
+2026-10-21 19:25:31,520 INFO __main__: ← GET /editar/11 200 (0.03s)
+2026-10-21 19:25:40,917 INFO __main__: → POST /editar/11 (de 192.168.1.81)
+2026-10-21 19:25:40,962 INFO __main__: ← POST /editar/11 302 (0.05s)
+2026-10-21 19:25:41,029 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:25:41,100 INFO __main__: ← GET /alunos 200 (0.07s)
+2026-10-21 19:25:41,442 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:25:41,446 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:25:53,799 INFO __main__: → GET /editar/11 (de 192.168.1.81)
+2026-10-21 19:25:53,824 INFO __main__: ← GET /editar/11 200 (0.03s)
+2026-10-21 19:25:54,879 INFO __main__: → GET /editar/11 (de 192.168.1.81)
+2026-10-21 19:25:54,905 INFO __main__: ← GET /editar/11 200 (0.03s)
+2026-10-21 19:26:01,630 INFO __main__: → POST /editar/11 (de 192.168.1.81)
+2026-10-21 19:26:01,674 INFO __main__: ← POST /editar/11 302 (0.04s)
+2026-10-21 19:26:01,727 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:26:01,781 INFO __main__: ← GET /alunos 200 (0.05s)
+2026-10-21 19:26:09,518 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:26:09,524 INFO __main__: ← GET /favicon.ico 404 (0.01s)
+2026-10-21 19:26:24,072 INFO __main__: → GET /editar/12 (de 192.168.1.81)
+2026-10-21 19:26:24,102 INFO __main__: ← GET /editar/12 200 (0.03s)
+2026-10-21 19:26:25,173 INFO __main__: → GET /editar/12 (de 192.168.1.81)
+2026-10-21 19:26:25,197 INFO __main__: ← GET /editar/12 200 (0.02s)
+2026-10-21 19:26:34,447 INFO __main__: → POST /editar/12 (de 192.168.1.81)
+2026-10-21 19:26:34,506 INFO __main__: ← POST /editar/12 302 (0.06s)
+2026-10-21 19:26:34,563 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:26:34,620 INFO __main__: ← GET /alunos 200 (0.06s)
+2026-10-21 19:26:34,869 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:26:34,873 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:26:47,412 INFO __main__: → GET /editar/14 (de 192.168.1.81)
+2026-10-21 19:26:47,431 INFO __main__: ← GET /editar/14 200 (0.02s)
+2026-10-21 19:27:11,238 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:27:11,280 INFO __main__: ← GET /alunos 200 (0.04s)
+2026-10-21 19:27:28,353 INFO __main__: → GET /editar/13 (de 192.168.1.81)
+2026-10-21 19:27:28,381 INFO __main__: ← GET /editar/13 200 (0.03s)
+2026-10-21 19:27:29,592 INFO __main__: → GET /editar/13 (de 192.168.1.81)
+2026-10-21 19:27:29,622 INFO __main__: ← GET /editar/13 200 (0.03s)
+2026-10-21 19:27:40,249 INFO __main__: → POST /editar/13 (de 192.168.1.81)
+2026-10-21 19:27:40,293 INFO __main__: ← POST /editar/13 302 (0.04s)
+2026-10-21 19:27:40,338 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:27:40,391 INFO __main__: ← GET /alunos 200 (0.05s)
+2026-10-21 19:27:40,687 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:27:40,694 INFO __main__: ← GET /favicon.ico 404 (0.01s)
+2026-10-21 19:27:50,859 INFO __main__: → GET /editar/15 (de 192.168.1.81)
+2026-10-21 19:27:50,882 INFO __main__: ← GET /editar/15 200 (0.02s)
+2026-10-21 19:27:52,054 INFO __main__: → GET /editar/15 (de 192.168.1.81)
+2026-10-21 19:27:54,118 INFO __main__: ← GET /editar/15 200 (2.06s)
+2026-10-21 19:28:09,867 INFO __main__: → POST /editar/15 (de 192.168.1.81)
+2026-10-21 19:28:09,909 INFO __main__: ← POST /editar/15 302 (0.04s)
+2026-10-21 19:28:09,946 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:28:10,000 INFO __main__: ← GET /alunos 200 (0.05s)
+2026-10-21 19:28:10,206 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:28:10,209 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:28:16,137 INFO __main__: → GET /editar/13 (de 192.168.1.81)
+2026-10-21 19:28:16,160 INFO __main__: ← GET /editar/13 200 (0.02s)
+2026-10-21 19:28:17,476 INFO __main__: → GET /editar/13 (de 192.168.1.81)
+2026-10-21 19:28:17,507 INFO __main__: ← GET /editar/13 200 (0.03s)
+2026-10-21 19:28:22,034 INFO __main__: → POST /editar/13 (de 192.168.1.81)
+2026-10-21 19:28:22,071 INFO __main__: ← POST /editar/13 302 (0.04s)
+2026-10-21 19:28:22,113 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:28:22,166 INFO __main__: ← GET /alunos 200 (0.05s)
+2026-10-21 19:28:22,400 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:28:22,403 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:28:32,547 INFO __main__: → GET /editar/16 (de 192.168.1.81)
+2026-10-21 19:28:32,565 INFO __main__: ← GET /editar/16 200 (0.02s)
+2026-10-21 19:28:33,580 INFO __main__: → GET /editar/16 (de 192.168.1.81)
+2026-10-21 19:28:35,465 INFO __main__: ← GET /editar/16 200 (1.88s)
+2026-10-21 19:28:56,441 INFO __main__: → POST /editar/16 (de 192.168.1.81)
+2026-10-21 19:28:56,501 INFO __main__: ← POST /editar/16 302 (0.06s)
+2026-10-21 19:28:56,545 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:28:56,628 INFO __main__: ← GET /alunos 200 (0.08s)
+2026-10-21 19:28:56,862 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:28:56,869 INFO __main__: ← GET /favicon.ico 404 (0.01s)
+2026-10-21 19:29:05,324 INFO __main__: → GET /editar/17 (de 192.168.1.81)
+2026-10-21 19:29:05,361 INFO __main__: ← GET /editar/17 200 (0.04s)
+2026-10-21 19:29:06,928 INFO __main__: → GET /editar/17 (de 192.168.1.81)
+2026-10-21 19:29:06,943 INFO __main__: ← GET /editar/17 200 (0.01s)
+2026-10-21 19:29:15,562 INFO __main__: → POST /editar/17 (de 192.168.1.81)
+2026-10-21 19:29:15,625 INFO __main__: ← POST /editar/17 302 (0.06s)
+2026-10-21 19:29:15,663 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:29:15,729 INFO __main__: ← GET /alunos 200 (0.07s)
+2026-10-21 19:29:16,041 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:29:16,045 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:29:26,781 INFO __main__: → GET /editar/18 (de 192.168.1.81)
+2026-10-21 19:29:26,808 INFO __main__: ← GET /editar/18 200 (0.03s)
+2026-10-21 19:29:28,612 INFO __main__: → GET /editar/18 (de 192.168.1.81)
+2026-10-21 19:29:28,629 INFO __main__: ← GET /editar/18 200 (0.02s)
+2026-10-21 19:29:33,545 INFO __main__: → POST /editar/18 (de 192.168.1.81)
+2026-10-21 19:29:33,584 INFO __main__: ← POST /editar/18 302 (0.04s)
+2026-10-21 19:29:33,731 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:29:33,796 INFO __main__: ← GET /alunos 200 (0.07s)
+2026-10-21 19:29:34,018 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:29:34,023 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:29:46,840 INFO __main__: → GET /editar/19 (de 192.168.1.81)
+2026-10-21 19:29:46,860 INFO __main__: ← GET /editar/19 200 (0.02s)
+2026-10-21 19:29:47,923 INFO __main__: → GET /editar/19 (de 192.168.1.81)
+2026-10-21 19:29:47,949 INFO __main__: ← GET /editar/19 200 (0.03s)
+2026-10-21 19:29:54,965 INFO __main__: → POST /editar/19 (de 192.168.1.81)
+2026-10-21 19:29:55,013 INFO __main__: ← POST /editar/19 302 (0.05s)
+2026-10-21 19:29:55,061 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:29:55,124 INFO __main__: ← GET /alunos 200 (0.06s)
+2026-10-21 19:29:55,428 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:29:55,434 INFO __main__: ← GET /favicon.ico 404 (0.01s)
+2026-10-21 19:29:59,573 INFO __main__: → GET /editar/20 (de 192.168.1.81)
+2026-10-21 19:29:59,607 INFO __main__: ← GET /editar/20 200 (0.03s)
+2026-10-21 19:30:01,105 INFO __main__: → GET /editar/20 (de 192.168.1.81)
+2026-10-21 19:30:01,126 INFO __main__: ← GET /editar/20 200 (0.02s)
+2026-10-21 19:30:14,218 INFO __main__: → POST /editar/20 (de 192.168.1.81)
+2026-10-21 19:30:14,267 INFO __main__: ← POST /editar/20 302 (0.05s)
+2026-10-21 19:30:14,327 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:30:14,477 INFO __main__: ← GET /alunos 200 (0.15s)
+2026-10-21 19:30:14,821 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:30:14,827 INFO __main__: ← GET /favicon.ico 404 (0.01s)
+2026-10-21 19:30:19,299 INFO __main__: → GET /editar/21 (de 192.168.1.81)
+2026-10-21 19:30:19,322 INFO __main__: ← GET /editar/21 200 (0.02s)
+2026-10-21 19:30:20,419 INFO __main__: → GET /editar/21 (de 192.168.1.81)
+2026-10-21 19:30:20,442 INFO __main__: ← GET /editar/21 200 (0.02s)
+2026-10-21 19:30:25,646 INFO __main__: → POST /editar/21 (de 192.168.1.81)
+2026-10-21 19:30:25,679 INFO __main__: ← POST /editar/21 302 (0.03s)
+2026-10-21 19:30:25,742 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:30:25,798 INFO __main__: ← GET /alunos 200 (0.06s)
+2026-10-21 19:30:26,103 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:30:26,107 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:30:34,550 INFO __main__: → GET /editar/23 (de 192.168.1.81)
+2026-10-21 19:30:34,578 INFO __main__: ← GET /editar/23 200 (0.03s)
+2026-10-21 19:30:35,646 INFO __main__: → GET /editar/23 (de 192.168.1.81)
+2026-10-21 19:30:37,435 INFO __main__: ← GET /editar/23 200 (1.79s)
+2026-10-21 19:30:44,148 INFO __main__: → POST /editar/23 (de 192.168.1.81)
+2026-10-21 19:30:44,198 INFO __main__: ← POST /editar/23 302 (0.05s)
+2026-10-21 19:30:44,247 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:30:44,308 INFO __main__: ← GET /alunos 200 (0.06s)
+2026-10-21 19:30:44,820 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:30:44,822 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:30:51,453 INFO __main__: → GET /editar/24 (de 192.168.1.81)
+2026-10-21 19:30:51,469 INFO __main__: ← GET /editar/24 200 (0.02s)
+2026-10-21 19:30:52,810 INFO __main__: → GET /editar/24 (de 192.168.1.81)
+2026-10-21 19:30:52,833 INFO __main__: ← GET /editar/24 200 (0.02s)
+2026-10-21 19:31:01,179 INFO __main__: → POST /editar/24 (de 192.168.1.81)
+2026-10-21 19:31:01,244 INFO __main__: ← POST /editar/24 302 (0.06s)
+2026-10-21 19:31:01,321 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:31:01,416 INFO __main__: ← GET /alunos 200 (0.10s)
+2026-10-21 19:31:01,762 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:31:01,766 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:31:22,482 INFO __main__: → GET /editar/28 (de 192.168.1.81)
+2026-10-21 19:31:22,509 INFO __main__: ← GET /editar/28 200 (0.03s)
+2026-10-21 19:31:23,495 INFO __main__: → GET /editar/28 (de 192.168.1.81)
+2026-10-21 19:31:23,517 INFO __main__: ← GET /editar/28 200 (0.02s)
+2026-10-21 19:31:31,187 INFO __main__: → POST /editar/28 (de 192.168.1.81)
+2026-10-21 19:31:31,237 INFO __main__: ← POST /editar/28 302 (0.05s)
+2026-10-21 19:31:31,286 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:31:31,344 INFO __main__: ← GET /alunos 200 (0.06s)
+2026-10-21 19:31:31,635 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:31:31,640 INFO __main__: ← GET /favicon.ico 404 (0.01s)
+2026-10-21 19:31:47,675 INFO __main__: → GET /editar/31 (de 192.168.1.81)
+2026-10-21 19:31:47,711 INFO __main__: ← GET /editar/31 200 (0.04s)
+2026-10-21 19:31:48,730 INFO __main__: → GET /editar/31 (de 192.168.1.81)
+2026-10-21 19:31:48,755 INFO __main__: ← GET /editar/31 200 (0.03s)
+2026-10-21 19:31:53,529 INFO __main__: → POST /editar/31 (de 192.168.1.81)
+2026-10-21 19:31:53,582 INFO __main__: ← POST /editar/31 302 (0.05s)
+2026-10-21 19:31:53,625 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:31:53,695 INFO __main__: ← GET /alunos 200 (0.07s)
+2026-10-21 19:31:53,904 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:31:53,909 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:32:02,356 INFO __main__: → GET /editar/33 (de 192.168.1.81)
+2026-10-21 19:32:02,378 INFO __main__: ← GET /editar/33 200 (0.02s)
+2026-10-21 19:32:03,311 INFO __main__: → GET /editar/33 (de 192.168.1.81)
+2026-10-21 19:32:03,340 INFO __main__: ← GET /editar/33 200 (0.03s)
+2026-10-21 19:32:11,019 INFO __main__: → POST /editar/33 (de 192.168.1.81)
+2026-10-21 19:32:11,086 INFO __main__: ← POST /editar/33 302 (0.07s)
+2026-10-21 19:32:11,153 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:32:11,194 INFO __main__: ← GET /alunos 200 (0.04s)
+2026-10-21 19:32:11,482 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:32:11,484 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:32:15,048 INFO __main__: → GET /editar/34 (de 192.168.1.81)
+2026-10-21 19:32:15,094 INFO __main__: ← GET /editar/34 200 (0.05s)
+2026-10-21 19:32:16,213 INFO __main__: → GET /editar/34 (de 192.168.1.81)
+2026-10-21 19:32:16,239 INFO __main__: ← GET /editar/34 200 (0.03s)
+2026-10-21 19:32:22,744 INFO __main__: → POST /editar/34 (de 192.168.1.81)
+2026-10-21 19:32:22,791 INFO __main__: ← POST /editar/34 302 (0.05s)
+2026-10-21 19:32:22,852 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:32:22,938 INFO __main__: ← GET /alunos 200 (0.09s)
+2026-10-21 19:32:23,238 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:32:23,243 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:32:29,828 INFO __main__: → GET /editar/35 (de 192.168.1.81)
+2026-10-21 19:32:29,869 INFO __main__: ← GET /editar/35 200 (0.04s)
+2026-10-21 19:32:31,279 INFO __main__: → GET /editar/35 (de 192.168.1.81)
+2026-10-21 19:32:31,306 INFO __main__: ← GET /editar/35 200 (0.03s)
+2026-10-21 19:32:38,111 INFO __main__: → POST /editar/35 (de 192.168.1.81)
+2026-10-21 19:32:38,166 INFO __main__: ← POST /editar/35 302 (0.05s)
+2026-10-21 19:32:38,330 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:32:38,390 INFO __main__: ← GET /alunos 200 (0.06s)
+2026-10-21 19:32:45,999 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:32:46,005 INFO __main__: ← GET /favicon.ico 404 (0.01s)
+2026-10-21 19:32:50,438 INFO __main__: → GET /editar/36 (de 192.168.1.81)
+2026-10-21 19:32:50,462 INFO __main__: ← GET /editar/36 200 (0.02s)
+2026-10-21 19:32:51,473 INFO __main__: → GET /editar/36 (de 192.168.1.81)
+2026-10-21 19:32:51,493 INFO __main__: ← GET /editar/36 200 (0.02s)
+2026-10-21 19:32:58,725 INFO __main__: → POST /editar/36 (de 192.168.1.81)
+2026-10-21 19:32:58,776 INFO __main__: ← POST /editar/36 302 (0.05s)
+2026-10-21 19:32:58,837 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:32:58,895 INFO __main__: ← GET /alunos 200 (0.06s)
+2026-10-21 19:32:59,178 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:32:59,190 INFO __main__: ← GET /favicon.ico 404 (0.01s)
+2026-10-21 19:33:09,171 INFO __main__: → GET /editar/37 (de 192.168.1.81)
+2026-10-21 19:33:09,207 INFO __main__: ← GET /editar/37 200 (0.04s)
+2026-10-21 19:33:10,304 INFO __main__: → GET /editar/37 (de 192.168.1.81)
+2026-10-21 19:33:10,334 INFO __main__: ← GET /editar/37 200 (0.03s)
+2026-10-21 19:33:18,233 INFO __main__: → POST /editar/37 (de 192.168.1.81)
+2026-10-21 19:33:18,276 INFO __main__: ← POST /editar/37 302 (0.04s)
+2026-10-21 19:33:18,386 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:33:18,462 INFO __main__: ← GET /alunos 200 (0.08s)
+2026-10-21 19:33:18,653 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:33:18,658 INFO __main__: ← GET /favicon.ico 404 (0.01s)
+2026-10-21 19:33:30,278 INFO __main__: → GET /editar/40 (de 192.168.1.81)
+2026-10-21 19:33:30,305 INFO __main__: ← GET /editar/40 200 (0.03s)
+2026-10-21 19:33:31,467 INFO __main__: → GET /editar/40 (de 192.168.1.81)
+2026-10-21 19:33:31,496 INFO __main__: ← GET /editar/40 200 (0.03s)
+2026-10-21 19:33:39,196 INFO __main__: → POST /editar/40 (de 192.168.1.81)
+2026-10-21 19:33:39,244 INFO __main__: ← POST /editar/40 302 (0.05s)
+2026-10-21 19:33:39,283 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:33:39,356 INFO __main__: ← GET /alunos 200 (0.07s)
+2026-10-21 19:33:39,816 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:33:39,822 INFO __main__: ← GET /favicon.ico 404 (0.01s)
+2026-10-21 19:33:55,825 INFO __main__: → GET /editar/43 (de 192.168.1.81)
+2026-10-21 19:33:55,848 INFO __main__: ← GET /editar/43 200 (0.02s)
+2026-10-21 19:33:56,877 INFO __main__: → GET /editar/43 (de 192.168.1.81)
+2026-10-21 19:33:56,903 INFO __main__: ← GET /editar/43 200 (0.03s)
+2026-10-21 19:34:02,271 INFO __main__: → POST /editar/43 (de 192.168.1.81)
+2026-10-21 19:34:02,321 INFO __main__: ← POST /editar/43 302 (0.05s)
+2026-10-21 19:34:02,377 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:34:02,439 INFO __main__: ← GET /alunos 200 (0.06s)
+2026-10-21 19:34:10,179 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:34:10,185 INFO __main__: ← GET /favicon.ico 404 (0.01s)
+2026-10-21 19:34:43,646 INFO __main__: → GET /editar/47 (de 192.168.1.81)
+2026-10-21 19:34:43,667 INFO __main__: ← GET /editar/47 200 (0.02s)
+2026-10-21 19:34:44,762 INFO __main__: → GET /editar/47 (de 192.168.1.81)
+2026-10-21 19:34:44,789 INFO __main__: ← GET /editar/47 200 (0.03s)
+2026-10-21 19:34:52,452 INFO __main__: → POST /editar/47 (de 192.168.1.81)
+2026-10-21 19:34:52,492 INFO __main__: ← POST /editar/47 302 (0.04s)
+2026-10-21 19:34:52,539 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:34:52,593 INFO __main__: ← GET /alunos 200 (0.05s)
+2026-10-21 19:34:52,849 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:34:52,852 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:34:59,998 INFO __main__: → GET /editar/49 (de 192.168.1.81)
+2026-10-21 19:35:00,029 INFO __main__: ← GET /editar/49 200 (0.03s)
+2026-10-21 19:35:00,904 INFO __main__: → GET /editar/49 (de 192.168.1.81)
+2026-10-21 19:35:00,926 INFO __main__: ← GET /editar/49 200 (0.02s)
+2026-10-21 19:35:07,720 INFO __main__: → POST /editar/49 (de 192.168.1.81)
+2026-10-21 19:35:07,768 INFO __main__: ← POST /editar/49 302 (0.05s)
+2026-10-21 19:35:07,810 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:35:07,884 INFO __main__: ← GET /alunos 200 (0.07s)
+2026-10-21 19:35:08,260 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:35:08,265 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:35:19,655 INFO __main__: → GET /editar/51 (de 192.168.1.81)
+2026-10-21 19:35:19,679 INFO __main__: ← GET /editar/51 200 (0.02s)
+2026-10-21 19:35:20,787 INFO __main__: → GET /editar/51 (de 192.168.1.81)
+2026-10-21 19:35:23,221 INFO __main__: ← GET /editar/51 200 (2.43s)
+2026-10-21 19:35:29,320 INFO __main__: → POST /editar/51 (de 192.168.1.81)
+2026-10-21 19:35:29,354 INFO __main__: ← POST /editar/51 302 (0.03s)
+2026-10-21 19:35:29,396 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:35:29,445 INFO __main__: ← GET /alunos 200 (0.05s)
+2026-10-21 19:35:29,654 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:35:29,657 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:35:47,517 INFO __main__: → GET /editar/56 (de 192.168.1.81)
+2026-10-21 19:35:47,546 INFO __main__: ← GET /editar/56 200 (0.03s)
+2026-10-21 19:35:48,518 INFO __main__: → GET /editar/56 (de 192.168.1.81)
+2026-10-21 19:35:48,544 INFO __main__: ← GET /editar/56 200 (0.03s)
+2026-10-21 19:35:55,081 INFO __main__: → POST /editar/56 (de 192.168.1.81)
+2026-10-21 19:35:55,118 INFO __main__: ← POST /editar/56 302 (0.04s)
+2026-10-21 19:35:55,157 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:35:55,213 INFO __main__: ← GET /alunos 200 (0.06s)
+2026-10-21 19:36:02,983 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:36:02,989 INFO __main__: ← GET /favicon.ico 404 (0.01s)
+2026-10-21 19:37:46,233 INFO __main__: → GET /editar/57 (de 192.168.1.81)
+2026-10-21 19:37:46,254 INFO __main__: ← GET /editar/57 200 (0.02s)
+2026-10-21 19:37:47,838 INFO __main__: → GET /editar/57 (de 192.168.1.81)
+2026-10-21 19:37:47,867 INFO __main__: ← GET /editar/57 200 (0.03s)
+2026-10-21 19:37:57,065 INFO __main__: → POST /editar/57 (de 192.168.1.81)
+2026-10-21 19:37:57,136 INFO __main__: ← POST /editar/57 302 (0.07s)
+2026-10-21 19:37:57,209 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:37:57,316 INFO __main__: ← GET /alunos 200 (0.11s)
+2026-10-21 19:37:57,724 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:37:57,727 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:38:08,486 INFO __main__: → GET /editar/59 (de 192.168.1.81)
+2026-10-21 19:38:08,507 INFO __main__: ← GET /editar/59 200 (0.02s)
+2026-10-21 19:38:09,381 INFO __main__: → GET /editar/59 (de 192.168.1.81)
+2026-10-21 19:38:09,407 INFO __main__: ← GET /editar/59 200 (0.03s)
+2026-10-21 19:38:22,278 INFO __main__: → POST /editar/59 (de 192.168.1.81)
+2026-10-21 19:38:22,318 INFO __main__: ← POST /editar/59 302 (0.04s)
+2026-10-21 19:38:22,394 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:38:22,442 INFO __main__: ← GET /alunos 200 (0.05s)
+2026-10-21 19:38:22,832 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:38:22,836 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:38:28,207 INFO __main__: → GET /editar/60 (de 192.168.1.81)
+2026-10-21 19:38:28,226 INFO __main__: ← GET /editar/60 200 (0.02s)
+2026-10-21 19:38:29,062 INFO __main__: → GET /editar/60 (de 192.168.1.81)
+2026-10-21 19:38:29,090 INFO __main__: ← GET /editar/60 200 (0.03s)
+2026-10-21 19:38:37,203 INFO __main__: → POST /editar/60 (de 192.168.1.81)
+2026-10-21 19:38:37,253 INFO __main__: ← POST /editar/60 302 (0.05s)
+2026-10-21 19:38:37,302 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:38:37,349 INFO __main__: ← GET /alunos 200 (0.05s)
+2026-10-21 19:38:37,690 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:38:37,691 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:38:39,235 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:38:39,268 INFO __main__: ← GET /alunos 200 (0.03s)
+2026-10-21 19:38:56,127 INFO __main__: → GET /editar/61 (de 192.168.1.81)
+2026-10-21 19:38:56,148 INFO __main__: ← GET /editar/61 200 (0.02s)
+2026-10-21 19:38:57,029 INFO __main__: → GET /editar/61 (de 192.168.1.81)
+2026-10-21 19:38:58,981 INFO __main__: ← GET /editar/61 200 (1.95s)
+2026-10-21 19:39:37,723 INFO __main__: → POST /editar/61 (de 192.168.1.81)
+2026-10-21 19:39:37,762 INFO __main__: ← POST /editar/61 302 (0.04s)
+2026-10-21 19:39:37,834 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:39:37,883 INFO __main__: ← GET /alunos 200 (0.05s)
+2026-10-21 19:39:38,177 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:39:38,180 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:39:44,382 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:39:44,428 INFO __main__: ← GET /alunos 200 (0.05s)
+2026-10-21 19:39:51,556 INFO __main__: → GET /editar/62 (de 192.168.1.81)
+2026-10-21 19:39:51,585 INFO __main__: ← GET /editar/62 200 (0.03s)
+2026-10-21 19:39:52,405 INFO __main__: → GET /editar/62 (de 192.168.1.81)
+2026-10-21 19:39:54,305 INFO __main__: ← GET /editar/62 200 (1.90s)
+2026-10-21 19:40:05,630 INFO __main__: → POST /editar/62 (de 192.168.1.81)
+2026-10-21 19:40:05,669 INFO __main__: ← POST /editar/62 302 (0.04s)
+2026-10-21 19:40:05,764 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:40:05,812 INFO __main__: ← GET /alunos 200 (0.05s)
+2026-10-21 19:40:06,059 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:40:06,063 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:40:24,809 INFO __main__: → GET /editar/67 (de 192.168.1.81)
+2026-10-21 19:40:24,829 INFO __main__: ← GET /editar/67 200 (0.02s)
+2026-10-21 19:40:25,679 INFO __main__: → GET /editar/67 (de 192.168.1.81)
+2026-10-21 19:40:25,699 INFO __main__: ← GET /editar/67 200 (0.02s)
+2026-10-21 19:40:33,511 INFO __main__: → POST /editar/67 (de 192.168.1.81)
+2026-10-21 19:40:33,549 INFO __main__: ← POST /editar/67 302 (0.04s)
+2026-10-21 19:40:33,615 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:40:33,671 INFO __main__: ← GET /alunos 200 (0.06s)
+2026-10-21 19:40:33,912 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:40:33,916 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:40:49,589 INFO __main__: → GET /editar/41 (de 192.168.1.81)
+2026-10-21 19:40:49,610 INFO __main__: ← GET /editar/41 200 (0.02s)
+2026-10-21 19:40:55,687 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:40:55,724 INFO __main__: ← GET /alunos 200 (0.04s)
+2026-10-21 19:41:03,476 INFO __main__: → GET /editar/45 (de 192.168.1.81)
+2026-10-21 19:41:03,499 INFO __main__: ← GET /editar/45 200 (0.02s)
+2026-10-21 19:41:11,760 INFO __main__: → GET /alunos (de 192.168.1.76)
+2026-10-21 19:41:11,763 INFO __main__: ← GET /alunos 302 (0.00s)
+2026-10-21 19:41:11,769 INFO __main__: → GET /login (de 192.168.1.76)
+2026-10-21 19:41:11,774 INFO __main__: ← GET /login 200 (0.01s)
+2026-10-21 19:42:05,790 INFO __main__: → GET /editar/45 (de 192.168.1.81)
+2026-10-21 19:42:07,622 INFO __main__: ← GET /editar/45 200 (1.83s)
+2026-10-21 19:42:54,324 INFO __main__: → POST /editar/45 (de 192.168.1.81)
+2026-10-21 19:42:54,376 INFO __main__: ← POST /editar/45 302 (0.05s)
+2026-10-21 19:42:54,474 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:42:54,537 INFO __main__: ← GET /alunos 200 (0.06s)
+2026-10-21 19:42:54,812 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:42:54,814 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:43:26,804 INFO __main__: → GET /editar/72 (de 192.168.1.81)
+2026-10-21 19:43:26,823 INFO __main__: ← GET /editar/72 200 (0.02s)
+2026-10-21 19:43:28,006 INFO __main__: → GET /editar/72 (de 192.168.1.81)
+2026-10-21 19:43:30,129 INFO __main__: ← GET /editar/72 200 (2.12s)
+2026-10-21 19:43:42,944 INFO __main__: → POST /excluir_documento/194 (de 192.168.1.81)
+2026-10-21 19:43:43,963 INFO drive_service: Drive: arquivo id=13MrgrvXPvJcMuIg87SR-1H6Nvu27cthQ deletado.
+2026-10-21 19:43:43,972 INFO __main__: ← POST /excluir_documento/194 302 (1.03s)
+2026-10-21 19:43:44,002 INFO __main__: → GET /editar/72 (de 192.168.1.81)
+2026-10-21 19:43:45,848 INFO __main__: ← GET /editar/72 200 (1.85s)
+2026-10-21 19:43:46,057 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:43:46,059 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:43:51,914 INFO __main__: → POST /excluir_documento/192 (de 192.168.1.81)
+2026-10-21 19:43:51,948 INFO __main__: ← POST /excluir_documento/192 302 (0.03s)
+2026-10-21 19:43:51,965 INFO __main__: → GET /editar/72 (de 192.168.1.81)
+2026-10-21 19:43:53,834 INFO __main__: ← GET /editar/72 200 (1.87s)
+2026-10-21 19:43:53,951 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:43:53,953 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:43:58,127 INFO __main__: → POST /excluir_documento/191 (de 192.168.1.81)
+2026-10-21 19:43:59,105 INFO drive_service: Drive: arquivo id=1pzDSOE0C7dHqFy0mi5ZQhHXiu3aSxN6h deletado.
+2026-10-21 19:43:59,112 INFO __main__: ← POST /excluir_documento/191 302 (0.99s)
+2026-10-21 19:43:59,136 INFO __main__: → GET /editar/72 (de 192.168.1.81)
+2026-10-21 19:44:00,737 INFO __main__: ← GET /editar/72 200 (1.60s)
+2026-10-21 19:44:00,890 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:44:00,892 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:44:04,876 INFO __main__: → POST /excluir_documento/189 (de 192.168.1.81)
+2026-10-21 19:44:05,905 INFO drive_service: Drive: arquivo id=1ljV3DDP-WqdtqbeRC4VkqKncAEGN6tmq deletado.
+2026-10-21 19:44:05,911 INFO __main__: ← POST /excluir_documento/189 302 (1.03s)
+2026-10-21 19:44:05,940 INFO __main__: → GET /editar/72 (de 192.168.1.81)
+2026-10-21 19:44:07,281 INFO __main__: ← GET /editar/72 200 (1.34s)
+2026-10-21 19:44:07,420 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:44:07,422 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 19:44:09,401 INFO __main__: → POST /editar/72 (de 192.168.1.81)
+2026-10-21 19:44:09,436 INFO __main__: ← POST /editar/72 302 (0.04s)
+2026-10-21 19:44:09,472 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 19:44:09,519 INFO __main__: ← GET /alunos 200 (0.05s)
+2026-10-21 19:44:09,794 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 19:44:09,796 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 20:20:52,333 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 20:20:52,456 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 20:20:52,534 WARNING __main__: serve() finalizou — o servidor PAROU de atender.
+2026-10-21 20:20:52,537 WARNING __main__: Processo Python encerrando (atexit).
+2026-10-21 20:21:02,829 INFO drive_service: Drive: token renovado via refresh_token.
+2026-10-21 20:21:02,846 INFO drive_service: Google Drive: autenticado via OAuth 2.0.
+2026-10-21 20:21:02,846 INFO __main__: Drive: token carregado — integração ativa.
+2026-10-21 20:21:02,851 WARNING __main__: Índice único de CPF NÃO criado: já existem alunos com CPF repetido. Apague as duplicatas e reinicie o app.
+2026-10-21 20:21:03,002 INFO __main__: Servidor Waitress em http://0.0.0.0:5000
+2026-10-21 20:21:03,006 INFO waitress: Serving on http://0.0.0.0:5000
+2026-10-21 20:21:25,384 INFO __main__: → GET / (de 192.168.1.81)
+2026-10-21 20:21:25,438 INFO __main__: ← GET / 200 (0.05s)
+2026-10-21 20:21:26,976 INFO __main__: → GET /nova_matricula (de 192.168.1.81)
+2026-10-21 20:21:27,217 INFO __main__: ← GET /nova_matricula 200 (0.24s)
+2026-10-21 20:21:32,264 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 20:21:32,343 INFO __main__: ← GET /alunos 200 (0.08s)
+2026-10-21 20:21:35,691 INFO __main__: → GET /editar/2 (de 192.168.1.81)
+2026-10-21 20:21:35,718 INFO __main__: ← GET /editar/2 200 (0.03s)
+2026-10-21 20:21:36,837 INFO __main__: → GET /editar/2 (de 192.168.1.81)
+2026-10-21 20:21:36,860 INFO __main__: ← GET /editar/2 200 (0.02s)
+2026-10-21 20:21:37,707 INFO __main__: → GET / (de 192.168.1.81)
+2026-10-21 20:21:37,724 INFO __main__: ← GET / 200 (0.02s)
+2026-10-21 20:21:38,793 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 20:21:38,832 INFO __main__: ← GET /alunos 200 (0.04s)
+2026-10-21 20:21:39,820 INFO __main__: → GET /resumo/2 (de 192.168.1.81)
+2026-10-21 20:21:39,925 INFO __main__: ← GET /resumo/2 200 (0.10s)
+2026-10-21 20:21:47,759 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 20:21:47,800 INFO __main__: ← GET /alunos 200 (0.04s)
+2026-10-21 20:21:54,096 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 20:21:54,119 INFO __main__: ← GET /alunos 200 (0.02s)
+2026-10-21 20:22:02,413 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 20:22:02,453 INFO __main__: ← GET /alunos 200 (0.04s)
+2026-10-21 20:22:09,621 INFO __main__: → POST /excluir/50 (de 192.168.1.81)
+2026-10-21 20:22:11,386 INFO __main__: ← POST /excluir/50 302 (1.77s)
+2026-10-21 20:22:11,405 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 20:22:11,447 INFO __main__: ← GET /alunos 200 (0.04s)
+2026-10-21 20:22:11,570 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 20:22:11,573 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 20:22:25,602 INFO __main__: → POST /excluir/55 (de 192.168.1.81)
+2026-10-21 20:22:25,969 INFO __main__: ← POST /excluir/55 302 (0.37s)
+2026-10-21 20:22:25,999 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 20:22:26,043 INFO __main__: ← GET /alunos 200 (0.04s)
+2026-10-21 20:22:26,196 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 20:22:26,199 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 20:22:42,361 INFO __main__: → POST /excluir/38 (de 192.168.1.81)
+2026-10-21 20:22:43,750 INFO __main__: ← POST /excluir/38 302 (1.39s)
+2026-10-21 20:22:43,777 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 20:22:43,824 INFO __main__: ← GET /alunos 200 (0.05s)
+2026-10-21 20:22:43,963 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 20:22:43,967 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 20:22:54,397 INFO __main__: → POST /excluir/65 (de 192.168.1.81)
+2026-10-21 20:22:54,746 INFO __main__: ← POST /excluir/65 302 (0.35s)
+2026-10-21 20:22:54,775 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 20:22:54,818 INFO __main__: ← GET /alunos 200 (0.04s)
+2026-10-21 20:22:54,905 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 20:22:54,907 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 20:23:00,540 INFO __main__: → POST /excluir/29 (de 192.168.1.81)
+2026-10-21 20:23:00,883 INFO __main__: ← POST /excluir/29 302 (0.34s)
+2026-10-21 20:23:00,900 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 20:23:00,946 INFO __main__: ← GET /alunos 200 (0.05s)
+2026-10-21 20:23:01,075 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 20:23:01,077 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 20:23:13,757 INFO __main__: → POST /excluir/1 (de 192.168.1.81)
+2026-10-21 20:23:15,207 INFO __main__: ← POST /excluir/1 302 (1.45s)
+2026-10-21 20:23:15,237 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 20:23:15,277 INFO __main__: ← GET /alunos 200 (0.04s)
+2026-10-21 20:23:15,442 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 20:23:15,448 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 20:23:23,432 INFO __main__: → POST /excluir/89 (de 192.168.1.81)
+2026-10-21 20:23:23,772 INFO __main__: ← POST /excluir/89 302 (0.34s)
+2026-10-21 20:23:23,803 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 20:23:23,842 INFO __main__: ← GET /alunos 200 (0.04s)
+2026-10-21 20:23:23,991 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 20:23:23,997 INFO __main__: ← GET /favicon.ico 404 (0.01s)
+2026-10-21 20:23:32,892 INFO __main__: → POST /excluir/70 (de 192.168.1.81)
+2026-10-21 20:23:34,309 INFO __main__: ← POST /excluir/70 302 (1.42s)
+2026-10-21 20:23:34,339 INFO __main__: → GET /alunos (de 192.168.1.81)
+2026-10-21 20:23:34,374 INFO __main__: ← GET /alunos 200 (0.03s)
+2026-10-21 20:23:34,497 INFO __main__: → GET /favicon.ico (de 192.168.1.81)
+2026-10-21 20:23:34,500 INFO __main__: ← GET /favicon.ico 404 (0.00s)
+2026-10-21 20:23:45,491 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 20:23:46,006 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 20:23:46,030 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 20:23:46,063 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 20:23:46,093 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 20:23:46,140 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 20:23:46,172 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 20:23:46,199 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 20:23:46,255 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 20:23:46,280 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 20:23:46,307 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 20:23:46,400 WARNING __main__: Evento do console do Windows: CTRL+C (0)
+2026-10-21 20:23:46,424 WARNING __main__: serve() finalizou — o servidor PAROU de atender.
+2026-10-21 20:23:46,428 WARNING __main__: Processo Python encerrando (atexit).

@@ -3,6 +3,8 @@
 client_secret.json
 token.json
 service_account.json
+servidor.log
+diagnostico.log
 
 # Bancos de dados (dados reais de alunos/responsáveis)
 *.db

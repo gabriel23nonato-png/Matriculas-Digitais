@@ -140,7 +140,7 @@
     <div class="col-md-2">
       <label class="form-label small mb-0">RA do irmão gêmeo, se possuir</label>
       <input name="gemeo" class="form-control"
-             value="{{ aluno.gemeo if aluno else 'NÃO POSSUÍ' }}" />
+             value="{{ aluno.gemeo if aluno else 'NÃO POSSUI' }}" />
     </div>
 
     <div class="col-md-2">
@@ -274,20 +274,24 @@
              value="{{ aluno.nis if aluno else '' }}" />
     </div>
 
-    <label class="form-label"><strong>📞 Telefones para contato:</strong></label>
+    <label class="form-label"><strong>📞 E-mail e Telefones para contato:</strong></label>
     <div class="col-md-3">
+      <input name="email" class="form-control" placeholder="E-mail"
+             value="{{ aluno.email if aluno else '' }}" />
+    </div>
+    <div class="col-md-2">
       <input name="telefone1" class="form-control" placeholder="Telefone 1"
              value="{{ aluno.telefone1 if aluno else '' }}" />
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
       <input name="telefone2" class="form-control" placeholder="Telefone 2"
              value="{{ aluno.telefone2 if aluno else '' }}" />
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
       <input name="telefone3" class="form-control" placeholder="Telefone 3"
              value="{{ aluno.telefone3 if aluno else '' }}" />
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
       <input name="telefone4" class="form-control" placeholder="Telefone 4"
              value="{{ aluno.telefone4 if aluno else '' }}" />
     </div>
@@ -336,7 +340,7 @@
              value="{{ aluno.escola_anterior if aluno else '' }}" />
     </div>
 
-    <div class="col-md-4">
+    <!-- <div class="col-md-4">
       <label class="form-label small mb-0">Pessoa autorizada a retirar o aluno 1 (nome + telefone)</label>
       <input name="pessoa1" class="form-control" value="{{ aluno.pessoa1 if aluno else '' }}" />
     </div>
@@ -347,7 +351,7 @@
     <div class="col-md-4">
       <label class="form-label small mb-0">Pessoa autorizada a retirar o aluno 3 (nome + telefone)</label>
       <input name="pessoa3" class="form-control" value="{{ aluno.pessoa3 if aluno else '' }}" />
-    </div>
+    </div> -->
   </div>
 
   <!-- Autorizações — alteração 4: pré-selecionadas em SIM -->
@@ -581,7 +585,7 @@
   <!-- Bloco de assinaturas (visível na impressão) -->
    <div class="border rounded p-3 mb-4 bg-white d-flex justify-content-center align-items-center" style="font-size:0.85rem;">
     <!-- Esta div extra protege seu conteúdo de virar colunas -->
-    <div>
+    <!-- <div>
         <p><strong>
       Estou ciente que o aluno será encaminhado ao Conselho Tutelar caso as ausências se
       estendam em mais de 05 (cinco) dias consecutivos sem justificativa.
@@ -605,7 +609,7 @@
         <strong>Rematrícula - Infantil [{{ aluno.nivel if aluno else '______' }}] - Assinatura do(a) Responsável</strong>
       </div>
     </div>
-    </div>
+    </div> -->
 </div>
   <!-- <div class="border rounded p-3 mb-4 bg-white" style="font-size:0.85rem;">
     
@@ -629,7 +633,7 @@
 </form>
 
 
-<!-- Modal: aluno fora da faixa etária -->
+<!-- Modal: aluno fora da faixa etária
 <div class="modal fade" id="modalIdadeInvalida" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content border-danger">
@@ -649,7 +653,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 <script>
 // ── Loading overlay ──────────────────────────────────────────────────────────
