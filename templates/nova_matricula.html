@@ -7,6 +7,46 @@
     pointer-events: none; background-color: #e9ecef;
   }
   .titulo { display: flex; align-items: center; gap: 8px; }
+  .campo-desativado:disabled {
+    background-color: #e9ecef !important;
+    color: #6c757d !important;
+    opacity: 1;
+    cursor: not-allowed;
+  }
+  .btn-limpar-arquivo {
+    flex: 0 0 auto;
+    min-width: 42px;
+  }
+  .btn-limpar-arquivo:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+  /* Reduz o espaço ocupado somente pelos campos de anexação de documentos. */
+  .file-documento-compacto {
+    max-width: 190px;
+    min-width: 0;
+  }
+  .file-upload-compacto {
+    flex-wrap: wrap;
+    min-width: 0;
+  }
+  .file-upload-compacto input[type="file"] {
+    width: 100%;
+    min-width: 0;
+    padding: .25rem;
+    font-size: .72rem;
+  }
+  .file-upload-compacto .btn-limpar-arquivo {
+    min-width: 32px;
+    padding: .25rem .45rem;
+  }
+  .nome-arquivo-selecionado {
+    display: block;
+    width: 100%;
+    overflow-wrap: anywhere;
+    font-size: .7rem;
+    line-height: 1.2;
+  }
 </style>
 
 <!-- Loading overlay -->
@@ -42,6 +82,8 @@
 
   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
 
+
+  
   <!-- ═══════════ 1 IDENTIFICAÇÃO ═══════════ -->
   <h5 class="titulo mt-2">
     1️⃣ Identificação do Aluno
@@ -68,7 +110,7 @@
       <label class="form-label small mb-0">Data de nascimento</label>
       <div id="info-idade" class="badge bg-light text-dark border mb-1" style="font-size:0.75rem; display:none;"></div>
       <input type="date" name="data_nascimento" id="data_nascimento" class="form-control"
-             value="{{ aluno.data_nascimento if aluno else '' }}" />
+             value="{{ aluno.data_nascimento if aluno and aluno.data_nascimento and aluno.data_nascimento != 'N/I' else '' }}" />
     </div>
     <div class="col-md-2">
       <label class="form-label small mb-0">Ano de matrícula atual</label>
@@ -146,28 +188,28 @@
     <div class="col-md-2">
       <label class="form-label small mb-0">Data de validade da vacina</label>
       <input type="date" name="validade_vacina" class="form-control"
-             value="{{ aluno.validade_vacina if aluno and aluno.validade_vacina else '' }}" />
+             value="{{ aluno.validade_vacina if aluno and aluno.validade_vacina and aluno.validade_vacina != 'N/I' else '' }}" />
     </div>
 
-    <div class="col-md-2">
+    <div class="col-md-2 file-documento-compacto">
       <label class="form-label small">Carteira de vacinação:</label>
-      <input type="file" name="doc_carteira_vacinacao" class="form-control" />
+      <div class="d-flex gap-1 align-items-start file-upload-compacto"><input type="file" name="doc_carteira_vacinacao" class="form-control arquivo-selecionado" /><button type="button" class="btn btn-outline-danger btn-limpar-arquivo" title="Limpar arquivo selecionado" aria-label="Limpar arquivo selecionado" disabled><i class="bi bi-trash"></i></button><small class="nome-arquivo-selecionado text-muted" aria-live="polite">Nenhum arquivo</small></div>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-2 file-documento-compacto">
       <label class="form-label small">Comprovante de vacinação:</label>
-      <input type="file" name="doc_comprovante_vacinacao" class="form-control" />
+      <div class="d-flex gap-1 align-items-start file-upload-compacto"><input type="file" name="doc_comprovante_vacinacao" class="form-control arquivo-selecionado" /><button type="button" class="btn btn-outline-danger btn-limpar-arquivo" title="Limpar arquivo selecionado" aria-label="Limpar arquivo selecionado" disabled><i class="bi bi-trash"></i></button><small class="nome-arquivo-selecionado text-muted" aria-live="polite">Nenhum arquivo</small></div>
     </div>
-        <div class="col-md-2">
+        <div class="col-md-2 file-documento-compacto">
       <label class="form-label small">RG do aluno:</label>
-      <input type="file" name="doc_cpf" class="form-control" />
+      <div class="d-flex gap-1 align-items-start file-upload-compacto"><input type="file" name="doc_cpf" class="form-control arquivo-selecionado" /><button type="button" class="btn btn-outline-danger btn-limpar-arquivo" title="Limpar arquivo selecionado" aria-label="Limpar arquivo selecionado" disabled><i class="bi bi-trash"></i></button><small class="nome-arquivo-selecionado text-muted" aria-live="polite">Nenhum arquivo</small></div>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-2 file-documento-compacto">
       <label class="form-label small">Cartão SUS:</label>
-      <input type="file" name="doc_cartao_sus" class="form-control" />
+      <div class="d-flex gap-1 align-items-start file-upload-compacto"><input type="file" name="doc_cartao_sus" class="form-control arquivo-selecionado" /><button type="button" class="btn btn-outline-danger btn-limpar-arquivo" title="Limpar arquivo selecionado" aria-label="Limpar arquivo selecionado" disabled><i class="bi bi-trash"></i></button><small class="nome-arquivo-selecionado text-muted" aria-live="polite">Nenhum arquivo</small></div>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-2 file-documento-compacto">
       <label class="form-label small">Certidão de nascimento:</label>
-      <input type="file" name="doc_certidao" class="form-control" />
+      <div class="d-flex gap-1 align-items-start file-upload-compacto"><input type="file" name="doc_certidao" class="form-control arquivo-selecionado" /><button type="button" class="btn btn-outline-danger btn-limpar-arquivo" title="Limpar arquivo selecionado" aria-label="Limpar arquivo selecionado" disabled><i class="bi bi-trash"></i></button><small class="nome-arquivo-selecionado text-muted" aria-live="polite">Nenhum arquivo</small></div>
     </div>
   </div>
   <hr />
@@ -199,9 +241,9 @@
       <input name="rg_mae" class="form-control" 
              value="{{ aluno.rg_mae if aluno else '' }}" />
     </div>
-        <div class="col-md-2">
+        <div class="col-md-2 file-documento-compacto">
       <label class="form-label small">RG do 1º genitor:</label>
-      <input type="file" name="doc_cpf_mae" class="form-control" />
+      <div class="d-flex gap-1 align-items-start file-upload-compacto"><input type="file" name="doc_cpf_mae" class="form-control arquivo-selecionado" /><button type="button" class="btn btn-outline-danger btn-limpar-arquivo" title="Limpar arquivo selecionado" aria-label="Limpar arquivo selecionado" disabled><i class="bi bi-trash"></i></button><small class="nome-arquivo-selecionado text-muted" aria-live="polite">Nenhum arquivo</small></div>
     </div>
     
     <div class="col-md-3">
@@ -224,9 +266,9 @@
       <input name="rg_pai" class="form-control" 
              value="{{ aluno.rg_pai if aluno else '' }}" />
     </div>
-    <div class="col-md-2">
+    <div class="col-md-2 file-documento-compacto">
       <label class="form-label small">RG do 2º genitor:</label>
-      <input type="file" name="doc_cpf_pai" class="form-control" />
+      <div class="d-flex gap-1 align-items-start file-upload-compacto"><input type="file" name="doc_cpf_pai" class="form-control arquivo-selecionado" /><button type="button" class="btn btn-outline-danger btn-limpar-arquivo" title="Limpar arquivo selecionado" aria-label="Limpar arquivo selecionado" disabled><i class="bi bi-trash"></i></button><small class="nome-arquivo-selecionado text-muted" aria-live="polite">Nenhum arquivo</small></div>
     </div>
 
     <div class="col-md-2">
@@ -235,7 +277,7 @@
              
              value="{{ aluno.responsavel_matricula if aluno else '' }}" />
     </div>
-    <div class="col-md-2">
+    <div class="col-md-1">
       <label class="form-label small">UF RG do responsável</label>
       <select name="uf_rg_mae" class="form-select">
         <option value="">Selecione:</option>
@@ -248,7 +290,7 @@
     <div class="col-md-2">
       <label class="form-label small">Expedição RG do responsável</label>
       <input type="date" name="expedicao_rg_mae" class="form-control"
-             value="{{ aluno.expedicao_rg_mae if aluno else '' }}" />
+             value="{{ aluno.expedicao_rg_mae if aluno and aluno.expedicao_rg_mae and aluno.expedicao_rg_mae != 'N/I' else '' }}" />
     </div>
 
     <div class="col-md-2">
@@ -260,7 +302,7 @@
         {% endfor %}
       </select>
     </div>
-        <div class="col-md-2">
+        <div class="col-md-1">
           <label class="form-label small">Bolsa Família?</label>
       <select name="bolsa_familia" class="form-select">
         <option value="">Selecione:</option>
@@ -274,10 +316,21 @@
              value="{{ aluno.nis if aluno else '' }}" />
     </div>
 
+    <div class="col-md-2 file-documento-compacto">
+      <label class="form-label small">Anexo NIS/Caixa Tem:</label>
+      <div class="d-flex gap-1 align-items-start file-upload-compacto">
+        <input type="file" name="doc_nis_caixa_tem" class="form-control arquivo-selecionado" />
+        <button type="button" class="btn btn-outline-danger btn-limpar-arquivo" title="Limpar arquivo selecionado" aria-label="Limpar arquivo selecionado" disabled>
+          <i class="bi bi-trash"></i>
+        </button>
+        <small class="nome-arquivo-selecionado text-muted" aria-live="polite">Nenhum arquivo</small>
+      </div>
+    </div>
+
     <label class="form-label"><strong>📞 E-mail e Telefones para contato:</strong></label>
     <div class="col-md-3">
-      <input name="email" class="form-control" placeholder="E-mail"
-             value="{{ aluno.email if aluno else '' }}" />
+      <input name="email_mae" class="form-control" placeholder="E-mail"
+             value="{{ aluno.email_mae if aluno else '' }}" />
     </div>
     <div class="col-md-2">
       <input name="telefone1" class="form-control" placeholder="Telefone 1"
@@ -315,7 +368,7 @@
     </div>
     <div class="col-md-3">
       <label class="form-label small mb-0">Sala</label>
-      <select name="sala" id="select-sala" class="form-select">
+      <select id="select-sala" class="form-select campo-desativado" disabled aria-disabled="true">
         <option value="Sem Sala" {{ 'selected' if not aluno or not aluno.sala or aluno.sala == 'Sem Sala' }}>Sem Sala</option>
         <optgroup label="Infantil IV">
           {% for s in salas_iv %}<option value="{{ s }}" {{ 'selected' if aluno and aluno.sala==s }}>{{ s }}</option>{% endfor %}
@@ -324,6 +377,8 @@
           {% for s in salas_v %}<option value="{{ s }}" {{ 'selected' if aluno and aluno.sala==s }}>{{ s }}</option>{% endfor %}
         </optgroup>
       </select>
+      <input type="hidden" name="sala" id="sala-hidden"
+             value="{{ aluno.sala if aluno and aluno.sala else 'Sem Sala' }}" />
     </div>
     <div class="col-md-3">
       <label class="form-label small mb-0">Ensino integral?</label>
@@ -443,9 +498,9 @@
     </div>
   </div>
 
-    <div class="col-md">
+    <div class="col-md-2 file-documento-compacto">
       <label class="form-label small"><strong>📎 Comprovante de residência:</strong></label>
-      <input type="file" name="doc_cep" class="form-control" />
+      <div class="d-flex gap-1 align-items-start file-upload-compacto"><input type="file" name="doc_cep" class="form-control arquivo-selecionado" /><button type="button" class="btn btn-outline-danger btn-limpar-arquivo" title="Limpar arquivo selecionado" aria-label="Limpar arquivo selecionado" disabled><i class="bi bi-trash"></i></button><small class="nome-arquivo-selecionado text-muted" aria-live="polite">Nenhum arquivo</small></div>
     </div>
 
   <hr />
@@ -460,21 +515,23 @@
 
     <div class="col-md-3">
       <label class="form-label small mb-0">Peso (kg)</label>
-      <input type="number" step="0.1" min="0" name="peso" class="form-control"
-             value="{{ aluno.peso if aluno and aluno.peso is not none else '' }}" />
+      <input type="number" step="0.1" min="0" id="peso-visivel" class="form-control campo-desativado"
+             value="{{ aluno.peso if aluno and aluno.peso is not none else '' }}" disabled aria-disabled="true" />
+      <input type="hidden" name="peso" value="{{ aluno.peso if aluno and aluno.peso is not none else '' }}" />
     </div>
 
     <div class="col-md-3">
       <label class="form-label small mb-0">Altura (cm)</label>
-      <input type="number" step="0.1" min="0" name="altura" class="form-control"
-             value="{{ aluno.altura if aluno and aluno.altura is not none else '' }}" />
+      <input type="number" step="0.1" min="0" id="altura-visivel" class="form-control campo-desativado"
+             value="{{ aluno.altura if aluno and aluno.altura is not none else '' }}" disabled aria-disabled="true" />
+      <input type="hidden" name="altura" value="{{ aluno.altura if aluno and aluno.altura is not none else '' }}" />
     </div>
 
     <div class="col-md-3">
       <label class="form-label small mb-0">Tamanho do uniforme</label>
       <select name="uniforme" class="form-select">
         <option value="">Selecione</option>
-        {% for op in ['PP','P','M','G','GG','NÃO INFORMADO'] %}
+        {% for op in ['02','04','06','08','10','12','14','NÃO INFORMADO'] %}
         <option value="{{ op }}" {{ 'selected' if aluno and aluno.uniforme==op }}>{{ op }}</option>
         {% endfor %}
       </select>
@@ -544,7 +601,7 @@
 
     <div class="col-md">
       <label class="form-label small"><strong>Laudo médico (se houver):</strong></label>
-      <input type="file" name="doc_cep" class="form-control" />
+      <div class="d-flex gap-1 align-items-start file-upload-compacto"><input type="file" name="doc_cep" class="form-control arquivo-selecionado" /><button type="button" class="btn btn-outline-danger btn-limpar-arquivo" title="Limpar arquivo selecionado" aria-label="Limpar arquivo selecionado" disabled><i class="bi bi-trash"></i></button><small class="nome-arquivo-selecionado text-muted" aria-live="polite">Nenhum arquivo</small></div>
     </div>
 
 
@@ -563,8 +620,8 @@
   <div class="row g-2">
     <div class="col-md-4">
       <label class="form-label small mb-0">Valor da contribuição APM (R$)</label>
-      <input name="contribuicao" class="form-control" placeholder="Ex.: 50,00"
-             value="{{ aluno.contribuicao if aluno and aluno.contribuicao else '' }}" />
+<input name="contribuicao" class="form-control" placeholder="Ex.: 50,00"
+       value="{{ aluno.contribuicao | moeda if aluno and aluno.contribuicao else '' }}" />
     </div>
     <div class="col-md-4 d-flex align-items-center gap-3">
       <span class="text-nowrap">Tipo:</span>
@@ -623,6 +680,12 @@
     <a href="{{ url_for('listar_alunos') }}" class="btn btn-outline-secondary">
       <i class="bi bi-arrow-left"></i> Cancelar
     </a>
+    <!-- {% if aluno and aluno.id %}
+    <button onclick="window.location.href=`{{ url_for('resumo_matricula', aluno_id=aluno.id) }}`" class="btn btn-sm btn-secondary">
+      <i class="bi bi-printer-fill me-1"></i>Imprimir ficha
+    </button>
+    {% endif %} -->
+
   </div>
   {% else %}
   <a href="{{ url_for('listar_alunos') }}" class="btn btn-outline-secondary mb-5">
@@ -656,6 +719,57 @@
 </div> -->
 
 <script>
+// ── Limpar arquivo selecionado (sem apagar documentos já salvos) ──────────────
+document.querySelectorAll('#main-form .arquivo-selecionado').forEach(function(input) {
+  const botao = input.parentElement.querySelector('.btn-limpar-arquivo');
+
+  const nomeArquivoEl = input.parentElement.querySelector('.nome-arquivo-selecionado');
+
+  function atualizarBotao() {
+    const temArquivo = !!(input.files && input.files.length > 0);
+    botao.disabled = !temArquivo;
+    if (nomeArquivoEl) {
+      nomeArquivoEl.textContent = temArquivo ? input.files[0].name : 'Nenhum arquivo';
+      nomeArquivoEl.title = temArquivo ? input.files[0].name : '';
+    }
+  }
+
+  input.addEventListener('change', atualizarBotao);
+  botao.addEventListener('click', function() {
+    if (!input.files || input.files.length === 0) return;
+
+    const nomeArquivo = input.files[0].name;
+    if (window.confirm(`Deseja mesmo remover o arquivo selecionado "${nomeArquivo}"?`)) {
+      input.value = '';
+      atualizarBotao();
+    }
+  });
+
+  atualizarBotao();
+});
+
+// ── Enter avança para o próximo campo, sem salvar a matrícula ─────────────────
+document.getElementById('main-form')?.addEventListener('keydown', function(e) {
+  if (e.key !== 'Enter' || e.isComposing || e.ctrlKey || e.altKey || e.metaKey) return;
+
+  // Enter nunca deve enviar o formulário; ele funciona como avanço de campo.
+  e.preventDefault();
+
+  const campos = Array.from(this.querySelectorAll(
+    'input:not([type="hidden"]):not([type="submit"]):not([type="button"]), select, textarea'
+  )).filter(function(campo) {
+    return !campo.disabled &&
+      !campo.readOnly &&
+      campo.tabIndex !== -1 &&
+      campo.getClientRects().length > 0;
+  });
+
+  const atual = campos.indexOf(e.target);
+  if (atual >= 0 && atual + 1 < campos.length) {
+    campos[atual + 1].focus();
+  }
+});
+
 // ── Loading overlay ──────────────────────────────────────────────────────────
 document.getElementById('main-form')?.addEventListener('submit', function(e) {
   // Se o submit veio do botão de excluir documento (usa formaction para

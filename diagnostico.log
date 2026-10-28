@@ -70,3 +70,991 @@
 === processo iniciado 2026-10-21 19:08:23 ===
 
 === processo iniciado 2026-10-21 20:21:02 ===
+
+=== processo iniciado 2026-10-22 09:33:53 ===
+Windows fatal exception: access violation
+
+Thread 0x00004f64 [Thread-62] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 373 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 670 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1383 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00001b7c [Thread-61] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 373 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 670 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1383 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00005bf8 [waitress-7] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00006418 [waitress-6] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00003228 [waitress-5] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x0000086c [waitress-4] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Current thread 0x00002ba0 [waitress-3] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\ssl.py", line 1372 in do_handshake
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\ssl.py", line 1076 in _create
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\ssl.py", line 455 in wrap_socket
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\httplib2\__init__.py", line 1161 in connect
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\httplib2\__init__.py", line 1408 in _conn_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\httplib2\__init__.py", line 1447 in _request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\httplib2\__init__.py", line 1727 in request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google_auth_httplib2.py", line 214 in request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\googleapiclient\http.py", line 191 in _retry_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\googleapiclient\http.py", line 923 in execute
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\googleapiclient\_helpers.py", line 130 in positional_wrapper
+  File "C:\Matriculas\Matriculas-Digitais\drive_service.py", line 346 in buscar
+  File "C:\Matriculas\Matriculas-Digitais\drive_service.py", line 350 in deletar_pasta_aluno
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 1664 in excluir_matricula
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask_login\utils.py", line 290 in decorated_view
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 902 in dispatch_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 917 in full_dispatch_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 1511 in wsgi_app
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 1536 in __call__
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\proxy_headers.py", line 64 in translate_proxy_headers
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 435 in execute
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 167 in service
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\channel.py", line 430 in service
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 83 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00004308 [waitress-2] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\ssl.py", line 1138 in read
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\ssl.py", line 1304 in recv_into
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\socket.py", line 725 in readinto
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\http\client.py", line 297 in _read_status
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\http\client.py", line 336 in begin
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\http\client.py", line 1450 in getresponse
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\httplib2\__init__.py", line 1399 in _conn_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\httplib2\__init__.py", line 1447 in _request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\httplib2\__init__.py", line 1727 in request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google_auth_httplib2.py", line 214 in request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\googleapiclient\http.py", line 191 in _retry_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\googleapiclient\http.py", line 923 in execute
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\googleapiclient\_helpers.py", line 130 in positional_wrapper
+  File "C:\Matriculas\Matriculas-Digitais\drive_service.py", line 346 in buscar
+  File "C:\Matriculas\Matriculas-Digitais\drive_service.py", line 350 in deletar_pasta_aluno
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 1664 in excluir_matricula
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask_login\utils.py", line 290 in decorated_view
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 902 in dispatch_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 917 in full_dispatch_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 1511 in wsgi_app
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 1536 in __call__
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\proxy_headers.py", line 64 in translate_proxy_headers
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 435 in execute
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 167 in service
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\channel.py", line 430 in service
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 83 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x000043f4 [waitress-1] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00005aa0 [waitress-0] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00001a30 (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\wasyncore.py", line 167 in poll
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\wasyncore.py", line 240 in loop
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\server.py", line 325 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\__init__.py", line 19 in serve
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 1849 in _servir
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 1862 in <module>
+
+Current thread's C stack trace (most recent call first):
+  <cannot get C stack on this system>
+
+=== processo iniciado 2026-10-22 09:47:38 ===
+Windows fatal exception: access violation
+
+Thread 0x00004c28 [Thread-2] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 373 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 670 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1383 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00003948 [Thread-1] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 373 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 670 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1383 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00003f00 [waitress-7] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x000042b0 [waitress-6] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00005e84 [waitress-5] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00003abc [waitress-4] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00004e98 [waitress-3] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00004b4c [waitress-2] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Current thread 0x000038bc [waitress-1] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\ssl.py", line 1138 in read
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\ssl.py", line 1304 in recv_into
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\socket.py", line 725 in readinto
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\http\client.py", line 297 in _read_status
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\http\client.py", line 336 in begin
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\http\client.py", line 1450 in getresponse
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\httplib2\__init__.py", line 1399 in _conn_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\httplib2\__init__.py", line 1447 in _request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\httplib2\__init__.py", line 1727 in request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google_auth_httplib2.py", line 214 in request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\googleapiclient\http.py", line 191 in _retry_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\googleapiclient\http.py", line 923 in execute
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\googleapiclient\_helpers.py", line 130 in positional_wrapper
+  File "C:\Matriculas\Matriculas-Digitais\drive_service.py", line 346 in buscar
+  File "C:\Matriculas\Matriculas-Digitais\drive_service.py", line 350 in deletar_pasta_aluno
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 1664 in excluir_matricula
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask_login\utils.py", line 290 in decorated_view
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 902 in dispatch_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 917 in full_dispatch_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 1511 in wsgi_app
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 1536 in __call__
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\proxy_headers.py", line 64 in translate_proxy_headers
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 435 in execute
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 167 in service
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\channel.py", line 430 in service
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 83 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00002854 [waitress-0] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\httplib2\__init__.py", line 1159 in connect
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\httplib2\__init__.py", line 1408 in _conn_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\httplib2\__init__.py", line 1447 in _request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\httplib2\__init__.py", line 1727 in request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google_auth_httplib2.py", line 214 in request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\googleapiclient\http.py", line 191 in _retry_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\googleapiclient\http.py", line 923 in execute
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\googleapiclient\_helpers.py", line 130 in positional_wrapper
+  File "C:\Matriculas\Matriculas-Digitais\drive_service.py", line 346 in buscar
+  File "C:\Matriculas\Matriculas-Digitais\drive_service.py", line 356 in deletar_pasta_aluno
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 1664 in excluir_matricula
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask_login\utils.py", line 290 in decorated_view
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 902 in dispatch_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 917 in full_dispatch_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 1511 in wsgi_app
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 1536 in __call__
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\proxy_headers.py", line 64 in translate_proxy_headers
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 435 in execute
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 167 in service
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\channel.py", line 430 in service
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 83 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x000009c4 (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\wasyncore.py", line 167 in poll
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\wasyncore.py", line 240 in loop
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\server.py", line 325 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\__init__.py", line 19 in serve
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 1849 in _servir
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 1862 in <module>
+
+Current thread's C stack trace (most recent call first):
+  <cannot get C stack on this system>
+
+=== processo iniciado 2026-10-22 09:49:00 ===
+
+=== processo iniciado 2026-10-22 11:59:51 ===
+
+=== processo iniciado 2026-10-22 12:02:07 ===
+
+=== 12:45:12 requisição lenta: POST /nova_matricula ===
+Thread 0x00005f9c [Thread-51] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 373 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 670 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1383 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Current thread 0x00005cf4 [Thread-50] (most recent call first):
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 360 in _alerta_requisicao_lenta
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1385 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00001cbc [waitress-7] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x0000422c [waitress-6] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x000051a8 [waitress-5] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00005710 [waitress-4] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x000059d4 [waitress-3] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\ssl.py", line 1138 in read
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\ssl.py", line 1304 in recv_into
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\socket.py", line 725 in readinto
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\http\client.py", line 297 in _read_status
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\http\client.py", line 336 in begin
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\http\client.py", line 1450 in getresponse
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\httplib2\__init__.py", line 1399 in _conn_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\httplib2\__init__.py", line 1447 in _request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\httplib2\__init__.py", line 1727 in request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google_auth_httplib2.py", line 214 in request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\googleapiclient\http.py", line 191 in _retry_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\googleapiclient\http.py", line 923 in execute
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\googleapiclient\_helpers.py", line 130 in positional_wrapper
+  File "C:\Matriculas\Matriculas-Digitais\drive_service.py", line 222 in _buscar_ou_criar_pasta
+  File "C:\Matriculas\Matriculas-Digitais\drive_service.py", line 249 in obter_pasta_aluno
+  File "C:\Matriculas\Matriculas-Digitais\drive_service.py", line 273 in upload_documento
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 765 in processar_uploads
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 1499 in nova_matricula
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask_login\utils.py", line 290 in decorated_view
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 902 in dispatch_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 917 in full_dispatch_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 1511 in wsgi_app
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 1536 in __call__
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\proxy_headers.py", line 64 in translate_proxy_headers
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 435 in execute
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 167 in service
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\channel.py", line 430 in service
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 83 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x000009c8 [waitress-2] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00004c54 [waitress-1] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00000844 [waitress-0] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\ssl.py", line 1138 in read
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\ssl.py", line 1304 in recv_into
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\socket.py", line 725 in readinto
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\http\client.py", line 297 in _read_status
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\http\client.py", line 336 in begin
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\http\client.py", line 1450 in getresponse
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\httplib2\__init__.py", line 1399 in _conn_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\httplib2\__init__.py", line 1447 in _request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\httplib2\__init__.py", line 1727 in request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google_auth_httplib2.py", line 214 in request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\googleapiclient\http.py", line 191 in _retry_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\googleapiclient\http.py", line 923 in execute
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\googleapiclient\_helpers.py", line 130 in positional_wrapper
+  File "C:\Matriculas\Matriculas-Digitais\drive_service.py", line 222 in _buscar_ou_criar_pasta
+  File "C:\Matriculas\Matriculas-Digitais\drive_service.py", line 249 in obter_pasta_aluno
+  File "C:\Matriculas\Matriculas-Digitais\drive_service.py", line 273 in upload_documento
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 765 in processar_uploads
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 1619 in editar_matricula
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask_login\utils.py", line 290 in decorated_view
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 902 in dispatch_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 917 in full_dispatch_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 1511 in wsgi_app
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 1536 in __call__
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\proxy_headers.py", line 64 in translate_proxy_headers
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 435 in execute
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 167 in service
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\channel.py", line 430 in service
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 83 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x0000166c (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\wasyncore.py", line 167 in poll
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\wasyncore.py", line 240 in loop
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\server.py", line 325 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\__init__.py", line 19 in serve
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 1849 in _servir
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 1862 in <module>
+
+=== 12:45:15 requisição lenta: POST /editar/168 ===
+Current thread 0x00005f9c [Thread-51] (most recent call first):
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 360 in _alerta_requisicao_lenta
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1385 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00001cbc [waitress-7] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x0000422c [waitress-6] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x000051a8 [waitress-5] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00005710 [waitress-4] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x000059d4 [waitress-3] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\ssl.py", line 1138 in read
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\ssl.py", line 1304 in recv_into
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\socket.py", line 725 in readinto
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\http\client.py", line 297 in _read_status
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\http\client.py", line 336 in begin
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\http\client.py", line 1450 in getresponse
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\httplib2\__init__.py", line 1399 in _conn_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\httplib2\__init__.py", line 1447 in _request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\httplib2\__init__.py", line 1727 in request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google_auth_httplib2.py", line 214 in request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\googleapiclient\http.py", line 191 in _retry_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\googleapiclient\http.py", line 923 in execute
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\googleapiclient\_helpers.py", line 130 in positional_wrapper
+  File "C:\Matriculas\Matriculas-Digitais\drive_service.py", line 222 in _buscar_ou_criar_pasta
+  File "C:\Matriculas\Matriculas-Digitais\drive_service.py", line 249 in obter_pasta_aluno
+  File "C:\Matriculas\Matriculas-Digitais\drive_service.py", line 273 in upload_documento
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 765 in processar_uploads
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 1499 in nova_matricula
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask_login\utils.py", line 290 in decorated_view
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 902 in dispatch_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 917 in full_dispatch_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 1511 in wsgi_app
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 1536 in __call__
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\proxy_headers.py", line 64 in translate_proxy_headers
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 435 in execute
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 167 in service
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\channel.py", line 430 in service
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 83 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x000009c8 [waitress-2] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00004c54 [waitress-1] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00000844 [waitress-0] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\ssl.py", line 1138 in read
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\ssl.py", line 1304 in recv_into
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\socket.py", line 725 in readinto
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\http\client.py", line 297 in _read_status
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\http\client.py", line 336 in begin
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\http\client.py", line 1450 in getresponse
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\httplib2\__init__.py", line 1399 in _conn_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\httplib2\__init__.py", line 1447 in _request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\httplib2\__init__.py", line 1727 in request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google_auth_httplib2.py", line 214 in request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\googleapiclient\http.py", line 191 in _retry_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\googleapiclient\http.py", line 923 in execute
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\googleapiclient\_helpers.py", line 130 in positional_wrapper
+  File "C:\Matriculas\Matriculas-Digitais\drive_service.py", line 222 in _buscar_ou_criar_pasta
+  File "C:\Matriculas\Matriculas-Digitais\drive_service.py", line 249 in obter_pasta_aluno
+  File "C:\Matriculas\Matriculas-Digitais\drive_service.py", line 273 in upload_documento
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 765 in processar_uploads
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 1619 in editar_matricula
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask_login\utils.py", line 290 in decorated_view
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 902 in dispatch_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 917 in full_dispatch_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 1511 in wsgi_app
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 1536 in __call__
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\proxy_headers.py", line 64 in translate_proxy_headers
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 435 in execute
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 167 in service
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\channel.py", line 430 in service
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 83 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x0000166c (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\wasyncore.py", line 167 in poll
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\wasyncore.py", line 240 in loop
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\server.py", line 325 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\__init__.py", line 19 in serve
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 1849 in _servir
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 1862 in <module>
+Windows fatal exception: access violation
+
+Thread 0x00001cbc [waitress-7] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x0000422c [waitress-6] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x000051a8 [waitress-5] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00005710 [waitress-4] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Current thread 0x000059d4 [waitress-3] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\ssl.py", line 1138 in read
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\ssl.py", line 1304 in recv_into
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\socket.py", line 725 in readinto
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\http\client.py", line 544 in _read_next_chunk_size
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\http\client.py", line 584 in _get_chunk_left
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\http\client.py", line 602 in _read_chunked
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\http\client.py", line 478 in read
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\httplib2\__init__.py", line 1428 in _conn_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\httplib2\__init__.py", line 1447 in _request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\httplib2\__init__.py", line 1727 in request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google_auth_httplib2.py", line 214 in request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\googleapiclient\http.py", line 191 in _retry_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\googleapiclient\http.py", line 923 in execute
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\googleapiclient\_helpers.py", line 130 in positional_wrapper
+  File "C:\Matriculas\Matriculas-Digitais\drive_service.py", line 222 in _buscar_ou_criar_pasta
+  File "C:\Matriculas\Matriculas-Digitais\drive_service.py", line 251 in obter_pasta_aluno
+  File "C:\Matriculas\Matriculas-Digitais\drive_service.py", line 273 in upload_documento
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 765 in processar_uploads
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 1499 in nova_matricula
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask_login\utils.py", line 290 in decorated_view
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 902 in dispatch_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 917 in full_dispatch_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 1511 in wsgi_app
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 1536 in __call__
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\proxy_headers.py", line 64 in translate_proxy_headers
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 435 in execute
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 167 in service
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\channel.py", line 430 in service
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 83 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x000009c8 [waitress-2] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00004c54 [waitress-1] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00000844 [waitress-0] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\ssl.py", line 1138 in read
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\ssl.py", line 1304 in recv_into
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\socket.py", line 725 in readinto
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\http\client.py", line 297 in _read_status
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\http\client.py", line 336 in begin
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\http\client.py", line 1450 in getresponse
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\httplib2\__init__.py", line 1399 in _conn_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\httplib2\__init__.py", line 1447 in _request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\httplib2\__init__.py", line 1727 in request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google_auth_httplib2.py", line 214 in request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\googleapiclient\http.py", line 191 in _retry_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\googleapiclient\http.py", line 923 in execute
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\googleapiclient\_helpers.py", line 130 in positional_wrapper
+  File "C:\Matriculas\Matriculas-Digitais\drive_service.py", line 222 in _buscar_ou_criar_pasta
+  File "C:\Matriculas\Matriculas-Digitais\drive_service.py", line 250 in obter_pasta_aluno
+  File "C:\Matriculas\Matriculas-Digitais\drive_service.py", line 273 in upload_documento
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 765 in processar_uploads
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 1619 in editar_matricula
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask_login\utils.py", line 290 in decorated_view
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 902 in dispatch_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 917 in full_dispatch_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 1511 in wsgi_app
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 1536 in __call__
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\proxy_headers.py", line 64 in translate_proxy_headers
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 435 in execute
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 167 in service
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\channel.py", line 430 in service
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 83 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x0000166c (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\wasyncore.py", line 167 in poll
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\wasyncore.py", line 240 in loop
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\server.py", line 325 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\__init__.py", line 19 in serve
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 1849 in _servir
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 1862 in <module>
+
+Current thread's C stack trace (most recent call first):
+  <cannot get C stack on this system>
+
+=== processo iniciado 2026-10-23 10:19:45 ===
+
+=== processo iniciado 2026-10-23 14:38:22 ===
+
+=== processo iniciado 2026-10-26 11:28:24 ===
+
+=== processo iniciado 2026-10-26 12:13:14 ===
+
+=== processo iniciado 2026-10-26 12:14:02 ===
+
+=== processo iniciado 2026-10-26 13:49:54 ===
+
+=== processo iniciado 2026-10-26 15:24:34 ===
+
+=== 16:03:13 requisição lenta: POST /nova_matricula ===
+Current thread 0x000015a4 [Thread-8] (most recent call first):
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 360 in _alerta_requisicao_lenta
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1385 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00002714 [waitress-7] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x000049c0 [waitress-6] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00004cc4 [waitress-5] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00003d10 [waitress-4] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00003f0c [waitress-3] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\ssl.py", line 1138 in read
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\ssl.py", line 1304 in recv_into
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\socket.py", line 725 in readinto
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\http\client.py", line 297 in _read_status
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\http\client.py", line 336 in begin
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\http\client.py", line 1450 in getresponse
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\httplib2\__init__.py", line 1399 in _conn_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\httplib2\__init__.py", line 1447 in _request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\httplib2\__init__.py", line 1727 in request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google_auth_httplib2.py", line 214 in request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\googleapiclient\http.py", line 1084 in next_chunk
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\googleapiclient\_helpers.py", line 130 in positional_wrapper
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\googleapiclient\http.py", line 902 in execute
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\googleapiclient\_helpers.py", line 130 in positional_wrapper
+  File "C:\Matriculas\Matriculas-Digitais\drive_service.py", line 301 in upload_documento
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 765 in processar_uploads
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 1499 in nova_matricula
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask_login\utils.py", line 290 in decorated_view
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 902 in dispatch_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 917 in full_dispatch_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 1511 in wsgi_app
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 1536 in __call__
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\proxy_headers.py", line 64 in translate_proxy_headers
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 435 in execute
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 167 in service
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\channel.py", line 430 in service
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 83 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x000005d8 [waitress-2] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00002fcc [waitress-1] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x000035f8 [waitress-0] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00004f24 (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\wasyncore.py", line 167 in poll
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\wasyncore.py", line 240 in loop
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\server.py", line 325 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\__init__.py", line 19 in serve
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 1849 in _servir
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 1862 in <module>
+
+=== 16:14:02 requisição lenta: POST /nova_matricula ===
+Current thread 0x00005118 [Thread-15] (most recent call first):
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 360 in _alerta_requisicao_lenta
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1385 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00002714 [waitress-7] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\ssl.py", line 1138 in read
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\ssl.py", line 1304 in recv_into
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\socket.py", line 725 in readinto
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\http\client.py", line 297 in _read_status
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\http\client.py", line 336 in begin
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\http\client.py", line 1450 in getresponse
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\httplib2\__init__.py", line 1399 in _conn_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\httplib2\__init__.py", line 1447 in _request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\httplib2\__init__.py", line 1727 in request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google_auth_httplib2.py", line 214 in request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\googleapiclient\http.py", line 1084 in next_chunk
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\googleapiclient\_helpers.py", line 130 in positional_wrapper
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\googleapiclient\http.py", line 902 in execute
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\googleapiclient\_helpers.py", line 130 in positional_wrapper
+  File "C:\Matriculas\Matriculas-Digitais\drive_service.py", line 301 in upload_documento
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 765 in processar_uploads
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 1499 in nova_matricula
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask_login\utils.py", line 290 in decorated_view
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 902 in dispatch_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 917 in full_dispatch_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 1511 in wsgi_app
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 1536 in __call__
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\proxy_headers.py", line 64 in translate_proxy_headers
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 435 in execute
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 167 in service
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\channel.py", line 430 in service
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 83 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x000049c0 [waitress-6] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00004cc4 [waitress-5] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00003d10 [waitress-4] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00003f0c [waitress-3] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x000005d8 [waitress-2] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00002fcc [waitress-1] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x000035f8 [waitress-0] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00004f24 (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\wasyncore.py", line 167 in poll
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\wasyncore.py", line 240 in loop
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\server.py", line 325 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\__init__.py", line 19 in serve
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 1849 in _servir
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 1862 in <module>
+
+=== processo iniciado 2026-10-27 09:20:02 ===
+
+=== processo iniciado 2026-10-27 10:20:34 ===
+
+=== processo iniciado 2026-10-27 10:26:12 ===
+
+=== processo iniciado 2026-10-27 11:40:59 ===
+
+=== processo iniciado 2026-10-27 11:45:26 ===
+
+=== processo iniciado 2026-10-27 11:45:58 ===
+
+=== processo iniciado 2026-10-27 11:47:17 ===
+
+=== processo iniciado 2026-10-27 11:48:00 ===
+
+=== processo iniciado 2026-10-27 12:21:37 ===
+
+=== processo iniciado 2026-10-27 12:24:12 ===
+
+=== processo iniciado 2026-10-27 12:25:59 ===
+
+=== processo iniciado 2026-10-27 12:27:17 ===
+
+=== processo iniciado 2026-10-27 12:29:15 ===
+
+=== 14:19:40 requisição lenta: POST /nova_matricula ===
+Current thread 0x00004548 [Thread-11] (most recent call first):
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 360 in _alerta_requisicao_lenta
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1385 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x000052d0 [waitress-7] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00004204 [waitress-6] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x000003bc [waitress-5] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00000f00 [waitress-4] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00001d40 [waitress-3] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00003414 [waitress-2] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00004388 [waitress-1] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 369 in wait
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 71 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00000368 [waitress-0] (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\ssl.py", line 1138 in read
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\ssl.py", line 1304 in recv_into
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\socket.py", line 725 in readinto
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\http\client.py", line 297 in _read_status
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\http\client.py", line 336 in begin
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\http\client.py", line 1450 in getresponse
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\httplib2\__init__.py", line 1399 in _conn_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\httplib2\__init__.py", line 1447 in _request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\httplib2\__init__.py", line 1727 in request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\google_auth_httplib2.py", line 214 in request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\googleapiclient\http.py", line 191 in _retry_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\googleapiclient\http.py", line 923 in execute
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\googleapiclient\_helpers.py", line 130 in positional_wrapper
+  File "C:\Matriculas\Matriculas-Digitais\drive_service.py", line 236 in _buscar_ou_criar_pasta
+  File "C:\Matriculas\Matriculas-Digitais\drive_service.py", line 258 in obter_subpasta
+  File "C:\Matriculas\Matriculas-Digitais\drive_service.py", line 274 in upload_documento
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 765 in processar_uploads
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 1499 in nova_matricula
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask_login\utils.py", line 290 in decorated_view
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 902 in dispatch_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 917 in full_dispatch_request
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 1511 in wsgi_app
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 1536 in __call__
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\proxy_headers.py", line 64 in translate_proxy_headers
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 435 in execute
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 167 in service
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\channel.py", line 430 in service
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\task.py", line 83 in handler_thread
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1024 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1082 in _bootstrap_inner
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\threading.py", line 1044 in _bootstrap
+
+Thread 0x00005a60 (most recent call first):
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\wasyncore.py", line 167 in poll
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\wasyncore.py", line 240 in loop
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\server.py", line 325 in run
+  File "C:\Users\AcerSeduc\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\waitress\__init__.py", line 19 in serve
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 1862 in _servir
+  File "C:\Matriculas\Matriculas-Digitais\app.py", line 1875 in <module>
+
+=== processo iniciado 2026-10-28 10:33:03 ===
+
+=== processo iniciado 2026-10-28 11:29:40 ===
+
+=== processo iniciado 2026-10-28 12:11:49 ===
+
+=== processo iniciado 2026-10-28 12:24:02 ===
+
+=== processo iniciado 2026-10-28 12:25:46 ===
+
+=== processo iniciado 2026-10-28 12:30:17 ===
+
+=== processo iniciado 2026-10-28 12:36:55 ===
+
+=== processo iniciado 2026-10-28 12:47:23 ===
+
+=== processo iniciado 2026-10-28 12:49:15 ===
+
+=== processo iniciado 2026-10-28 12:54:12 ===
+
+=== processo iniciado 2026-10-28 12:54:55 ===

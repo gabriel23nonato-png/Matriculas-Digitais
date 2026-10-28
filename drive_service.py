@@ -75,6 +75,7 @@ CAMPO_PARA_SUBPASTA = {
     "doc_laudo":                 "CARTÃO SUS, CARTEIRA, COMP_VACINA E LAUDO",
     "doc_carteira_vacinacao":    "CARTÃO SUS, CARTEIRA, COMP_VACINA E LAUDO",
     "doc_comprovante_vacinacao": "CARTÃO SUS, CARTEIRA, COMP_VACINA E LAUDO",
+    "doc_nis_caixa_tem":       "NIS_CAIXA TEM",
 }
 
 CAMPO_NOME_DISPLAY = {
@@ -87,6 +88,7 @@ CAMPO_NOME_DISPLAY = {
     "doc_laudo":                 "Laudo médico",
     "doc_carteira_vacinacao":    "Carteira de vacinação",
     "doc_comprovante_vacinacao": "Comprovante de vacinação",
+    "doc_nis_caixa_tem":       "NIS/Caixa Tem",
 }
 
 _drive_service   = None  # cache do client já autenticado

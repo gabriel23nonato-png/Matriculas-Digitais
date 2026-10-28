@@ -116,6 +116,7 @@ CAMPOS_UPLOAD = [
     "doc_laudo",
     "doc_carteira_vacinacao",
     "doc_comprovante_vacinacao",
+    "doc_nis_caixa_tem",
 ]
 
 CAMPOS_ALUNO = [
@@ -142,6 +143,7 @@ CAMPOS_RESPONSAVEL = [
     "expedicao_rg_mae",
     "estado_civil_mae",
     "profissao_mae",
+    "email_mae",
     "nome_pai",
     "cpf_pai",
     "rg_pai",
@@ -577,21 +579,35 @@ def registrar_log(acao: str, alvo_tipo: str, alvo_id=None, detalhe: str = None):
 
 
 def normalizar(campo: str, valor) -> object:
+    """Padroniza campos vazios e valores legados como N/I."""
     v = str(valor).strip() if valor is not None else ""
 
+    # Converte placeholders antigos/vazios para um único padrão.
+    if not v or v.casefold() in {
+        "none",
+        "null",
+        "não informado",
+        "nao informado",
+        "n/i",
+        "n.a.",
+        "n/a",
+    }:
+        return "N/I"
+
+    if campo == "email_mae":
+        return v.lower()
+
     if campo in CAMPOS_DATA:
-        return v or None
+        return v
 
     if campo in CAMPOS_NUMERICOS:
-        if not v:
-            return None
         try:
             return float(v.replace(",", "."))
         except (ValueError, TypeError):
-            return None
+            return "N/I"
 
     if campo in ("cpf_aluno", "cpf_mae", "cpf_pai"):
-        return v if v else None
+        return v
 
     CAMPOS_PRESERVAR_CASE = {
         "permite_edfisica",
@@ -615,9 +631,9 @@ def normalizar(campo: str, valor) -> object:
         "diabetico",
     }
     if campo in CAMPOS_PRESERVAR_CASE:
-        return v if v else "NÃO INFORMADO"
+        return v
 
-    return v.upper() if v else "NÃO INFORMADO"
+    return v.upper()
 
 
 def form_para_dict(form, campos: list) -> dict:
@@ -1422,10 +1438,10 @@ def nova_matricula():
 
                 db.execute(
                     """INSERT INTO responsavel (aluno_id,nome_mae,cpf_mae,rg_mae,uf_rg_mae,
-                       expedicao_rg_mae,estado_civil_mae,profissao_mae,nome_pai,cpf_pai,rg_pai,
+                       expedicao_rg_mae,estado_civil_mae,profissao_mae,email_mae,nome_pai,cpf_pai,rg_pai,
                        profissao_pai,responsavel_matricula,telefone1,telefone2,telefone3,telefone4,
                        bolsa_familia,nis,pessoa1,pessoa2,pessoa3)
-                       VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+                       VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
                     [aluno_id] + list(r.values()),
                 )
                 db.execute(
@@ -1546,7 +1562,7 @@ def editar_matricula(id):
                 )
                 db.execute(
                     """UPDATE responsavel SET nome_mae=?,cpf_mae=?,rg_mae=?,uf_rg_mae=?,
-                       expedicao_rg_mae=?,estado_civil_mae=?,profissao_mae=?,nome_pai=?,cpf_pai=?,
+                       expedicao_rg_mae=?,estado_civil_mae=?,profissao_mae=?,email_mae=?,nome_pai=?,cpf_pai=?,
                        rg_pai=?,profissao_pai=?,responsavel_matricula=?,telefone1=?,telefone2=?,
                        telefone3=?,telefone4=?,bolsa_familia=?,nis=?,pessoa1=?,pessoa2=?,pessoa3=?
                        WHERE aluno_id=?""",
@@ -1809,6 +1825,19 @@ def erro_csrf(e):
     resposta = redirect(destino)
     resposta.status_code = 400
     return resposta
+
+
+@app.template_filter("moeda")
+def moeda_filter(valor):
+    if valor is None or valor == "":
+        return "R$ 0,00"
+    try:
+        # Converte para float (trata se for string "50" ou número 50)
+        num = float(valor)
+        # Formata com duas casas decimais e inverte os pontos e vírgulas para o padrão BR
+        return f"R$ {num:,.2f}".replace(",", "_").replace(".", ",").replace("_", ".")
+    except (ValueError, TypeError):
+        return valor
 
 
 # ── Inicialização ─────────────────────────────────────────────────────────────

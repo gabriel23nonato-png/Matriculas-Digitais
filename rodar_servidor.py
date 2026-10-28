@@ -16,11 +16,11 @@ Instalar uma vez (se ainda não tiver):
 """
 
 from waitress import serve
-from app import app          # importa o objeto Flask do seu app.py
+from app import app  # importa o objeto Flask do seu app.py
 
-HOST  = '0.0.0.0'           # aceita conexões de qualquer IP da rede local
-PORT  = 5000
-THREADS = 4                  # conexões simultâneas — 4 é mais que suficiente
+HOST = "0.0.0.0"  # aceita conexões de qualquer IP da rede local
+PORT = 5000
+THREADS = 4  # conexões simultâneas — 4 é mais que suficiente
 
 print(f"✅  Servidor iniciado em http://{HOST}:{PORT}")
 print(f"    Threads: {THREADS}")
@@ -31,6 +31,6 @@ serve(
     host=HOST,
     port=PORT,
     threads=THREADS,
-    channel_timeout=60,      # fecha conexão ociosa após 60s
+    channel_timeout=300,  # fecha conexão ociosa após 300s
     cleanup_interval=10,
 )
